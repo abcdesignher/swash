@@ -1,0 +1,523 @@
+/*
+ * Swash design tokens.
+ * Generated from task-01-design-system/evidence/06-tokens-complete.json.
+ * The JSON export is the source of truth; update it before changing these values.
+ */
+
+:root {
+  /* Primitive colour collection - colour palettes */
+  /* primary */
+  --primitive-colour-palette-primary-00: #000000ff;
+  --primitive-colour-palette-primary-10: #1d064aff;
+  --primitive-colour-palette-primary-20: #350078ff;
+  --primitive-colour-palette-primary-30: #3e078aff;
+  --primitive-colour-palette-primary-40: #4517a7ff;
+  --primitive-colour-palette-primary-50: #7044c0ff;
+  --primitive-colour-palette-primary-60: #8962d9ff;
+  --primitive-colour-palette-primary-70: #a482f3ff;
+  --primitive-colour-palette-primary-80: #c6b0ffff;
+  --primitive-colour-palette-primary-90: #e9ddffff;
+  --primitive-colour-palette-primary-95: #f5eeffff;
+  --primitive-colour-palette-primary-98: #fcf8ffff;
+  --primitive-colour-palette-primary-99: #fefbffff;
+  --primitive-colour-palette-primary-100: #ffffffff;
+  /* secondary */
+  --primitive-colour-palette-secondary-00: #000000ff;
+  --primitive-colour-palette-secondary-10: #423016ff;
+  --primitive-colour-palette-secondary-20: #7b500aff;
+  --primitive-colour-palette-secondary-28: #a46b0dff;
+  --primitive-colour-palette-secondary-30: #cc9842ff;
+  --primitive-colour-palette-secondary-40: #e3b76eff;
+  --primitive-colour-palette-secondary-60: #ecd1a0ff;
+  --primitive-colour-palette-secondary-70: #f0ddb8ff;
+  --primitive-colour-palette-secondary-80: #f4e8d0ff;
+  --primitive-colour-palette-secondary-90: #f8f1e4ff;
+  --primitive-colour-palette-secondary-95: #fbf7f0ff;
+  --primitive-colour-palette-secondary-98: #fdfbf7ff;
+  --primitive-colour-palette-secondary-99: #fefdfbff;
+  --primitive-colour-palette-secondary-100: #ffffffff;
+  /* tertiary */
+  --primitive-colour-palette-tertiary-00: #000000ff;
+  --primitive-colour-palette-tertiary-10: #001044ff;
+  --primitive-colour-palette-tertiary-20: #001b59ff;
+  --primitive-colour-palette-tertiary-30: #002875ff;
+  --primitive-colour-palette-tertiary-40: #053594ff;
+  --primitive-colour-palette-tertiary-50: #3860b0ff;
+  --primitive-colour-palette-tertiary-60: #5279caff;
+  --primitive-colour-palette-tertiary-70: #7195e5ff;
+  --primitive-colour-palette-tertiary-80: #a7bcffff;
+  --primitive-colour-palette-tertiary-90: #d9e2ffff;
+  --primitive-colour-palette-tertiary-95: #eef0ffff;
+  --primitive-colour-palette-tertiary-98: #f9f8ffff;
+  --primitive-colour-palette-tertiary-99: #fdfcffff;
+  --primitive-colour-palette-tertiary-100: #ffffffff;
+  /* neutral */
+  --primitive-colour-palette-neutral-00: #000000ff;
+  --primitive-colour-palette-neutral-10: #080808ff;
+  --primitive-colour-palette-neutral-20: #141414ff;
+  --primitive-colour-palette-neutral-30: #171717ff;
+  --primitive-colour-palette-neutral-40: #191919ff;
+  --primitive-colour-palette-neutral-50: #333333ff;
+  --primitive-colour-palette-neutral-60: #4d4d4dff;
+  --primitive-colour-palette-neutral-70: #707070ff;
+  --primitive-colour-palette-neutral-80: #999999ff;
+  --primitive-colour-palette-neutral-90: #c2c2c2ff;
+  --primitive-colour-palette-neutral-95: #e0e0e0ff;
+  --primitive-colour-palette-neutral-98: #f5f5f5ff;
+  --primitive-colour-palette-neutral-99: #fafafaff;
+  --primitive-colour-palette-neutral-100: #ffffffff;
+  /* neutralvariant */
+  --primitive-colour-palette-neutralvariant-00: #000000ff;
+  --primitive-colour-palette-neutralvariant-10: #01010aff;
+  --primitive-colour-palette-neutralvariant-20: #020212ff;
+  --primitive-colour-palette-neutralvariant-30: #030317ff;
+  --primitive-colour-palette-neutralvariant-40: #030419ff;
+  --primitive-colour-palette-neutralvariant-50: #1c1d30ff;
+  --primitive-colour-palette-neutralvariant-60: #353649ff;
+  --primitive-colour-palette-neutralvariant-70: #505164ff;
+  --primitive-colour-palette-neutralvariant-80: #6d6e81ff;
+  --primitive-colour-palette-neutralvariant-90: #bfc0d1ff;
+  --primitive-colour-palette-neutralvariant-95: #e0e0ecff;
+  --primitive-colour-palette-neutralvariant-98: #f5f4fcff;
+  --primitive-colour-palette-neutralvariant-99: #faf9ffff;
+  --primitive-colour-palette-neutralvariant-100: #ffffffff;
+  /* accent */
+  --primitive-colour-palette-accent-00: #000000ff;
+  --primitive-colour-palette-accent-10: #291303ff;
+  --primitive-colour-palette-accent-20: #452717ff;
+  --primitive-colour-palette-accent-30: #603a23ff;
+  --primitive-colour-palette-accent-40: #7b4926ff;
+  --primitive-colour-palette-accent-50: #95613cff;
+  --primitive-colour-palette-accent-60: #b07a53ff;
+  --primitive-colour-palette-accent-70: #cc956dff;
+  --primitive-colour-palette-accent-80: #e8b18aff;
+  --primitive-colour-palette-accent-90: #ffdcc4ff;
+  --primitive-colour-palette-accent-95: #ffede3ff;
+  --primitive-colour-palette-accent-98: #fff8f5ff;
+  --primitive-colour-palette-accent-99: #fffbffff;
+  --primitive-colour-palette-accent-100: #ffffffff;
+  /* error */
+  --primitive-colour-palette-error-00: #000000ff;
+  --primitive-colour-palette-error-10: #410002ff;
+  --primitive-colour-palette-error-20: #690005ff;
+  --primitive-colour-palette-error-30: #93000aff;
+  --primitive-colour-palette-error-40: #c5070eff;
+  --primitive-colour-palette-error-50: #de3730ff;
+  --primitive-colour-palette-error-60: #ff5449ff;
+  --primitive-colour-palette-error-70: #ff897dff;
+  --primitive-colour-palette-error-80: #ffb4abff;
+  --primitive-colour-palette-error-90: #ffdad6ff;
+  --primitive-colour-palette-error-95: #ffedeaff;
+  --primitive-colour-palette-error-98: #fffbffff;
+  --primitive-colour-palette-error-99: #fafafaff;
+  --primitive-colour-palette-error-100: #ffffffff;
+  /* success */
+  --primitive-colour-palette-success-00: #000000ff;
+  --primitive-colour-palette-success-10: #002200ff;
+  --primitive-colour-palette-success-20: #003a00ff;
+  --primitive-colour-palette-success-30: #005300ff;
+  --primitive-colour-palette-success-40: #087a08ff;
+  --primitive-colour-palette-success-50: #269526ff;
+  --primitive-colour-palette-success-60: #43b043ff;
+  --primitive-colour-palette-success-70: #60cc60ff;
+  --primitive-colour-palette-success-80: #7de77dff;
+  --primitive-colour-palette-success-90: #b7f5b1ff;
+  --primitive-colour-palette-success-95: #d5f8d0ff;
+  --primitive-colour-palette-success-98: #f0fbeaff;
+  --primitive-colour-palette-success-99: #f8fff4ff;
+  --primitive-colour-palette-success-100: #ffffffff;
+  /* information */
+  --primitive-colour-palette-information-00: #000000ff;
+  --primitive-colour-palette-information-10: #001b3dff;
+  --primitive-colour-palette-information-20: #003062ff;
+  --primitive-colour-palette-information-30: #00478dff;
+  --primitive-colour-palette-information-40: #0057b8ff;
+  --primitive-colour-palette-information-50: #2671d2ff;
+  --primitive-colour-palette-information-60: #4d8beaff;
+  --primitive-colour-palette-information-70: #78a6ffff;
+  --primitive-colour-palette-information-80: #a8c7ffff;
+  --primitive-colour-palette-information-90: #d6e3ffff;
+  --primitive-colour-palette-information-95: #ecf0ffff;
+  --primitive-colour-palette-information-98: #f8f9ffff;
+  --primitive-colour-palette-information-99: #fcfcffff;
+  --primitive-colour-palette-information-100: #ffffffff;
+
+  /* Primitive colour collection - key colours */
+  --primitive-colour-key-primary: #4517a7ff;
+  --primitive-colour-key-secondary: #e3b76eff;
+  --primitive-colour-key-tertiary: #053594ff;
+  --primitive-colour-key-neutral: #191919ff;
+  --primitive-colour-key-neutralvariant: #030419ff;
+  --primitive-colour-key-accent: #7b4926ff;
+  --primitive-colour-key-error: #c5070eff;
+  --primitive-colour-key-success: #087a08ff;
+  --primitive-colour-key-information: #0057b8ff;
+
+  /* Reference colour roles */
+  /* primary */
+  --colour-primary-role: var(--primitive-colour-key-primary);
+  --colour-on-primary-role: var(--primitive-colour-palette-primary-98);
+  --colour-inverse-primary-role: var(--primitive-colour-palette-primary-90);
+  --colour-on-inverse-primary-role: var(--primitive-colour-palette-primary-20);
+  --colour-dark-primary-role: var(--primitive-colour-palette-primary-10);
+  /* secondary */
+  --colour-secondary-role: var(--primitive-colour-palette-secondary-40);
+  --colour-on-secondary-role: var(--primitive-colour-palette-secondary-10);
+  --colour-inverse-secondary-role: var(--primitive-colour-palette-secondary-80);
+  --colour-on-inverse-secondary-role: var(--primitive-colour-palette-secondary-28);
+  --colour-dark-secondary-role: var(--primitive-colour-palette-secondary-20);
+  /* tertiary */
+  --colour-tertiary-role: var(--primitive-colour-palette-tertiary-40);
+  --colour-on-tertiary-role: var(--primitive-colour-palette-tertiary-98);
+  --colour-inverse-tertiary-role: var(--primitive-colour-palette-tertiary-90);
+  --colour-on-inverse-tertiary-role: var(--primitive-colour-palette-tertiary-20);
+  --colour-dark-tertiary-role: var(--primitive-colour-palette-tertiary-10);
+  /* accent */
+  --colour-accent-role: var(--primitive-colour-palette-accent-40);
+  --colour-on-accent-role: var(--primitive-colour-palette-accent-98);
+  --colour-inverse-accent-role: var(--primitive-colour-palette-accent-90);
+  --colour-on-inverse-accent-role: var(--primitive-colour-palette-accent-20);
+  --colour-dark-accent-role: var(--primitive-colour-palette-accent-30);
+  /* error */
+  --colour-error-role: var(--primitive-colour-palette-error-40);
+  --colour-on-error-role: var(--primitive-colour-palette-error-99);
+  --colour-inverse-error-role: var(--primitive-colour-palette-error-90);
+  --colour-on-inverse-error-role: var(--primitive-colour-palette-error-20);
+  --colour-dark-error-role: var(--primitive-colour-palette-error-30);
+  /* success */
+  --colour-success-role: var(--primitive-colour-palette-success-40);
+  --colour-on-success-role: var(--primitive-colour-palette-success-100);
+  --colour-inverse-success-role: var(--primitive-colour-palette-success-95);
+  --colour-on-inverse-success-role: var(--primitive-colour-palette-success-20);
+  --colour-dark-success-role: var(--primitive-colour-palette-success-30);
+  /* information */
+  --colour-information-role: var(--primitive-colour-palette-information-40);
+  --colour-on-information-role: var(--primitive-colour-palette-information-100);
+  --colour-inverse-information-role: var(--primitive-colour-palette-information-90);
+  --colour-on-inverse-information-role: var(--primitive-colour-palette-information-20);
+  --colour-dark-information-role: var(--primitive-colour-palette-information-20);
+  /* text */
+  --colour-text-primary-role: var(--primitive-colour-palette-neutral-40);
+  --colour-text-inverse-primary-role: var(--primitive-colour-palette-neutral-99);
+  --colour-text-secondary-role: var(--primitive-colour-palette-neutral-50);
+  --colour-text-inverse-role: var(--primitive-colour-palette-neutral-95);
+  --colour-text-disabled-role: var(--primitive-colour-palette-neutral-70);
+  --colour-text-variant-primary-role: var(--primitive-colour-palette-neutralvariant-40);
+  --colour-text-variant-inverse-primary-role: var(--primitive-colour-palette-neutralvariant-99);
+  --colour-text-variant-secondary-role: var(--primitive-colour-palette-neutralvariant-60);
+  --colour-text-variant-inverse-secondary-role: var(--primitive-colour-palette-neutralvariant-95);
+  --colour-text-variant-disabled-role: var(--primitive-colour-palette-neutralvariant-80);
+  /* surface */
+  --colour-surface-neutral: var(--primitive-colour-palette-neutral-99);
+  --colour-surface-primary: var(--primitive-colour-palette-primary-99);
+  --colour-surface-secondary: var(--primitive-colour-palette-secondary-99);
+  --colour-surface-tertiary: var(--primitive-colour-palette-tertiary-99);
+  --colour-surface-accent: var(--primitive-colour-palette-accent-99);
+  /* background */
+  --colour-background-neutral: var(--primitive-colour-palette-neutral-98);
+  --colour-background-primary: var(--primitive-colour-palette-primary-98);
+  --colour-background-secondary: var(--primitive-colour-palette-secondary-98);
+  --colour-background-tertiary: var(--primitive-colour-palette-tertiary-98);
+  --colour-background-accent: var(--primitive-colour-palette-accent-98);
+  /* neutral */
+  --colour-neutral-white-role: var(--primitive-colour-palette-neutral-100);
+  --colour-neutral-near-white-role: var(--primitive-colour-palette-neutral-99);
+  --colour-neutral-mid-grey-role: var(--primitive-colour-palette-neutral-80);
+  --colour-neutral-near-black-role: var(--primitive-colour-palette-neutral-50);
+  --colour-neutral-black-role: var(--primitive-colour-palette-neutral-20);
+
+  /* Typography */
+  /* open sans / display / display large */
+  --typography-open-sans-display-large-font-family: "Open Sans";
+  --typography-open-sans-display-large-font-size: 62px;
+  --typography-open-sans-display-large-font-weight: 700;
+  --typography-open-sans-display-large-font-style: normal;
+  --typography-open-sans-display-large-font-stretch: normal;
+  --typography-open-sans-display-large-line-height: 80.6px;
+  --typography-open-sans-display-large-letter-spacing: -1.24px;
+  --typography-open-sans-display-large-text-decoration: none;
+  --typography-open-sans-display-large-text-case: none;
+  --typography-open-sans-display-large-paragraph-indent: 0px;
+  --typography-open-sans-display-large-paragraph-spacing: 0px;
+  /* open sans / display / display medium */
+  --typography-open-sans-display-medium-font-family: "Open Sans";
+  --typography-open-sans-display-medium-font-size: 48px;
+  --typography-open-sans-display-medium-font-weight: 700;
+  --typography-open-sans-display-medium-font-style: normal;
+  --typography-open-sans-display-medium-font-stretch: normal;
+  --typography-open-sans-display-medium-line-height: 62.4px;
+  --typography-open-sans-display-medium-letter-spacing: -0.96px;
+  --typography-open-sans-display-medium-text-decoration: none;
+  --typography-open-sans-display-medium-text-case: none;
+  --typography-open-sans-display-medium-paragraph-indent: 0px;
+  --typography-open-sans-display-medium-paragraph-spacing: 0px;
+  /* open sans / display / display small */
+  --typography-open-sans-display-small-font-family: "Open Sans";
+  --typography-open-sans-display-small-font-size: 36px;
+  --typography-open-sans-display-small-font-weight: 700;
+  --typography-open-sans-display-small-font-style: normal;
+  --typography-open-sans-display-small-font-stretch: normal;
+  --typography-open-sans-display-small-line-height: 50.4px;
+  --typography-open-sans-display-small-letter-spacing: -0.72px;
+  --typography-open-sans-display-small-text-decoration: none;
+  --typography-open-sans-display-small-text-case: none;
+  --typography-open-sans-display-small-paragraph-indent: 0px;
+  --typography-open-sans-display-small-paragraph-spacing: 0px;
+  /* open sans / headline / headline small */
+  --typography-open-sans-headline-small-font-family: Inter;
+  --typography-open-sans-headline-small-font-size: 24px;
+  --typography-open-sans-headline-small-font-weight: 700;
+  --typography-open-sans-headline-small-font-style: normal;
+  --typography-open-sans-headline-small-font-stretch: normal;
+  --typography-open-sans-headline-small-line-height: 33.6px;
+  --typography-open-sans-headline-small-letter-spacing: -0.24px;
+  --typography-open-sans-headline-small-text-decoration: none;
+  --typography-open-sans-headline-small-text-case: none;
+  --typography-open-sans-headline-small-paragraph-indent: 0px;
+  --typography-open-sans-headline-small-paragraph-spacing: 0px;
+  /* open sans / headline / headline medium */
+  --typography-open-sans-headline-medium-font-family: "Open Sans";
+  --typography-open-sans-headline-medium-font-size: 28px;
+  --typography-open-sans-headline-medium-font-weight: 700;
+  --typography-open-sans-headline-medium-font-style: normal;
+  --typography-open-sans-headline-medium-font-stretch: normal;
+  --typography-open-sans-headline-medium-line-height: 39.2px;
+  --typography-open-sans-headline-medium-letter-spacing: -0.28px;
+  --typography-open-sans-headline-medium-text-decoration: none;
+  --typography-open-sans-headline-medium-text-case: none;
+  --typography-open-sans-headline-medium-paragraph-indent: 0px;
+  --typography-open-sans-headline-medium-paragraph-spacing: 0px;
+  /* open sans / headline / headline large */
+  --typography-open-sans-headline-large-font-family: "Open Sans";
+  --typography-open-sans-headline-large-font-size: 32px;
+  --typography-open-sans-headline-large-font-weight: 700;
+  --typography-open-sans-headline-large-font-style: normal;
+  --typography-open-sans-headline-large-font-stretch: normal;
+  --typography-open-sans-headline-large-line-height: 44.8px;
+  --typography-open-sans-headline-large-letter-spacing: -0.32px;
+  --typography-open-sans-headline-large-text-decoration: none;
+  --typography-open-sans-headline-large-text-case: none;
+  --typography-open-sans-headline-large-paragraph-indent: 0px;
+  --typography-open-sans-headline-large-paragraph-spacing: 0px;
+  /* open sans / title / title small */
+  --typography-open-sans-title-small-font-family: "Open Sans";
+  --typography-open-sans-title-small-font-size: 14px;
+  --typography-open-sans-title-small-font-weight: 600;
+  --typography-open-sans-title-small-font-style: normal;
+  --typography-open-sans-title-small-font-stretch: normal;
+  --typography-open-sans-title-small-line-height: 19.6px;
+  --typography-open-sans-title-small-letter-spacing: -0.14px;
+  --typography-open-sans-title-small-text-decoration: none;
+  --typography-open-sans-title-small-text-case: none;
+  --typography-open-sans-title-small-paragraph-indent: 0px;
+  --typography-open-sans-title-small-paragraph-spacing: 0px;
+  /* open sans / title / title medium */
+  --typography-open-sans-title-medium-font-family: "Open Sans";
+  --typography-open-sans-title-medium-font-size: 16px;
+  --typography-open-sans-title-medium-font-weight: 600;
+  --typography-open-sans-title-medium-font-style: normal;
+  --typography-open-sans-title-medium-font-stretch: normal;
+  --typography-open-sans-title-medium-line-height: 22.4px;
+  --typography-open-sans-title-medium-letter-spacing: -0.16px;
+  --typography-open-sans-title-medium-text-decoration: none;
+  --typography-open-sans-title-medium-text-case: none;
+  --typography-open-sans-title-medium-paragraph-indent: 0px;
+  --typography-open-sans-title-medium-paragraph-spacing: 0px;
+  /* open sans / title / title large */
+  --typography-open-sans-title-large-font-family: "Open Sans";
+  --typography-open-sans-title-large-font-size: 22px;
+  --typography-open-sans-title-large-font-weight: 600;
+  --typography-open-sans-title-large-font-style: normal;
+  --typography-open-sans-title-large-font-stretch: normal;
+  --typography-open-sans-title-large-line-height: 30.8px;
+  --typography-open-sans-title-large-letter-spacing: -0.22px;
+  --typography-open-sans-title-large-text-decoration: none;
+  --typography-open-sans-title-large-text-case: none;
+  --typography-open-sans-title-large-paragraph-indent: 0px;
+  --typography-open-sans-title-large-paragraph-spacing: 0px;
+  /* open sans / body / body small */
+  --typography-open-sans-body-small-font-family: "Open Sans";
+  --typography-open-sans-body-small-font-size: 12px;
+  --typography-open-sans-body-small-font-weight: 400;
+  --typography-open-sans-body-small-font-style: normal;
+  --typography-open-sans-body-small-font-stretch: normal;
+  --typography-open-sans-body-small-line-height: 18px;
+  --typography-open-sans-body-small-letter-spacing: -0.09px;
+  --typography-open-sans-body-small-text-decoration: none;
+  --typography-open-sans-body-small-text-case: none;
+  --typography-open-sans-body-small-paragraph-indent: 0px;
+  --typography-open-sans-body-small-paragraph-spacing: 0px;
+  /* open sans / body / body medium */
+  --typography-open-sans-body-medium-font-family: "Open Sans";
+  --typography-open-sans-body-medium-font-size: 14px;
+  --typography-open-sans-body-medium-font-weight: 400;
+  --typography-open-sans-body-medium-font-style: normal;
+  --typography-open-sans-body-medium-font-stretch: normal;
+  --typography-open-sans-body-medium-line-height: 21px;
+  --typography-open-sans-body-medium-letter-spacing: -0.105px;
+  --typography-open-sans-body-medium-text-decoration: none;
+  --typography-open-sans-body-medium-text-case: none;
+  --typography-open-sans-body-medium-paragraph-indent: 0px;
+  --typography-open-sans-body-medium-paragraph-spacing: 0px;
+  /* open sans / body / body large */
+  --typography-open-sans-body-large-font-family: "Open Sans";
+  --typography-open-sans-body-large-font-size: 16px;
+  --typography-open-sans-body-large-font-weight: 400;
+  --typography-open-sans-body-large-font-style: normal;
+  --typography-open-sans-body-large-font-stretch: normal;
+  --typography-open-sans-body-large-line-height: 24px;
+  --typography-open-sans-body-large-letter-spacing: -0.12px;
+  --typography-open-sans-body-large-text-decoration: none;
+  --typography-open-sans-body-large-text-case: none;
+  --typography-open-sans-body-large-paragraph-indent: 0px;
+  --typography-open-sans-body-large-paragraph-spacing: 0px;
+  /* open sans / label / label small */
+  --typography-open-sans-label-small-font-family: "Open Sans";
+  --typography-open-sans-label-small-font-size: 12px;
+  --typography-open-sans-label-small-font-weight: 600;
+  --typography-open-sans-label-small-font-style: normal;
+  --typography-open-sans-label-small-font-stretch: normal;
+  --typography-open-sans-label-small-line-height: 16.8px;
+  --typography-open-sans-label-small-letter-spacing: -0.09px;
+  --typography-open-sans-label-small-text-decoration: none;
+  --typography-open-sans-label-small-text-case: none;
+  --typography-open-sans-label-small-paragraph-indent: 0px;
+  --typography-open-sans-label-small-paragraph-spacing: 0px;
+  /* open sans / label / label medium */
+  --typography-open-sans-label-medium-font-family: "Open Sans";
+  --typography-open-sans-label-medium-font-size: 12px;
+  --typography-open-sans-label-medium-font-weight: 600;
+  --typography-open-sans-label-medium-font-style: normal;
+  --typography-open-sans-label-medium-font-stretch: normal;
+  --typography-open-sans-label-medium-line-height: 19.6px;
+  --typography-open-sans-label-medium-letter-spacing: -0.09px;
+  --typography-open-sans-label-medium-text-decoration: none;
+  --typography-open-sans-label-medium-text-case: none;
+  --typography-open-sans-label-medium-paragraph-indent: 0px;
+  --typography-open-sans-label-medium-paragraph-spacing: 0px;
+  /* open sans / label / label large */
+  --typography-open-sans-label-large-font-family: "Open Sans";
+  --typography-open-sans-label-large-font-size: 14px;
+  --typography-open-sans-label-large-font-weight: 600;
+  --typography-open-sans-label-large-font-style: normal;
+  --typography-open-sans-label-large-font-stretch: normal;
+  --typography-open-sans-label-large-line-height: 19.6px;
+  --typography-open-sans-label-large-letter-spacing: -0.105px;
+  --typography-open-sans-label-large-text-decoration: none;
+  --typography-open-sans-label-large-text-case: none;
+  --typography-open-sans-label-large-paragraph-indent: 0px;
+  --typography-open-sans-label-large-paragraph-spacing: 0px;
+  /* playfair / display / display large */
+  --typography-playfair-display-large-font-family: Playfair;
+  --typography-playfair-display-large-font-size: 62px;
+  --typography-playfair-display-large-font-weight: 800;
+  --typography-playfair-display-large-font-style: normal;
+  --typography-playfair-display-large-font-stretch: normal;
+  --typography-playfair-display-large-line-height: 74.4px;
+  --typography-playfair-display-large-letter-spacing: -1.24px;
+  --typography-playfair-display-large-text-decoration: none;
+  --typography-playfair-display-large-text-case: none;
+  --typography-playfair-display-large-paragraph-indent: 0px;
+  --typography-playfair-display-large-paragraph-spacing: 0px;
+  /* playfair / display / display medium */
+  --typography-playfair-display-medium-font-family: Playfair;
+  --typography-playfair-display-medium-font-size: 48px;
+  --typography-playfair-display-medium-font-weight: 800;
+  --typography-playfair-display-medium-font-style: normal;
+  --typography-playfair-display-medium-font-stretch: normal;
+  --typography-playfair-display-medium-line-height: 62.4px;
+  --typography-playfair-display-medium-letter-spacing: -0.72px;
+  --typography-playfair-display-medium-text-decoration: none;
+  --typography-playfair-display-medium-text-case: none;
+  --typography-playfair-display-medium-paragraph-indent: 0px;
+  --typography-playfair-display-medium-paragraph-spacing: 0px;
+  /* playfair / display / display small */
+  --typography-playfair-display-small-font-family: Playfair;
+  --typography-playfair-display-small-font-size: 36px;
+  --typography-playfair-display-small-font-weight: 800;
+  --typography-playfair-display-small-font-style: normal;
+  --typography-playfair-display-small-font-stretch: normal;
+  --typography-playfair-display-small-line-height: 46.8px;
+  --typography-playfair-display-small-letter-spacing: -0.36px;
+  --typography-playfair-display-small-text-decoration: none;
+  --typography-playfair-display-small-text-case: none;
+  --typography-playfair-display-small-paragraph-indent: 0px;
+  --typography-playfair-display-small-paragraph-spacing: 0px;
+  /* playfair / headline / headline large */
+  --typography-playfair-headline-large-font-family: Playfair;
+  --typography-playfair-headline-large-font-size: 32px;
+  --typography-playfair-headline-large-font-weight: 800;
+  --typography-playfair-headline-large-font-style: normal;
+  --typography-playfair-headline-large-font-stretch: normal;
+  --typography-playfair-headline-large-line-height: 44.8px;
+  --typography-playfair-headline-large-letter-spacing: -0.32px;
+  --typography-playfair-headline-large-text-decoration: none;
+  --typography-playfair-headline-large-text-case: none;
+  --typography-playfair-headline-large-paragraph-indent: 0px;
+  --typography-playfair-headline-large-paragraph-spacing: 0px;
+  /* playfair / headline / headline medium */
+  --typography-playfair-headline-medium-font-family: Playfair;
+  --typography-playfair-headline-medium-font-size: 28px;
+  --typography-playfair-headline-medium-font-weight: 800;
+  --typography-playfair-headline-medium-font-style: normal;
+  --typography-playfair-headline-medium-font-stretch: normal;
+  --typography-playfair-headline-medium-line-height: 39.2px;
+  --typography-playfair-headline-medium-letter-spacing: -0.28px;
+  --typography-playfair-headline-medium-text-decoration: none;
+  --typography-playfair-headline-medium-text-case: none;
+  --typography-playfair-headline-medium-paragraph-indent: 0px;
+  --typography-playfair-headline-medium-paragraph-spacing: 0px;
+  /* playfair / headline / headline small */
+  --typography-playfair-headline-small-font-family: Playfair;
+  --typography-playfair-headline-small-font-size: 24px;
+  --typography-playfair-headline-small-font-weight: 800;
+  --typography-playfair-headline-small-font-style: normal;
+  --typography-playfair-headline-small-font-stretch: normal;
+  --typography-playfair-headline-small-line-height: 33.6px;
+  --typography-playfair-headline-small-letter-spacing: -0.24px;
+  --typography-playfair-headline-small-text-decoration: none;
+  --typography-playfair-headline-small-text-case: none;
+  --typography-playfair-headline-small-paragraph-indent: 0px;
+  --typography-playfair-headline-small-paragraph-spacing: 0px;
+  /* playfair / title / title large */
+  --typography-playfair-title-large-font-family: Playfair;
+  --typography-playfair-title-large-font-size: 22px;
+  --typography-playfair-title-large-font-weight: 700;
+  --typography-playfair-title-large-font-style: normal;
+  --typography-playfair-title-large-font-stretch: normal;
+  --typography-playfair-title-large-line-height: 30.8px;
+  --typography-playfair-title-large-letter-spacing: -0.165px;
+  --typography-playfair-title-large-text-decoration: none;
+  --typography-playfair-title-large-text-case: none;
+  --typography-playfair-title-large-paragraph-indent: 0px;
+  --typography-playfair-title-large-paragraph-spacing: 0px;
+  /* playfair / title / title medium */
+  --typography-playfair-title-medium-font-family: Playfair;
+  --typography-playfair-title-medium-font-size: 16px;
+  --typography-playfair-title-medium-font-weight: 700;
+  --typography-playfair-title-medium-font-style: normal;
+  --typography-playfair-title-medium-font-stretch: normal;
+  --typography-playfair-title-medium-line-height: 22.4px;
+  --typography-playfair-title-medium-letter-spacing: -0.12px;
+  --typography-playfair-title-medium-text-decoration: none;
+  --typography-playfair-title-medium-text-case: none;
+  --typography-playfair-title-medium-paragraph-indent: 0px;
+  --typography-playfair-title-medium-paragraph-spacing: 0px;
+  /* playfair / title / title small */
+  --typography-playfair-title-small-font-family: Playfair;
+  --typography-playfair-title-small-font-size: 14px;
+  --typography-playfair-title-small-font-weight: 700;
+  --typography-playfair-title-small-font-style: normal;
+  --typography-playfair-title-small-font-stretch: normal;
+  --typography-playfair-title-small-line-height: 19.6px;
+  --typography-playfair-title-small-letter-spacing: -0.105px;
+  --typography-playfair-title-small-text-decoration: none;
+  --typography-playfair-title-small-text-case: none;
+  --typography-playfair-title-small-paragraph-indent: 0px;
+  --typography-playfair-title-small-paragraph-spacing: 0px;
+
+  /* Shadows */
+  --shadow-soft-primary: 2px 8px 28px 0px #e9ddff40;
+  --shadow-medium-primary: 3px 9px 25px 0px #c6b0ff40;
+  --shadow-hard-primary: 4px 9px 28px 0px #a482f338;
+}

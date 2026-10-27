@@ -1,0 +1,24 @@
+Raw-value search - interface code
+=================================
+
+Command:
+$interfaceExtensions = @('*.html','*.css','*.js','*.jsx','*.ts','*.tsx','*.vue','*.svelte')
+$files = Get-ChildItem -Path . -Recurse -File -Include $interfaceExtensions -ErrorAction SilentlyContinue | Where-Object { $_.FullName -notmatch '[\\/]\.git[\\/]' -and $_.FullName -notmatch '[\\/]node_modules[\\/]' -and $_.FullName -notmatch '[\\/]task-01-design-system[\\/]styles[\\/]global\.css$' }
+Write-Output "Interface source files found:"
+$files | ForEach-Object { $_.FullName }
+Write-Output "---MATCHES---"
+$matches = $files | Select-String -Pattern '#[0-9a-fA-F]{3,8}\b|var\(--primitive-colour' -AllMatches
+if ($matches) { $matches } else { Write-Output "(no matches)" }
+
+Full output:
+Interface source files found:
+---MATCHES---
+(no matches)
+
+Notes:
+- No interface source files exist yet. task-02-repository-and-scaffold,
+  task-03-client-validation, task-04-server-security and
+  task-05-sessions-compliance-defence are empty directories.
+- The generated token stylesheet itself was excluded from this search because
+  it is the design-system source, not interface styling. It is the only CSS
+  file in the repository at the time of this search.
