@@ -32,9 +32,9 @@ The `evidence/` directory contains:
 - `docs/interview-answers.md` — Answers to the 12 assessment questions.
 
 ## Findings and Defects
-**Key finding:** [Record what testing showed about the agent’s use of the design system.]
+**Key finding:** 
 
-**Defect and regression:** [Describe an actual issue, how it was discovered, and what happened when the brand colour changed.]
+**Defect and regression:** 
 
 ## Scope
 This task focused on creating, documenting, and validating the design system and testing whether the coding agent used it. It did not establish that the full application was production-ready.
