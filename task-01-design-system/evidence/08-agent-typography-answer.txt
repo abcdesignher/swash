@@ -1,0 +1,18 @@
+**PROOF THE DESIGN SYSTEM IS CONSUMED**
+
+**Verbatim prompt:** 
+Build a simple marketing website page for this project. Just one page. 
+
+
+**Question asked to the coding agent:**
+Which typography style was used in the full name placeholder on the Swash signup screen?
+
+
+**Agent's answer**
+The specific typography token properties applied are:
+Font Family: var(--typography-open-sans-body-large-font-family) $\rightarrow$ Open Sans (inherited from Open Sans Body Large).
+Font Size: var(--typography-open-sans-body-medium-font-size) $\rightarrow$ 14px (from Open Sans Body Medium).
+Font Weight: 400 (normal weight, inherited from the base body font weight).
+Line Height: 21px (inherited from var(--typography-open-sans-body-medium-line-height) on body).
+Letter Spacing: -0.105px (inherited from var(--typography-open-sans-body-medium-letter-spacing) on body).
+Colour: Inherits var(--colour-text-primary-role) (#191919ff) rendered at the browser's default placeholder opacity.

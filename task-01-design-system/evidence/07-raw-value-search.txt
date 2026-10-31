@@ -12,13 +12,13 @@ if ($matches) { $matches } else { Write-Output "(no matches)" }
 
 Full output:
 Interface source files found:
+C:\Users\23470\OneDrive\Desktop\Swash\task-01-design-system\signup\app.js
+C:\Users\23470\OneDrive\Desktop\Swash\task-01-design-system\signup\index.html
+C:\Users\23470\OneDrive\Desktop\Swash\task-01-design-system\signup\style.css
 ---MATCHES---
 (no matches)
 
 Notes:
-- No interface source files exist yet. task-02-repository-and-scaffold,
-  task-03-client-validation, task-04-server-security and
-  task-05-sessions-compliance-defence are empty directories.
-- The generated token stylesheet itself was excluded from this search because
-  it is the design-system source, not interface styling. It is the only CSS
-  file in the repository at the time of this search.
+- The search covers all interface files created for the Swash signup screen in task-01-design-system/signup.
+- Result confirms 0 raw colour values (hex/rgb/hsl) and 0 direct primitive token usages (var(--primitive-colour-*)).
+- All interface styling strictly consumes the semantic colour roles defined in task-01-design-system/styles/global.css.

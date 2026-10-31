@@ -1,0 +1,330 @@
+/* ==========================================================================
+   Swash Signup Screen Stylesheet
+   Strictly consumes Swash design tokens from global.css
+   Rule: Zero hardcoded colours. All colours use semantic reference roles.
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--colour-background-neutral);
+  color: var(--colour-text-primary-role);
+  font-family: var(--typography-open-sans-body-large-font-family), system-ui, -apple-system, sans-serif;
+  font-size: var(--typography-open-sans-body-medium-font-size);
+  line-height: var(--typography-open-sans-body-medium-line-height);
+  letter-spacing: var(--typography-open-sans-body-medium-letter-spacing);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1rem;
+}
+
+.page-container {
+  width: 100%;
+  max-width: 34rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Header & Brand Identity */
+.header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.brand-badge {
+  display: inline-block;
+  background-color: var(--colour-secondary-role);
+  color: var(--colour-on-secondary-role);
+  font-family: var(--typography-open-sans-label-small-font-family);
+  font-size: var(--typography-open-sans-label-small-font-size);
+  font-weight: var(--typography-open-sans-label-small-font-weight);
+  line-height: var(--typography-open-sans-label-small-line-height);
+  letter-spacing: var(--typography-open-sans-label-small-letter-spacing);
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  text-transform: uppercase;
+}
+
+.brand-title {
+  font-family: var(--typography-playfair-display-large-font-family), Georgia, serif;
+  font-size: var(--typography-playfair-headline-large-font-size);
+  font-weight: var(--typography-playfair-headline-large-font-weight);
+  line-height: var(--typography-playfair-headline-large-line-height);
+  letter-spacing: var(--typography-playfair-headline-large-letter-spacing);
+  color: var(--colour-primary-role);
+}
+
+.brand-tagline {
+  font-family: var(--typography-open-sans-body-medium-font-family);
+  font-size: var(--typography-open-sans-body-medium-font-size);
+  color: var(--colour-text-secondary-role);
+  max-width: 28rem;
+}
+
+/* Main Card */
+.signup-card {
+  background-color: var(--colour-surface-neutral);
+  border: 1px solid var(--colour-inverse-primary-role);
+  border-radius: 1rem;
+  box-shadow: var(--shadow-medium-primary);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.card-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  border-bottom: 1px solid var(--colour-inverse-primary-role);
+  padding-bottom: 1rem;
+}
+
+.card-title {
+  font-family: var(--typography-playfair-headline-small-font-family), Georgia, serif;
+  font-size: var(--typography-playfair-headline-small-font-size);
+  font-weight: var(--typography-playfair-headline-small-font-weight);
+  line-height: var(--typography-playfair-headline-small-line-height);
+  color: var(--colour-primary-role);
+}
+
+.card-subtitle {
+  font-family: var(--typography-open-sans-body-medium-font-family);
+  font-size: var(--typography-open-sans-body-medium-font-size);
+  color: var(--colour-text-secondary-role);
+}
+
+/* Form Layout */
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.form-col {
+  flex: 1;
+}
+
+.form-label {
+  font-family: var(--typography-open-sans-label-large-font-family);
+  font-size: var(--typography-open-sans-label-large-font-size);
+  font-weight: var(--typography-open-sans-label-large-font-weight);
+  line-height: var(--typography-open-sans-label-large-line-height);
+  color: var(--colour-text-primary-role);
+}
+
+.form-input,
+.form-select {
+  font-family: var(--typography-open-sans-body-large-font-family);
+  font-size: var(--typography-open-sans-body-medium-font-size);
+  color: var(--colour-text-primary-role);
+  background-color: var(--colour-neutral-white-role);
+  border: 1px solid var(--colour-neutral-mid-grey-role);
+  border-radius: 0.5rem;
+  padding: 0.65rem 0.85rem;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  width: 100%;
+}
+
+.form-input:focus,
+.form-select:focus {
+  outline: none;
+  border-color: var(--colour-primary-role);
+  box-shadow: 0 0 0 3px var(--colour-inverse-primary-role);
+}
+
+.form-input.is-invalid,
+.form-select.is-invalid {
+  border-color: var(--colour-error-role);
+  background-color: var(--colour-on-error-role);
+}
+
+.form-input.is-invalid:focus,
+.form-select.is-invalid:focus {
+  box-shadow: 0 0 0 3px var(--colour-inverse-error-role);
+}
+
+.field-hint {
+  font-family: var(--typography-open-sans-label-small-font-family);
+  font-size: var(--typography-open-sans-label-small-font-size);
+  line-height: var(--typography-open-sans-label-small-line-height);
+  color: var(--colour-text-secondary-role);
+}
+
+.field-error {
+  font-family: var(--typography-open-sans-label-small-font-family);
+  font-size: var(--typography-open-sans-label-small-font-size);
+  line-height: var(--typography-open-sans-label-small-line-height);
+  color: var(--colour-error-role);
+  font-weight: var(--typography-open-sans-label-large-font-weight);
+  display: none;
+}
+
+.field-error.is-visible {
+  display: block;
+}
+
+/* Checkbox & Terms */
+.form-checkbox-group {
+  margin-top: 0.25rem;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  cursor: pointer;
+}
+
+.form-checkbox {
+  width: 1.15rem;
+  height: 1.15rem;
+  accent-color: var(--colour-primary-role);
+  margin-top: 0.15rem;
+}
+
+.checkbox-text {
+  font-family: var(--typography-open-sans-body-small-font-family);
+  font-size: var(--typography-open-sans-body-small-font-size);
+  line-height: var(--typography-open-sans-body-small-line-height);
+  color: var(--colour-text-secondary-role);
+}
+
+.inline-link {
+  color: var(--colour-primary-role);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font-weight: var(--typography-open-sans-label-large-font-weight);
+  transition: color 0.15s ease;
+}
+
+.inline-link:hover {
+  color: var(--colour-dark-primary-role);
+}
+
+/* Submit Action Button */
+.btn-submit {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--colour-primary-role);
+  color: var(--colour-on-primary-role);
+  font-family: var(--typography-open-sans-label-large-font-family);
+  font-size: var(--typography-open-sans-label-large-font-size);
+  font-weight: var(--typography-open-sans-label-large-font-weight);
+  line-height: var(--typography-open-sans-label-large-line-height);
+  letter-spacing: var(--typography-open-sans-label-large-letter-spacing);
+  padding: 0.85rem 1.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  box-shadow: var(--shadow-soft-primary);
+  transition: background-color 0.15s ease, box-shadow 0.15s ease, transform 0.05s ease;
+  margin-top: 0.5rem;
+  width: 100%;
+}
+
+.btn-submit:hover {
+  background-color: var(--colour-dark-primary-role);
+  box-shadow: var(--shadow-medium-primary);
+}
+
+.btn-submit:active {
+  transform: translateY(1px);
+  box-shadow: var(--shadow-hard-primary);
+}
+
+.btn-submit:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--colour-inverse-primary-role), var(--shadow-medium-primary);
+}
+
+/* Status Notifications */
+.status-message {
+  padding: 0.85rem 1rem;
+  border-radius: 0.5rem;
+  font-family: var(--typography-open-sans-body-medium-font-family);
+  font-size: var(--typography-open-sans-body-medium-font-size);
+  line-height: var(--typography-open-sans-body-medium-line-height);
+}
+
+.status-message.is-error {
+  background-color: var(--colour-inverse-error-role);
+  color: var(--colour-error-role);
+  border: 1px solid var(--colour-error-role);
+}
+
+.status-message.is-success {
+  background-color: var(--colour-inverse-success-role);
+  color: var(--colour-success-role);
+  border: 1px solid var(--colour-success-role);
+}
+
+/* Card Footer & Page Footer */
+.card-footer {
+  text-align: center;
+}
+
+.footer-text {
+  font-family: var(--typography-open-sans-body-small-font-family);
+  font-size: var(--typography-open-sans-body-small-font-size);
+  color: var(--colour-text-secondary-role);
+}
+
+.page-footer {
+  text-align: center;
+}
+
+.page-footer-text {
+  font-family: var(--typography-open-sans-body-small-font-family);
+  font-size: var(--typography-open-sans-body-small-font-size);
+  color: var(--colour-text-disabled-role);
+}
+
+/* Responsiveness */
+@media (max-width: 480px) {
+  body {
+    padding: 1rem 0.5rem;
+  }
+
+  .signup-card {
+    padding: 1.5rem 1rem;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 1.15rem;
+  }
+}

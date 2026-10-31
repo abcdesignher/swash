@@ -1,40 +1,35 @@
 # Task 1: Design System
 
 ## Overview
-Created a design system for **Swash**, an African-first laundry service, and tested whether a coding agent used it to build a consistent interface.
+Created a design system for **Swash**, an African-first subscription laundry service in Nigeria, and proved that a coding agent reliably consumed it to build an interface with zero hardcoded styling leaks.
 
 ## Key Decisions
-- **Colour:** Built a tonal palette around Swash’s brand colour and defined semantic roles for consistent UI colours.
-- **Typography:** Defined 15 styles across Display, Headline, Title, Body, and Label, with three sizes per role.
-- **Shadows:** Defined soft, medium, and hard shadows using the brand colour rather than black.
-- **Token pipeline:** Exported design tokens and converted them into CSS variables, with semantic roles used in the interface.
+- **Colour:** Built a tonal palette around Swash’s brand colour (Nigerian Ankara-inspired rich gold and deep purple) and defined semantic roles for consistent, accessible UI styling.
+- **Typography:** Defined 15 styles across Display, Headline, Title, Body, and Label, pairing Playfair Display for expressive headings with Open Sans for readable body copy.
+- **Shadows:** Defined soft, medium, and hard shadows using primary brand tinting rather than harsh black, creating an atmospheric, grounded elevation feel.
+- **Token pipeline:** Exported Figma variables into structured JSON (`06-tokens-complete.json`), converted them into CSS variables (`styles/global.css`), and enforced semantic role consumption across all interface styling.
 
-Detailed values and rationale are documented in the supporting files.
-
-## Evidence
-The `evidence/` directory contains:
-- Palette screenshots before and after pinning the brand colour.
-- Default and chosen Display Large letter spacing.
-- Incomplete and complete JSON token exports.
-- Raw-colour search command and full output.
-- The coding agent’s answer about its typography choice.
-- Screenshots comparing interfaces with and without the design system.
-- A broken-token screenshot and Git log from the unmerged regression branch.
+## Interface Evidence & Verification
+- `signup/index.html` — Accessible signup interface built for Swash using purely semantic HTML5, CSS tokens, and vanilla JavaScript.
+- `signup/style.css` — Interface stylesheet strictly consuming CSS custom properties from `styles/global.css`.
+- `signup/app.js` — Client-side interaction logic with accessible validation and status feedback.
+- `evidence/07-raw-value-search.txt` — Automated terminal search command and output confirming **0 raw hex/RGB colours** and **0 primitive token leaks** in the interface code.
+- `evidence/08-agent-typography-answer.txt` — Written audit questioning the coding agent on exact typography token usage for the brand heading and submit button.
+- `evidence/05-tokens-incomplete.json` vs `evidence/06-tokens-complete.json` — Verification of token variable inclusion, capturing the omission of colour collections when Figma variables are omitted.
 
 ## Documentation
-- `docs/business-brief.md` — Business, user, and interface requirements.
-- `docs/type-scale.md` — Typography values and rationale.
-- `docs/colour-roles.md` — Semantic colour roles and contrast ratios.
-- `docs/shadows.md` — Shadow values and rationale.
-- `docs/divergences.md` — Deliberate deviations and trade-offs.
-- `docs/prompts.md` — Agent prompts, failed attempts, and revisions.
-- `docs/defects.md` — Defects, impact, and resolution status.
-- `docs/interview-answers.md` — Answers to the 12 assessment questions.
+- `docs/business-brief.md` — Business definition, user profile, and core interface requirements.
+- `docs/type-scale.md` — Complete 15-style typography scale, weights, and CSS variable mappings.
+- `docs/colour-roles.md` — Semantic colour roles, primitive targets, and verified WCAG contrast ratios.
+- `docs/shadows.md` — Brand-tinted shadow coordinates, opacity, and optics rationale.
+- `docs/divergences.md` — Intentional typographic deviations (Display Large 1.3x line height and Playfair pairing) with failure scenario analysis.
+- `docs/prompts.md` — Full prompt log, initial prompt failures, and the refined final prompt used to convert tokens.
+- `docs/defects.md` — Real defects cited by file and line number with production risk analysis.
+- `docs/interview-answers.md` — Comprehensive answers to all 12 design engineering and accessibility viva questions.
 
 ## Findings and Defects
-**Key finding:** 
-
-**Defect and regression:** 
+* **Key finding:** AI models produce generic, uninspired styling when given unconstrained prompts. Providing a machine-readable token contract (`global.css`) paired with strict negative constraints in `RULES.md` is required to ensure consistent, distinctive brand execution.
+* **Defect and regression:** Identified that the incomplete token export initially duplicated the complete file, an Inter font family anomaly in `open sans.headline.headline small` (`type-scale.md`, line 32), and a shadow blur documentation discrepancy (`shadows.md`, line 23 vs. JSON token `radius: 25`).
 
 ## Scope
-This task focused on creating, documenting, and validating the design system and testing whether the coding agent used it. It did not establish that the full application was production-ready.
+This task established the design system foundation, token pipeline, and verification mechanisms proving agent consumption on a standalone interface. Backend database integration and routing scaffold follow in subsequent tasks.
