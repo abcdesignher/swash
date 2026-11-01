@@ -6,6 +6,11 @@ Derived directly from the `reference color collection` in
 how the palette is used. Interface styling should use the role variables, not
 primitive variables directly.
 
+> **Deliberate change:** The `primary role` was updated from `#4517a7ff` to
+> `#e81313ff`. Its primitive reference (`key colours.primary`) and the
+> `--primitive-colour-key-primary` CSS variable were updated together so the
+> reference role still resolves through the primitive collection.
+
 All resolved values are opaque 8-digit hex (`ff` alpha). The primitive
 reference column shows the exact token path in the export. The Contrast
 column in the brand/status tables shows the explicit base/on or
@@ -18,8 +23,8 @@ for that role.
 
 | Role | CSS variable | Primitive reference | Resolved value | Usage | Contrast |
 | --- | --- | --- | --- | --- | --- |
-| primary role | `--colour-primary-role` | `key colours.primary` | `#4517a7ff` | Main brand colour for primary actions | 10.35:1 vs on primary role |
-| on primary role | `--colour-on-primary-role` | `colour palettes.primary.primary98` | `#fcf8ffff` | Text and icons on primary | 10.35:1 vs primary role |
+| primary role | `--colour-primary-role` | `key colours.primary` | `#e81313ff` | Main brand colour for primary actions | 4.41:1 vs on primary role |
+| on primary role | `--colour-on-primary-role` | `colour palettes.primary.primary98` | `#fcf8ffff` | Text and icons on primary | 4.41:1 vs primary role |
 | inverse primary role | `--colour-inverse-primary-role` | `colour palettes.primary.primary90` | `#e9ddffff` | Primary colour on inverse surfaces | 11.42:1 vs on inverse primary role |
 | on inverse primary role | `--colour-on-inverse-primary-role` | `colour palettes.primary.primary20` | `#350078ff` | Text and icons on inverse primary | 11.42:1 vs inverse primary role |
 | dark primary role | `--colour-dark-primary-role` | `colour palettes.primary.primary10` | `#1d064aff` | Darker primary for pressed/dark states | — |
@@ -139,7 +144,7 @@ which role is used on which surface.
 
 | Pair | Foreground | Background | Ratio | AA normal (4.5:1) | AAA normal (7:1) |
 | --- | --- | --- | --- | --- | --- |
-| primary role / on primary role | `#fcf8ffff` | `#4517a7ff` | 10.35:1 | Pass | Pass |
+| primary role / on primary role | `#fcf8ffff` | `#e81313ff` | 4.41:1 | Fail | Fail |
 | inverse primary role / on inverse primary role | `#350078ff` | `#e9ddffff` | 11.42:1 | Pass | Pass |
 | secondary role / on secondary role | `#423016ff` | `#e3b76eff` | 6.76:1 | Pass | Fail |
 | inverse secondary role / on inverse secondary role | `#a46b0dff` | `#f4e8d0ff` | 3.69:1 | Fail | Fail |
@@ -158,15 +163,17 @@ which role is used on which surface.
 | secondary text role / background neutral | `#333333ff` | `#f5f5f5ff` | 11.59:1 | Pass | Pass |
 | secondary text role / surface neutral | `#333333ff` | `#fafafaff` | 12.10:1 | Pass | Pass |
 | disabled text role / background neutral | `#707070ff` | `#f5f5f5ff` | 4.54:1 | Pass | Fail |
-| inverse primary text role / primary role | `#fafafaff` | `#4517a7ff` | 10.41:1 | Pass | Pass |
-| inverse text role / primary role | `#e0e0e0ff` | `#4517a7ff` | 8.23:1 | Pass | Pass |
+| inverse primary text role / primary role | `#fafafaff` | `#e81313ff` | 4.44:1 | Fail | Fail |
+| inverse text role / primary role | `#e0e0e0ff` | `#e81313ff` | 3.51:1 | Fail | Fail |
 | white role / black role | `#ffffffff` | `#141414ff` | 18.42:1 | Pass | Pass |
 | near white role / near black role | `#fafafaff` | `#333333ff` | 12.10:1 | Pass | Pass |
 
 For the explicit `on` pairs, the `on` role is the foreground and the base or
-inverse role is the background. One exported pair fails WCAG AA normal text:
-`inverse secondary role` / `on inverse secondary role` at 3.69:1. This is
-reported from the exported tokens; no colour values were changed.
+inverse role is the background. Two exported pairs fail WCAG AA normal text:
+`primary role` / `on primary role` at 4.41:1 and `inverse secondary role` /
+`on inverse secondary role` at 3.69:1. The primary role was deliberately
+updated to `#e81313ff`; the inverse secondary pair is reported from the
+exported tokens.
 
 ## Not defined in the current export
 

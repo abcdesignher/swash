@@ -2521,7 +2521,7 @@
     "key colours": {
       "primary": {
         "type": "color",
-        "value": "#4517a7ff",
+        "value": "#e81313ff",
         "blendMode": "normal",
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {

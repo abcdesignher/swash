@@ -1,19 +1,19 @@
 # Task 1: Design System
 
 ## Overview
-Created a design system for **Swash**, an African-first subscription laundry service in Nigeria, and proved that a coding agent reliably consumed it to build an interface with zero hardcoded styling leaks.
+Created a design system for **Swash**, an African-first subscription laundry service in Nigeria, and proved that a coding agent reliably consumed it to build an interface with one documented colour exception and no primitive token leaks.
 
 ## Key Decisions
-- **Colour:** Built a tonal palette around Swash’s brand colour (Nigerian Ankara-inspired rich gold and deep purple) and defined semantic roles for consistent, accessible UI styling.
+- **Colour:** Built a tonal palette around Swash’s Ankara-inspired rich gold and deep purple, with a deliberately updated red primary role (`#e81313`) for primary actions.
 - **Typography:** Defined 15 styles across Display, Headline, Title, Body, and Label, pairing Playfair Display for expressive headings with Open Sans for readable body copy.
 - **Shadows:** Defined soft, medium, and hard shadows using primary brand tinting rather than harsh black, creating an atmospheric, grounded elevation feel.
 - **Token pipeline:** Exported Figma variables into structured JSON (`06-tokens-complete.json`), converted them into CSS variables (`styles/global.css`), and enforced semantic role consumption across all interface styling.
 
 ## Interface Evidence & Verification
 - `signup/index.html` — Accessible signup interface built for Swash using purely semantic HTML5, CSS tokens, and vanilla JavaScript.
-- `signup/style.css` — Interface stylesheet strictly consuming CSS custom properties from `styles/global.css`.
+- `signup/style.css` — Interface stylesheet consuming CSS custom properties from `styles/global.css`, with a documented `#219421` primary exception on the signup screen.
 - `signup/app.js` — Client-side interaction logic with accessible validation and status feedback.
-- `evidence/07-raw-value-search.txt` — Automated terminal search command and output confirming **0 raw hex/RGB colours** and **0 primitive token leaks** in the interface code.
+- `evidence/07-raw-value-search.txt` — Automated terminal search command and output confirming **0 primitive token leaks** in the interface code; the deliberate signup `#219421` exception is documented in `signup/style.css`.
 - `evidence/08-agent-typography-answer.txt` — Written audit questioning the coding agent on exact typography token usage for the brand heading and submit button.
 - `evidence/05-tokens-incomplete.json` vs `evidence/06-tokens-complete.json` — Verification of token variable inclusion, capturing the omission of colour collections when Figma variables are omitted.
 

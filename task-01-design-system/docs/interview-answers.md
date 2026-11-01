@@ -24,7 +24,7 @@ A token change is breaking whenever it alters semantic intent, removes or rename
 2. **Structural / Type Mutations:** Changing a composite value (like a shadow string `2px 8px 28px #hex`) into discrete numeric sub-tokens without updating consuming CSS definitions breaks parsing.
 3. **Contrast and Luminance Inversion:** Mutating a primitive value mapped to a semantic role in a way that drops contrast below WCAG AA thresholds (e.g., darkening a surface role without updating its paired text role) breaks accessibility compliance for users with visual impairments.
 
-Pure value adjustments that preserve semantic meaning and maintain verified contrast pairs (e.g., fine-tuning primary purple hue while retaining its luminance tier) are non-breaking.
+Pure value adjustments that preserve semantic meaning and maintain verified contrast pairs (e.g., fine-tuning the primary hue while retaining its luminance tier) are non-breaking.
 
 ---
 
@@ -60,7 +60,7 @@ For multi-brand deployment (e.g., Swash Consumer vs. Swash Commercial), brand-sp
 
 No. Tokens cannot guarantee accessible contrast on their own because tokens are static value definitions, whereas contrast is a relational metric between two dynamically juxtaposed visual layers.
 
-A design system can provide mathematically validated token pairs (such as `--colour-primary-role` and `--colour-on-primary-role` achieving a 10.35:1 ratio in Swash). However, a token system cannot prevent an engineer or AI agent from pairing a primary purple token with a dark grey text token, or placing tokenized text over an un-tokenized photographic hero banner or transparent overlay.
+A design system can provide mathematically validated token pairs (such as `--colour-tertiary-role` and `--colour-on-tertiary-role` achieving a 10.24:1 ratio in Swash). However, a token system cannot prevent an engineer or AI agent from pairing a primary token with a dark grey text token, or placing tokenized text over an un-tokenized photographic hero banner or transparent overlay.
 
 Tokens provide the necessary building blocks for accessibility, but guaranteeing compliance requires strict pairing governance, component encapsulation that sets foreground and background colours simultaneously, and automated accessibility auditing (e.g., Axe-core and Lighthouse) in CI pipelines.
 
@@ -151,6 +151,6 @@ box-shadow: 0 8px 28px rgb(from var(--colour-primary-role) r g b / 0.25);
 **What is missing:** The candidate exported primitive palette values, not design tokens. They omitted the semantic reference layer (roles like `--colour-surface-neutral`, `--colour-primary-role`, `--colour-on-primary-role`) that gives colours functional meaning.
 
 **What will go wrong in month four:**
-1. **Tightly Coupled Components:** Components will directly reference primitive names (e.g., `background: var(--purple-500)`). When brand designers adjust the primary purple or introduce secondary brand hues, developers must manually search and update every component class across the codebase.
+1. **Tightly Coupled Components:** Components will directly reference primitive names (e.g., `background: var(--purple-500)`). When brand designers adjust the primary colour or introduce secondary brand hues, developers must manually search and update every component class across the codebase.
 2. **Theme Incapability:** Implementing dark mode in month four becomes impossible without a full CSS rewrite, because primitives have baked-in luminance (e.g., using `--white` or `--gray-100` for card backgrounds breaks when inverted).
 3. **No Contrast Governance:** Without paired semantic roles (base and on-role), developers will freely pair arbitrary hex tokens, causing widespread WCAG contrast failures across newly shipped screens.

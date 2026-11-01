@@ -1,7 +1,7 @@
 /* ==========================================================================
    Swash Signup Screen Stylesheet
-   Strictly consumes Swash design tokens from global.css
-   Rule: Zero hardcoded colours. All colours use semantic reference roles.
+   Consumes Swash design tokens from global.css, with one deliberate exception:
+   signup primary elements use #219421 instead of --colour-primary-role.
    ========================================================================== */
 
 *,
@@ -71,7 +71,7 @@ body {
   font-weight: var(--typography-playfair-headline-large-font-weight);
   line-height: var(--typography-playfair-headline-large-line-height);
   letter-spacing: var(--typography-playfair-headline-large-letter-spacing);
-  color: var(--colour-primary-role);
+  color: #219421;
 }
 
 .brand-tagline {
@@ -106,7 +106,7 @@ body {
   font-size: var(--typography-playfair-headline-small-font-size);
   font-weight: var(--typography-playfair-headline-small-font-weight);
   line-height: var(--typography-playfair-headline-small-line-height);
-  color: var(--colour-primary-role);
+  color: #219421;
 }
 
 .card-subtitle {
@@ -161,7 +161,7 @@ body {
 .form-input:focus,
 .form-select:focus {
   outline: none;
-  border-color: var(--colour-primary-role);
+  border-color: #219421;
   box-shadow: 0 0 0 3px var(--colour-inverse-primary-role);
 }
 
@@ -211,7 +211,7 @@ body {
 .form-checkbox {
   width: 1.15rem;
   height: 1.15rem;
-  accent-color: var(--colour-primary-role);
+  accent-color: #219421;
   margin-top: 0.15rem;
 }
 
@@ -223,7 +223,7 @@ body {
 }
 
 .inline-link {
-  color: var(--colour-primary-role);
+  color: #219421;
   text-decoration: underline;
   text-underline-offset: 2px;
   font-weight: var(--typography-open-sans-label-large-font-weight);
@@ -239,7 +239,7 @@ body {
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--colour-primary-role);
+  background-color: #219421;
   color: var(--colour-on-primary-role);
   font-family: var(--typography-open-sans-label-large-font-family);
   font-size: var(--typography-open-sans-label-large-font-size);

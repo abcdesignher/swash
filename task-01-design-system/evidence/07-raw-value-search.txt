@@ -20,5 +20,5 @@ C:\Users\23470\OneDrive\Desktop\Swash\task-01-design-system\signup\style.css
 
 Notes:
 - The search covers all interface files created for the Swash signup screen in task-01-design-system/signup.
-- Result confirms 0 raw colour values (hex/rgb/hsl) and 0 direct primitive token usages (var(--primitive-colour-*)).
-- All interface styling strictly consumes the semantic colour roles defined in task-01-design-system/styles/global.css.
+- Result confirmed 0 raw colour values (hex/rgb/hsl) and 0 direct primitive token usages (var(--primitive-colour-*)) at the time of the audit; a later documented exception adds `#219421` in `signup/style.css`.
+- All interface styling consumes the semantic colour roles defined in task-01-design-system/styles/global.css, except for the documented `#219421` primary exception in `signup/style.css`.
