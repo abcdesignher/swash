@@ -21,8 +21,7 @@ Interface code must consume semantic tokens exclusively, never primitives direct
 A token change is breaking whenever it alters semantic intent, removes or renames an established key, or violates functional safety thresholds:
 
 1. **Renaming or Deletion:** Changing `--colour-accent-role` to `--colour-highlight` breaks all consuming components across the codebase, resulting in unstyled elements or browser fallbacks.
-2. **Structural / Type Mutations:** Changing a composite value (like a shadow string `2px 8px 28px #hex`) into discrete numeric sub-tokens without updating consuming CSS definitions breaks parsing.
-3. **Contrast and Luminance Inversion:** Mutating a primitive value mapped to a semantic role in a way that drops contrast below WCAG AA thresholds (e.g., darkening a surface role without updating its paired text role) breaks accessibility compliance for users with visual impairments.
+2. **Contrast and Luminance Inversion:** Mutating a primitive value mapped to a semantic role in a way that drops contrast below WCAG AA thresholds (e.g., darkening a surface role without updating its paired text role) breaks accessibility compliance for users with visual impairments.
 
 Pure value adjustments that preserve semantic meaning and maintain verified contrast pairs (e.g., fine-tuning the primary hue while retaining its luminance tier) are non-breaking.
 
