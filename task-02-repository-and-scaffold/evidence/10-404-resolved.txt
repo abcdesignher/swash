@@ -1,0 +1,18 @@
+Recovery from Controlled Failure C: 404 Error Resolved
+======================================================
+
+Fix applied:
+Renamed `src/app/home.tsx` back to `src/app/page.tsx` so Next.js App Router registers the `/` route entry point.
+
+Terminal output captured upon refreshing http://localhost:3002:
+
+ ✓ Starting...
+ ✓ Ready in 5.2s
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 2.1s (536 modules)
+ GET / 404 in 3673ms
+ ✓ Compiled in 161ms (213 modules)
+ ○ Compiling / ...
+ ✓ Compiled / in 1515ms (550 modules)
+ GET / 200 in 1674ms
+

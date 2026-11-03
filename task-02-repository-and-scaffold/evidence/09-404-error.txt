@@ -1,0 +1,37 @@
+Microsoft Windows [Version 10.0.26200.9711]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\23470\OneDrive\Desktop\swash>npm run dev
+
+> swash@0.1.0 dev
+> next dev
+
+ ⚠ Port 3000 is in use by process 42648, using available port 3002 instead.
+   ▲ Next.js 15.5.28
+   - Local:        http://localhost:3002
+   - Network:      http://10.251.242.8:3002
+
+ ✓ Starting...
+ ✓ Ready in 5.2s
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 2.1s (536 modules)
+ GET / 404 in 3673ms
+
+
+Diagnostic Investigation Performed (in Order, Before Asking the Agent)
+======================================================================
+
+1. Checked the terminal request log and HTTP status code:
+   Observed `Compiling /_not-found ...` followed by `GET / 404 in 3673ms`, confirming the server was reachable and responding, but Next.js could not find a matching route handler for `/`.
+
+2. Checked the active server URL and working directory:
+   Verified the browser was requesting the active server URL (`http://localhost:3002/`) and that `npm run dev` was running from the repository root (`C:\Users\23470\OneDrive\Desktop\swash`).
+
+3. Checked the `src/app/` directory structure and file naming:
+   Inspected `src/app/` and saw `home.tsx` instead of `page.tsx`. In the Next.js App Router, route segments only become publicly routable when the entry file is named `page.tsx`; naming the file `home.tsx` causes Next.js to treat `/` as having no page route and render `/_not-found` (HTTP 404).
+
+4. Checked the component export inside the route file:
+   Confirmed `export default function HomePage()` was valid and returned JSX, ruling out a missing default export or a blank `null` return.
+
+5. Applied the fix:
+   Renamed `src/app/home.tsx` back to `src/app/page.tsx` and refreshed the browser to verify `GET / 200`.

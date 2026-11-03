@@ -1,0 +1,63 @@
+Microsoft Windows [Version 10.0.26200.9711]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\23470\OneDrive\Desktop\swash>npm run dev
+
+> swash@0.1.0 dev
+> next dev
+
+ ⚠ Port 3000 is in use by process 42648, using available port 3004 instead.
+   ▲ Next.js 15.5.28
+   - Local:        http://localhost:3004
+   - Network:      http://10.251.242.8:3004
+   - Environments: .env
+
+ ✓ Starting...
+ ✓ Ready in 3.6s
+ ○ Compiling / ...
+ ✓ Compiled / in 10.2s (563 modules)
+ GET / 200 in 11753ms
+ ○ Compiling /api/enquiries ...
+ ✓ Compiled /api/enquiries in 1323ms (570 modules)
+prisma:info Starting a postgresql pool with 10 connections.
+prisma:query INSERT INTO "public"."ServiceEnquiry" ("id","fullName","email","serviceType","notes","createdAt") VALUES ($1,$2,$3,$4,$5,$6) RETURNING "public"."ServiceEnquiry"."id", "public"."ServiceEnquiry"."fullName", "public"."ServiceEnquiry"."email", "public"."ServiceEnquiry"."serviceType", "public"."ServiceEnquiry"."notes", "public"."ServiceEnquiry"."createdAt"
+prisma:error 
+Invalid `prisma.serviceEnquiry.create()` invocation:
+
+
+Error occurred during query execution:
+ConnectorError(ConnectorError { user_facing_error: None, kind: QueryError(PostgresError { code: "42P05", message: "prepared statement \"s0\" already exists", severity: "ERROR", detail: None, column: None, hint: None }), transient: false })
+[POST /api/enquiries] 500 Database Write Failed: Error [PrismaClientUnknownRequestError]:
+Invalid `prisma.serviceEnquiry.create()` invocation:
+
+
+Error occurred during query execution:
+ConnectorError(ConnectorError { user_facing_error: None, kind: QueryError(PostgresError { code: "42P05", message: "prepared statement \"s0\" already exists", severity: "ERROR", detail: None, column: None, hint: None }), transient: false })
+    at async POST (src\app\api\enquiries\route.ts:40:20)
+  38 |     }
+  39 |
+> 40 |     const record = await prisma.serviceEnquiry.create({       
+     |                    ^
+  41 |       data: {
+  42 |         fullName,
+  43 |         email, {
+  clientVersion: '6.19.3'
+}
+ POST /api/enquiries 500 in 4381ms
+prisma:query INSERT INTO "public"."ServiceEnquiry" ("id","fullName","email","serviceType","notes","createdAt") VALUES ($1,$2,$3,$4,$5,$6) RETURNING "public"."ServiceEnquiry"."id", "public"."ServiceEnquiry"."fullName", "public"."ServiceEnquiry"."email", "public"."ServiceEnquiry"."serviceType", "public"."ServiceEnquiry"."notes", "public"."ServiceEnquiry"."createdAt"
+[POST /api/enquiries] 201 Created: {
+  id: 'cmw00coua0001kzy4dcyzcibb',
+  email: 'adaeze@gmail.com',
+  serviceType: 'Individual Subscription',
+  createdAt: '2026-11-03T01:27:16.930Z'
+}
+ POST /api/enquiries 201 in 77ms
+prisma:query SELECT 1
+prisma:query INSERT INTO "public"."ServiceEnquiry" ("id","fullName","email","serviceType","notes","createdAt") VALUES ($1,$2,$3,$4,$5,$6) RETURNING "public"."ServiceEnquiry"."id", "public"."ServiceEnquiry"."fullName", "public"."ServiceEnquiry"."email", "public"."ServiceEnquiry"."serviceType", "public"."ServiceEnquiry"."notes", "public"."ServiceEnquiry"."createdAt"
+[POST /api/enquiries] 201 Created: {
+  id: 'cmw00ftvp0002kzy4cf96afr5',
+  email: 'tunde123@example.com',
+  serviceType: 'Individual Subscription',
+  createdAt: '2026-11-03T01:29:43.426Z'
+}
+ POST /api/enquiries 201 in 119ms

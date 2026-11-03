@@ -1,0 +1,56 @@
+prisma:info Starting a postgresql pool with 10 connections.
+prisma:error 
+Invalid `prisma.serviceEnquiry.create()` invocation:
+
+
+Can't reach database server at `localhost:59999`
+
+Please make sure your database server is running at `localhost:59999`.
+[POST /api/enquiries] 500 Database Write Failed: Error [PrismaClientInitializationError]:
+Invalid `prisma.serviceEnquiry.create()` invocation:
+
+
+Can't reach database server at `localhost:59999`
+
+Please make sure your database server is running at `localhost:59999`.
+    at async POST (src\app\api\enquiries\route.ts:40:20)
+  38 |     }
+  39 |
+> 40 |     const record = await prisma.serviceEnquiry.create({       
+     |                    ^
+  41 |       data: {
+  42 |         fullName,
+  43 |         email, {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+ POST /api/enquiries 500 in 6276ms
+prisma:info Starting a postgresql pool with 10 connections.
+prisma:error 
+Invalid `prisma.serviceEnquiry.create()` invocation:
+
+
+Can't reach database server at `localhost:59999`
+
+Please make sure your database server is running at `localhost:59999`.
+[POST /api/enquiries] 500 Database Write Failed: Error [PrismaClientInitializationError]:
+Invalid `prisma.serviceEnquiry.create()` invocation:
+
+
+Can't reach database server at `localhost:59999`
+
+Please make sure your database server is running at `localhost:59999`.
+    at async POST (src\app\api\enquiries\route.ts:40:20)
+  38 |     }
+  39 |
+> 40 |     const record = await prisma.serviceEnquiry.create({       
+     |                    ^
+  41 |       data: {
+  42 |         fullName,
+  43 |         email, {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+ POST /api/enquiries 500 in 4437ms
