@@ -21,3 +21,4 @@ b326b2c added business-brief.md
 ---
 Unmerged broken-referencing test branch verification (see 11-broken-referencing.png and 12-git-log-branch-unmerged.png):
 The deliberate broken-reference test (pointing --colour-primary-role to a non-existent variable) was tested in isolation and restored without merging broken token references into main.
+
