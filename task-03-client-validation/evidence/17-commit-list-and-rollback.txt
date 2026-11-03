@@ -62,3 +62,4 @@ index 70d01a5..08e51dc 100644
              {(visibleErrors.acceptTerms ||
                (isRegisterFieldsValid && !acceptTerms)) && (
                <p
+

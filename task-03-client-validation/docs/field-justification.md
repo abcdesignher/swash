@@ -32,3 +32,4 @@ Every field in [`src/components/AuthForm.tsx`](../../src/components/AuthForm.tsx
 2. **Date of Birth, Gender, and National ID (BVN/NIN):** Removed—laundry pickup and subscription billing do not require demographic or identity-document collection, adhering to [`data-and-security.md`](../../.agent/rules/data-and-security.md) Section 3 (*"Collect only information required for the service"*).
 3. **Confirm Email & Confirm Password Duplicate Inputs:** Removed in favour of real-time email format feedback + post-signup email verification and an accessible **Show / Hide Password** toggle, cutting typing effort on slow connections.
 4. **Decorative Marketing Illustrations and Redundant Callout Boxes:** Removed non-functional decorative badges and repetitive marketing banners from the authentication card so the form stays lightweight and focused on task completion.
+

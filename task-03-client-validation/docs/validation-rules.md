@@ -62,3 +62,4 @@ Every structural rule is derived from Swash's operational needs in Nigeria rathe
 3. **Disabled Submit Button vs. Hidden Submit Button (`evidence/13` & `14`):**
    - When the submit button is completely hidden until the form is valid (`evidence/13-button-hidden-version.png`), users—especially keyboard and screen-reader users—cannot tell how to submit the form or why the primary action is missing.
    - Keeping the submit button **visible by default and `disabled` until the form is valid** (`evidence/14-button-disabled-version.png`), paired with an explicit message when all fields are filled except the Terms checkbox, gives users a predictable landmark and clear completion guidance.
+

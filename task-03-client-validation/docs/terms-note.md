@@ -24,3 +24,4 @@ Associated summary helper (`#auth-terms-summary`):
 ## 3. Legal Review Disclaimer
 
 > **Important:** The terms-acceptance label and summary wording implemented in this engineering task are derived from standard NDPA consent conventions and the approved Swash product specification for educational and engineering verification purposes. **They do not constitute verified legal advice.** Before commercial launch in Nigeria, the full Terms of Service and Privacy Policy (including garment damage liability caps, unclaimed laundry retention periods, and NDPA data-controller disclosures) must be reviewed and approved by qualified Nigerian legal counsel and a certified Data Protection Compliance Organisation (DPCO).
+

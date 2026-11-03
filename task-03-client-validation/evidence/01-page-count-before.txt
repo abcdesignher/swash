@@ -4,3 +4,4 @@ C:\Users\23470\OneDrive\Desktop\Swash\src\app\login\page.tsx
 C:\Users\23470\OneDrive\Desktop\Swash\src\app\plans\page.tsx
 C:\Users\23470\OneDrive\Desktop\Swash\src\app\register\page.tsx
 Total page.tsx route files: 4
+

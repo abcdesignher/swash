@@ -33,3 +33,4 @@ This document records the field-by-field manual accessibility audit of [`src/com
 ## 3. Screen-Reader Transcript Summary
 
 See [`evidence/11-screenreader-before.txt`](../evidence/11-screenreader-before.txt) and [`evidence/12-screenreader-after.txt`](../evidence/12-screenreader-after.txt) for the complete step-by-step transcripts captured before and after applying the four fixes above.
+

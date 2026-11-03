@@ -35,3 +35,4 @@ Interaction: Keyboard-only navigation (Tab, Shift+Tab, Space, Enter)
 
 7. Tab to Terms Checkbox:
    Screen-reader announcement: "I agree to the Swash Laundry Subscription Terms of Service and Privacy Notice, check box, not checked, Covers scheduled collection windows, garment care liability, and NDPA-compliant customer record handling."
+

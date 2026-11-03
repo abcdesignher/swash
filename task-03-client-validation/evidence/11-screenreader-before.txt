@@ -30,3 +30,4 @@ Interaction: Keyboard-only navigation (Tab, Shift+Tab, Space, Enter)
    Press Space to unmask password:
    Screen-reader announcement: "Hide, button"
    Issue observed: Button name ("Show") lacked context ("Show password") and lacked aria-pressed toggle state.
+

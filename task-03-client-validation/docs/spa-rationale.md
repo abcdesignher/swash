@@ -34,3 +34,4 @@ Separate routes (`/register` and `/login`, or a multi-step `/onboarding/*` route
 In that scenario:
 - Bundling heavy file-upload and map-picker JavaScript into the `/login` page would penalise returning customers who only need a fast two-field sign-in over a slow mobile connection.
 - Separate routes also allow strict server-level middleware, distinct Content-Security-Policy (CSP) headers, or independent analytics conversion funnels per path without query-string parsing.
+

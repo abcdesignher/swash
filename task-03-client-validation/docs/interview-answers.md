@@ -85,3 +85,4 @@ Frontend validation runs on untrusted client hardware after the code has left th
 
 ### Bonus: User Enumeration and How Error Messages Contribute to It
 **User enumeration** occurs when an application reveals—through error wording, HTTP status codes, or response timing—whether a specific email address or phone number is registered. For example, if `/auth?mode=login` returns *"No account found for adaeze@example.com"* vs. *"Incorrect password for adaeze@example.com"*, an attacker can probe thousands of Nigerian email addresses to build a verified list of Swash customers for credential stuffing or targeted phishing. To prevent this, login and password-reset flows must use generic messages (*"Invalid email or password"* / *"If an account exists for that email, a reset link has been sent"*).
+

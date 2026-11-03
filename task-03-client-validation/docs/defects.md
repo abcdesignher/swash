@@ -33,3 +33,4 @@ This document records real defects discovered during the implementation and test
 - **Location:** [`src/components/AuthForm.tsx`](../../src/components/AuthForm.tsx) (fixed at lines 273–292, 316–341, 366–384, 422–468) and [`evidence/11-screenreader-before.txt`](../evidence/11-screenreader-before.txt).
 - **Description:** In the initial form implementation prior to the Step 6 accessibility audit, invalid inputs only changed border colour and did not link to their error message IDs via `aria-describedby` or set `aria-invalid="true"`. Screen readers tabbing back to an invalid field did not announce the error message (`evidence/11-screenreader-before.txt`).
 - **Resolution:** Fixed by adding `aria-invalid`, `aria-describedby`, `role="alert"`, and a visible `⚠` caution icon (`evidence/12-screenreader-after.txt`).
+

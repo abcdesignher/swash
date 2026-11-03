@@ -42,3 +42,4 @@ However, during **Sign-In (`/auth?mode=login`)**:
 The trade-off is strongly justified:
 - Legitimate returning users on `/auth?mode=login` are trying to recall an existing password, not invent a new one—telling them *"must be at least 10 characters"* rarely helps them remember their password, while withholding policy hints on login deprives attackers of free reconnaissance.
 - Meanwhile, ordinary customer fields on Registration (`fullName`, `email`, `phone`) keep clear, helpful placeholders and format hints because their formats (`0803...`, `name@domain.com`) are public conventions rather than secret security boundaries.
+

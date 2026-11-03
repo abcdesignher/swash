@@ -57,3 +57,4 @@ To make the server the true authority for Swash data, **Task 04** must implement
 2. **Consistent Normalisation & Trimming:** Trim and lowercase `email` on the server while preserving intentional password characters.
 3. **Adaptive Password Hashing:** Hash passwords with Argon2id or bcrypt (never storing or logging plaintext passwords).
 4. **Rate Limiting & Email Verification:** Rate-limit authentication endpoints (`429 Too Many Requests` with `Retry-After`) and require cryptographic email verification tokens to prove mailbox ownership.
+

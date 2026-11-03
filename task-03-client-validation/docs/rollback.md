@@ -49,3 +49,4 @@ Git created a new revert commit `5d1f6ac` (`5d1f6ac59799220dc4f3dfc20c0671340adf
    - By contrast, asking an AI coding agent in natural language (*"remove the checkbox we added earlier"*) is ambiguous when a component contains multiple checkboxes (`#auth-accept-terms` vs. `#auth-whatsapp-promo`). An agent interpreting prose may accidentally delete the mandatory Terms of Service checkbox, alter adjacent validation state (`visibleErrors.acceptTerms`), or reformat surrounding JSX.
 2. **Non-Destructive Audit Trail:**
    - Using `git revert <sha>` records both the original experiment (`416c092`) and its explicit reversal (`5d1f6ac`) in the repository history without rewriting shared history (`git reset --hard`) or relying on an agent's context window memory.
+
