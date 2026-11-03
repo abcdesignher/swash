@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Swash logo icon">
+  <rect width="64" height="64" rx="16" fill="rgb(53, 0, 120)" />
+  <path
+    d="M32 12C24 22 18 29 18 37C18 44.732 24.268 51 32 51C39.732 51 46 44.732 46 37C46 29 40 22 32 12Z"
+    fill="rgb(233, 221, 255)"
+  />
+  <path
+    d="M23 38C26 35 29 35 32 38C35 41 38 41 41 38"
+    stroke="rgb(53, 0, 120)"
+    stroke-width="3.5"
+    stroke-linecap="round"
+    fill="none"
+  />
+</svg>
+

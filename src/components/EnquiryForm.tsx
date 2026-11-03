@@ -113,7 +113,7 @@ export default function EnquiryForm() {
 
       <div className={styles.fieldGroup}>
         <label htmlFor="enquiry-service-type" className={styles.label}>
-          Laundry arrangement
+          Who is this laundry plan for?
         </label>
         <select
           id="enquiry-service-type"
@@ -124,21 +124,20 @@ export default function EnquiryForm() {
           disabled={isSubmitting}
         >
           <option value="Individual Subscription">
-            Individual Subscription
+            Individual (1–2 people)
           </option>
-          <option value="Family Subscription">Family Subscription</option>
+          <option value="Family Subscription">
+            Family Household (3+ people)
+          </option>
           <option value="Small Business Subscription">
-            Small Business Subscription
-          </option>
-          <option value="Special Item / Duvet Quotation">
-            Special Item / Duvet Quotation
+            Small Business / Office
           </option>
         </select>
       </div>
 
       <div className={styles.fieldGroup}>
         <label htmlFor="enquiry-notes" className={styles.label}>
-          Questions or special items (optional)
+          Pickup area or special items (optional)
         </label>
         <textarea
           id="enquiry-notes"
@@ -146,7 +145,7 @@ export default function EnquiryForm() {
           rows={3}
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
-          placeholder="e.g. Duvet wash pricing or weekly pickup schedule in Lekki"
+          placeholder="e.g. Saturday pickup in Lekki or duvet wash question"
           className={styles.textarea}
           disabled={isSubmitting}
         />
@@ -181,4 +180,3 @@ export default function EnquiryForm() {
     </form>
   );
 }
-
