@@ -71,3 +71,23 @@ These rules apply to all implementation work.
 - Do not overwrite existing work without understanding its purpose.
 
 Follow the specialised rules when working in their respective domains.
+
+### Password Security
+
+- Use Argon2id for password hashing.
+- Use the `argon2` package for Node.js implementation.
+- Never store plaintext passwords.
+- Never use MD5, SHA-1, SHA-256 or SHA-512 alone for password storage.
+- Never implement custom password-hashing or salting algorithms.
+- Generate a unique cryptographically secure salt for every password.
+- Allow the Argon2id library to generate and manage salts automatically.
+- Use the following initial Argon2id configuration:
+  - Memory cost: 19456 KiB
+  - Time cost: 2
+  - Parallelism: 1
+- Store only the resulting encoded password hash in PostgreSQL.
+- Verify passwords using the library's verification function.
+- Perform password hashing and verification exclusively on the server.
+- Never expose password hashes through API responses.
+- Never log passwords or other authentication secrets.
+- Benchmark password-hashing performance in the deployment environment.

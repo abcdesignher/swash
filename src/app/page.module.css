@@ -505,13 +505,16 @@
 }
 
 .passwordToggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background-color: var(--colour-inverse-primary-role);
   color: var(--colour-on-inverse-primary-role);
   border-width: 0.0625rem;
   border-style: solid;
   border-color: var(--colour-on-inverse-primary-role);
   border-radius: 0.5rem;
-  padding: 0.625rem 1rem;
+  padding: 0.625rem 0.875rem;
   cursor: pointer;
   font-family: var(--typography-open-sans-label-large-font-family), system-ui, -apple-system, sans-serif;
   font-size: var(--typography-open-sans-label-large-font-size);

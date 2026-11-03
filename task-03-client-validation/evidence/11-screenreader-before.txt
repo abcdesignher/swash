@@ -24,10 +24,10 @@ Interaction: Keyboard-only navigation (Tab, Shift+Tab, Space, Enter)
    Screen-reader announcement: "Email address, edit, required, adaeze@"
    Issue observed: Even though "Enter a valid email format such as name@domain.com." was displayed below the field with a red border, the screen reader neither announced "invalid entry" nor read the error text.
 
-5. Tab to Password field and then Tab to Password Visibility Toggle button:
+5. Tab to Password field and then Tab to Password Visibility Toggle button (Lucide eye / eye-off icon button):
    Key pressed: Tab -> Tab
-   Screen-reader announcement: "Show, button"
+   Screen-reader announcement: "button"
    Press Space to unmask password:
-   Screen-reader announcement: "Hide, button"
-   Issue observed: Button name ("Show") lacked context ("Show password") and lacked aria-pressed toggle state.
+   Screen-reader announcement: "button"
+   Issue observed: Icon-only toggle button (lucide-eye / lucide-eye-off) lacked aria-label ("Show password" / "Hide password") and lacked aria-pressed toggle state.
 
