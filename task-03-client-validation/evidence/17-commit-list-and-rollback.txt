@@ -1,0 +1,64 @@
+=== Step 9: Roll Back a Change by Commit ID ===
+
+1. Commit List Before Rollback (`git log --oneline -n 6`):
+416c092 feat(auth): add pre-checked WhatsApp promotional opt-in checkbox
+e4e46b5 feat(task-03): implement consolidated /auth route, client validation, a11y fixes, and evidence 01-16
+89cf5ec updated repository files
+450abc2 docs(task-01): add line-height multipliers, 12-git-log-branch-unmerged.txt, and update README
+308034a docs(task-02): record PR link, complete Task 02 READMEs, and add 15-git-log-graph.txt
+bf4ac8c Merge branch 'feat/information-design': Step 10 information design and responsive typography
+
+2. Selected Commit ID to Roll Back:
+Short SHA: 416c092
+Full SHA:  416c092aa64a082a38c3f146bd77a173f2f1be49
+Subject:   feat(auth): add pre-checked WhatsApp promotional opt-in checkbox
+
+3. Exact Rollback Command Executed:
+git revert 416c092 --no-edit
+
+4. Command Output:
+[main 5d1f6ac] Revert "feat(auth): add pre-checked WhatsApp promotional opt-in checkbox"
+ Date: Tue Nov 3 05:11:08 2026 +0100
+ 1 file changed, 13 deletions(-)
+
+5. Commit List & Diff After Rollback (`git log --oneline -n 7` & `git show 5d1f6ac`):
+5d1f6ac Revert "feat(auth): add pre-checked WhatsApp promotional opt-in checkbox"
+416c092 feat(auth): add pre-checked WhatsApp promotional opt-in checkbox
+e4e46b5 feat(task-03): implement consolidated /auth route, client validation, a11y fixes, and evidence 01-16
+89cf5ec updated repository files
+450abc2 docs(task-01): add line-height multipliers, 12-git-log-branch-unmerged.txt, and update README
+308034a docs(task-02): record PR link, complete Task 02 READMEs, and add 15-git-log-graph.txt
+bf4ac8c Merge branch 'feat/information-design': Step 10 information design and responsive typography
+
+commit 5d1f6ac59799220dc4f3dfc20c0671340adf28b3
+Author: Valerie Osuamkpe <abcdesignher@gmail.com>
+Date:   Tue Nov 3 05:11:08 2026 +0100
+
+    Revert "feat(auth): add pre-checked WhatsApp promotional opt-in checkbox"
+    
+    This reverts commit 416c092aa64a082a38c3f146bd77a173f2f1be49.
+
+diff --git a/src/components/AuthForm.tsx b/src/components/AuthForm.tsx
+index 70d01a5..08e51dc 100644
+--- a/src/components/AuthForm.tsx
++++ b/src/components/AuthForm.tsx
+@@ -543,19 +543,6 @@ export default function AuthForm() {
+               Covers scheduled collection windows, garment care liability, and
+               NDPA-compliant customer record handling.
+             </p>
+-            <div className={styles.checkboxRow}>
+-              <input
+-                id="auth-whatsapp-promo"
+-                name="whatsappPromo"
+-                type="checkbox"
+-                defaultChecked
+-                className={styles.checkbox}
+-                disabled={isSubmitting}
+-              />
+-              <label htmlFor="auth-whatsapp-promo" className={styles.label}>
+-                Send me weekly WhatsApp promotional discounts and partner offers
+-              </label>
+-            </div>
+             {(visibleErrors.acceptTerms ||
+               (isRegisterFieldsValid && !acceptTerms)) && (
+               <p
