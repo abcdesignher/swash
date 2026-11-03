@@ -72,6 +72,11 @@ These rules apply to all implementation work.
 
 Follow the specialised rules when working in their respective domains.
 
+### Typography
+
+- Use Open Sans for body text and default headings.
+- Reserve Playfair Display for occasional expression only; never use Playfair as the default heading font or when a sentence or heading has more than 5 words.
+
 ### Password Security
 
 - Use Argon2id for password hashing.
