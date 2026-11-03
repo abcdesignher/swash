@@ -36,6 +36,7 @@ Established the **Swash** Next.js (App Router) + TypeScript + Prisma + PostgreSQ
 - `docs/false-success.md` — Analysis of UI, server, and database behaviour during a database outage and why naive UIs mislead reviewers.
 - `docs/readme-test.md` — Verbatim difficulties from an unfamiliar developer testing the initial `README.md` and fixes applied.
 - `docs/working-tree.md` — Explanation of the development pipeline and what breaks when using a single branch before and after deployment.
+- `docs/information-design.md` — Browser `<head>`, interface content simplification, `max-width` line wrapping, `rem` button padding, and responsive `clamp()` decisions.
 - `docs/defects.md` — Real defects encountered in Task 2 with file and line references.
 - `docs/interview-answers.md` — Answers to all 15 Task 2 assessment questions ($\le 200$ words each) plus secret-leak response.
 
@@ -50,10 +51,17 @@ Established the **Swash** Next.js (App Router) + TypeScript + Prisma + PostgreSQ
 - `05-nested-folder-error.txt` & `06-nested-folder-fixed.txt` — Nested directory `ENOENT` failure and recovery.
 - `07-port-conflict.txt` & `08-port-conflict-resolved.txt` — Port 3000 conflict (`PID 42648`) and recovery.
 - `09-404-error.txt` & `10-404-resolved.txt` — `GET / 404 in 3673ms`, ordered diagnostic checks, and `GET / 200 in 1674ms` recovery.
+- `11-write-succeeded-logs.txt` & `12-database-rows.png` — Verified PostgreSQL `ServiceEnquiry` inserts (`201 Created`) and Prisma Studio rows (`cmw00coua0001kzy4dcyzcibb`, `cmw00ftvp0002kzy4cf96afr5`).
+- `13-write-failed-logs.txt` — Broken `DATABASE_URL` test returning `POST /api/enquiries 500` with zero false-success records.
+- `14-working-tree-drawing.jpg` — Hand-drawn, hand-dated development pipeline diagram.
+- `15-git-log-graph.txt` — Multi-day Git commit graph showing `feat/information-design` merge and deleted unmerged experimental branch `experiment/rejected-card-grid`.
+- `16-head-route-one.png` & `17-head-route-two.png` — Rendered `<head>` metadata across `/` and `/plans`.
+- `18-heading-wrap-bad.png` & `19-heading-wrap-good.png` — Main heading before and after `max-width: 22ch` and `text-wrap: balance`.
+- `20-responsive-three-widths.png` — Responsive `clamp()` heading rendered across `375px`, `520px`, and `620px` viewports.
 
 ---
 
-## Known Defects & Remaining Items
-- See `docs/defects.md` for full defect records (including missing spacing/radius tokens in `06-tokens-complete.json` and the `4.41:1` normal-text contrast ratio on `--colour-primary-role`).
-- Remaining visual/manual evidence captures to complete: PostgreSQL row screenshots & request logs (`11`–`13`), photographed handwritten working-tree drawing (`14`), feature-branch PR & Git graph (`15`), and information-design / responsive `clamp()` screenshots (`16`–`20`).
+## Current Completion Status & Known Defects
+- **Status:** Complete (all 9 `docs/` files and all 20 `evidence/` files produced and verified).
+- **Known Defects:** See `docs/defects.md` for full defect records (including missing spacing/radius tokens in `06-tokens-complete.json`, the `4.41:1` normal-text contrast ratio on `--colour-primary-role`, and the initial `42P05` prepared-statement pool collision resolved via `&pgbouncer=true`).
 

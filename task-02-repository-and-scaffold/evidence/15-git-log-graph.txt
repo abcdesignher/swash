@@ -1,0 +1,61 @@
+$ git log --graph --all --date=short --pretty=format:"%h %ad %s%d"
+*   bf4ac8c 2026-11-03 Merge branch 'feat/information-design': Step 10 information design and responsive typography (HEAD -> main)
+|\  
+| * 6675766 2026-11-03 docs(task-02): add information-design.md and browser evidence 16-20 (origin/feat/information-design, feat/information-design)
+| * 25c0865 2026-11-03 feat(ui): implement Step 10 information design, SEO metadata, and clamp() typography
+|/  
+* 72a160a 2026-11-03 docs(task-02): add PostgreSQL persistence, 404, and working-tree evidence and docs (origin/main)
+* 1d55a63 2026-11-03 feat(db): add ServiceEnquiry Prisma model, API route, and enquiry form
+* 3eef486 2026-11-03 added reposity and scaffold files
+* 090dc79 2026-11-02 added scaffold-prompt.md
+* 6476b30 2026-11-02 removed duplicate prompts.md file
+* 75bb3d8 2026-11-02 updated design system README
+* cbf7cad 2026-11-02 compressed walkthough video
+* 914ec3b 2026-11-02 added rules files
+* fd74fce 2026-11-01 added token reference and git log evidence
+* 3be0058 2026-11-01 added missing README.md file
+* 49b656c 2026-11-01 tested token referencing
+* 8976f63 2026-10-31 updated design system with evidence
+* 6a67f61 2026-10-31 added, updated files across the design system
+* 2c8005a 2026-10-28 added markdown files
+* d73ea40 2026-10-27 updated shadows.md
+* e3dcd22 2026-10-27 added type-scale.md
+* 6c3f410 2026-10-27 created css variables and updated colour-roles.md
+* aa2fc23 2026-10-27 added folders for project organisation
+* 8b8b459 2026-10-27 added spacing-default.png and spacing-chosen.png
+* 2f26b3d 2026-10-27 uodated design system README.md
+* 1ec1a7b 2026-10-26 added design-system/README.md
+* 5995b17 2026-10-26 updated business-brief.md
+* 70aa842 2026-10-26 added shadows.md
+* 4ea6ca5 2026-10-26 added colour-roles.md
+* fefa1f9 2026-10-25 added evidence of palette before and after key value pin
+* cd8f381 2026-10-24 updated business-brief.md
+* b326b2c 2026-10-24 added business-brief.md
+
+---
+Rejected Second Branch Demonstration (Created, Committed, and Deleted Without Merging):
+
+$ git checkout -b experiment/rejected-card-grid
+Switched to a new branch 'experiment/rejected-card-grid'
+
+$ git commit -am "experiment(ui): test fixed 3-column plan grid (rejected due to mobile overflow)"
+[experiment/rejected-card-grid 615e24d] experiment(ui): test fixed 3-column plan grid (rejected due to mobile overflow)
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+$ git checkout main
+Switched to branch 'main'
+
+$ git branch -D experiment/rejected-card-grid
+Deleted branch experiment/rejected-card-grid (was 615e24d).
+
+$ git reflog -n 10
+bf4ac8c HEAD@{0}: checkout: moving from experiment/rejected-card-grid to main
+615e24d HEAD@{1}: commit: experiment(ui): test fixed 3-column plan grid (rejected due to mobile overflow)
+bf4ac8c HEAD@{2}: checkout: moving from main to experiment/rejected-card-grid
+bf4ac8c HEAD@{3}: merge feat/information-design: Merge made by the 'ort' strategy.
+72a160a HEAD@{4}: checkout: moving from feat/information-design to main
+6675766 HEAD@{5}: commit: docs(task-02): add information-design.md and browser evidence 16-20
+25c0865 HEAD@{6}: commit: feat(ui): implement Step 10 information design, SEO metadata, and clamp() typography
+72a160a HEAD@{7}: checkout: moving from main to feat/information-design
+72a160a HEAD@{8}: commit: docs(task-02): add PostgreSQL persistence, 404, and working-tree evidence and docs
+1d55a63 HEAD@{9}: commit: feat(db): add ServiceEnquiry Prisma model, API route, and enquiry form
