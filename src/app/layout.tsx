@@ -2,9 +2,35 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Swash — Subscription Laundry Service for Nigeria",
-  description:
-    "A simpler, smarter laundry experience for Nigeria. Subscription-led laundry service for individuals, families, and small businesses.",
+  metadataBase: new URL("https://swash.ng"),
+  applicationName: "Swash",
+  title: {
+    default: "Swash | Subscription Laundry Service in Lagos",
+    template: "%s | Swash Laundry",
+  },
+  description: "Subscription laundry pickup and delivery across Lagos.",
+  keywords: [
+    "Swash",
+    "laundry subscription Lagos",
+    "Nigeria laundry pickup and delivery",
+    "monthly laundry allowance",
+    "wash and iron subscription",
+  ],
+  robots: {
+    index: true,
+    follow: true,
+  },
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "Swash | Subscription Laundry Service in Lagos",
+    description: "Subscription laundry pickup and delivery across Lagos.",
+    url: "https://swash.ng",
+    siteName: "Swash",
+    locale: "en_NG",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
