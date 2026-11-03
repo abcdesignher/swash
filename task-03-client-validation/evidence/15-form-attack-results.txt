@@ -1,0 +1,49 @@
+=== Step 8: Client-Side Form Attack Results (Executed in Chromium on /auth?mode=register) ===
+
+Test Case: 1. Single-character full name
+  Input Value: "A" (length: 1)
+  Inline Error Rendered: ⚠Full name must be at least 2 characters long.
+  Submit Button Disabled: true
+  Outcome: BLOCKED BY CLIENT-SIDE VALIDATION
+
+Test Case: 2. Whitespace-only full name
+  Input Value: "     " (length: 5)
+  Inline Error Rendered: ⚠Full name cannot contain only spaces.
+  Submit Button Disabled: true
+  Outcome: BLOCKED BY CLIENT-SIDE VALIDATION
+
+Test Case: 3. Honorific with period in full name (Legitimate edge case blocked)
+  Input Value: "Dr. Chukwu" (length: 10)
+  Inline Error Rendered: ⚠Use letters, spaces, hyphens, or apostrophes only (2–80 characters).
+  Submit Button Disabled: true
+  Outcome: BLOCKED BY CLIENT-SIDE VALIDATION
+
+Test Case: 4. Maximum length exceeded on full name (81 chars)
+  Input Value: "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" (length: 81)
+  Inline Error Rendered: ⚠Full name must not exceed 80 characters.
+  Submit Button Disabled: true
+  Outcome: BLOCKED BY CLIENT-SIDE VALIDATION
+
+Test Case: 5. Leading & trailing whitespace on valid full name ('  Adaeze Okafor  ')
+  Input Value: "  Adaeze Okafor  " (length: 17)
+  Inline Error Rendered: (No error — input accepted after trim)
+  Submit Button Disabled: true
+  Outcome: ACCEPTED (Trimmed valid input)
+
+Test Case: 6. Invalid email format ('adaeze@@example..com')
+  Input Value: "adaeze@@example..com" (length: 20)
+  Inline Error Rendered: ⚠Enter a valid email format such as name@domain.com.
+  Submit Button Disabled: true
+  Outcome: BLOCKED BY CLIENT-SIDE VALIDATION
+
+Test Case: 7. Whitespace-only password (12 spaces: '            ')
+  Input Value: "            " (length: 12)
+  Inline Error Rendered: ⚠Password cannot consist solely of spaces.
+  Submit Button Disabled: true
+  Outcome: BLOCKED BY CLIENT-SIDE VALIDATION
+
+Test Case: 8. Maximum length exceeded on password (129 chars)
+  Input Value: "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP" (length: 129)
+  Inline Error Rendered: ⚠Password must not exceed 128 characters.
+  Submit Button Disabled: true
+  Outcome: BLOCKED BY CLIENT-SIDE VALIDATION

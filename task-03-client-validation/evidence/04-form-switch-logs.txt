@@ -1,0 +1,12 @@
+=== Step 1: Client-Side Form State Switching Verification ===
+Initial URL: /auth?mode=register | window.__navMarker=SPA_IN_MEMORY_STATE_PRESERVED_1793678331040
+After clicking "Sign In" tab -> URL: /auth?mode=login | window.__navMarker=SPA_IN_MEMORY_STATE_PRESERVED_1793678331040 (same window object, no full reload)
+After clicking "Create Account" tab -> URL: /auth?mode=register | window.__navMarker=SPA_IN_MEMORY_STATE_PRESERVED_1793678331040 (same window object, no full reload)
+
+=== Browser Network Requests Captured During Mode Switches ===
+GET http://127.0.0.1:3007/auth?mode=login&_rsc=ud-CHmOZ1hJ3n1fE (type: Fetch)
+
+=== Verification Summary ===
+- Document reloads during mode switch: 0
+- POST /api/auth or session-creation requests during mode switch: 0
+- In-memory marker (window.__navMarker): Preserved identically across ?mode=register -> ?mode=login -> ?mode=register

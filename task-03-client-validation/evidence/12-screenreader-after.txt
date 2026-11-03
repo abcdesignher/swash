@@ -1,0 +1,37 @@
+Screen-Reader Audit Transcript — AFTER Accessibility Fixes
+Environment: Windows 11 Narrator / Chromium Accessibility Tree on http://localhost:3006/auth?mode=register
+Interaction: Keyboard-only navigation (Tab, Shift+Tab, Space, Enter)
+
+1. Tab to Mode Switcher ("Create Account" tab):
+   Key pressed: Tab
+   Screen-reader announcement: "Authentication mode, tablist. Create Account, tab, selected, 1 of 2"
+   Verification: role="tablist", role="tab", and aria-selected="true" clearly announce both the group and the active state.
+
+2. Tab to Full Name input, leave empty, and Tab to Email Address:
+   Key pressed: Tab -> Tab (triggers onBlur empty-field error on Full Name)
+   Screen-reader announcement: "Alert: Enter your full name so Swash riders can identify your collection. Email address, edit, required"
+   Verification: role="alert" on #auth-full-name-error announces the inline error immediately while aria-hidden="true" on the ⚠ caution icon prevents redundant glyph chatter.
+
+3. Shift+Tab back to the invalid Full Name input:
+   Key pressed: Shift+Tab
+   Screen-reader announcement: "Full name, edit, required, invalid entry, Enter your full name so Swash riders can identify your collection."
+   Verification: aria-invalid="true" announces "invalid entry" and aria-describedby="auth-full-name-error" reads the exact error message associated with the field.
+
+4. Type "adaeze@" into Email Address and inspect focus announcement:
+   Key pressed: Tab, then Shift+Tab
+   Screen-reader announcement: "Email address, edit, required, invalid entry, adaeze@, Enter a valid email format such as name@domain.com."
+   Complete valid email "adaeze@example.com":
+   Screen-reader announcement: "Email address, edit, required, adaeze@example.com, Email format is valid. We will send a verification link after signup to confirm you own this address."
+
+5. Tab to Nigerian Mobile Number, type "080312", and inspect focus announcement:
+   Screen-reader announcement: "Nigerian mobile number (for collection & delivery), edit, required, invalid entry, 080312, Enter an 11-digit Nigerian mobile number (e.g. 08031234567) or +234 format."
+
+6. Tab to Password field, type "short", and Tab to Password Visibility Toggle button:
+   Screen-reader announcement on Password field: "Create password, password edit, required, invalid entry, Password guidance: Use 10 to 128 characters. Spaces are allowed in passphrases, but whitespace-only passwords are rejected. Password must be at least 10 characters long."
+   Tab to Toggle button:
+   Screen-reader announcement: "Show password, toggle button, not pressed"
+   Press Space to unmask password:
+   Screen-reader announcement: "Hide password, toggle button, pressed"
+
+7. Tab to Terms Checkbox:
+   Screen-reader announcement: "I agree to the Swash Laundry Subscription Terms of Service and Privacy Notice, check box, not checked, Covers scheduled collection windows, garment care liability, and NDPA-compliant customer record handling."

@@ -1,0 +1,35 @@
+# Manual Accessibility Audit & Screen-Reader Verification
+
+This document records the field-by-field manual accessibility audit of [`src/components/AuthForm.tsx`](../../src/components/AuthForm.tsx) across five criteria (**colour independence, keyboard reachability, focus visibility, screen-reader announcements, and error association**), the four accessibility defects identified in the initial draft and fixed, and the before/after screen-reader transcripts (`evidence/11-screenreader-before.txt` and `evidence/12-screenreader-after.txt`).
+
+---
+
+## 1. Four Accessibility Problems Identified and Fixed
+
+| # | Accessibility Problem in Initial Draft | WCAG 2.1 Criterion Violated | Fix Implemented in `src/components/AuthForm.tsx` & `src/app/page.module.css` |
+| --- | --- | --- | --- |
+| **1** | **Error state relied on red border/text colour alone:** Invalid inputs changed border colour to `--colour-error-role` without any non-colour symbol, making error vs. normal states indistinguishable for users with protanopia/deuteranopia or monochrome displays. | **1.4.1 Use of Color (Level A)** | Added a visible non-colour caution icon (`<span aria-hidden="true" className={styles.cautionIcon}>⚠</span>`) beside every inline error message (`src/components/AuthForm.tsx:287, 336, 379, 463, 498`) and doubled the border width on `.inputError` from `0.0625rem` (`1px`) to `0.125rem` (`2px`). |
+| **2** | **Inline errors were not programmatically associated with inputs:** Error `<p>` elements rendered visually below inputs, but the `<input>` elements lacked `aria-describedby` and `aria-invalid`, so screen readers tabbing into an invalid field only announced `"Full name, edit, required"` without reading the error message. | **1.3.1 Info and Relationships (Level A)** & **3.3.1 Error Identification (Level A)** | Added unique IDs (`#auth-full-name-error`, `#auth-email-error`, `#auth-phone-error`, `#auth-password-error`, `#auth-accept-terms-error`), bound `aria-describedby` on each `<input>`, and set `aria-invalid={Boolean(visibleErrors[field])}` plus `role="alert"` on each inline error container. |
+| **3** | **Password visibility toggle lacked stateful accessible name and `aria-pressed`:** The button initially only rendered text `"Show"` / `"Hide"` without context, so screen readers announced `"Show, button"` without indicating *what* would be shown or its toggle state. | **4.1.2 Name, Role, Value (Level A)** | Added `aria-label={showPassword ? "Hide password" : "Show password"}` and `aria-pressed={showPassword}` on `.passwordToggle` (`src/components/AuthForm.tsx:443-448`). |
+| **4** | **Mode switcher buttons (`Create Account` / `Sign In`) did not announce active tab state:** Both mode buttons were plain `<button>` elements inside a `<div>`, so screen-reader users could not tell which authentication mode (`register` vs. `login`) was currently active. | **4.1.2 Name, Role, Value (Level A)** | Added `role="tablist"` and `aria-label="Authentication mode"` on `.modeSwitcher`, and `role="tab"` with `aria-selected={mode === ...}` on both mode buttons (`src/components/AuthForm.tsx:235-256`). |
+
+---
+
+## 2. Field-by-Field Audit Matrix (After Fixes)
+
+| Element / Field | Colour Independence | Keyboard Reachability (`Tab` / `Shift+Tab` / `Space` / `Enter`) | Focus Visibility (`:focus-visible`) | Screen-Reader Announcement | Error Association (`aria-invalid` + `aria-describedby`) |
+| --- | --- | --- | --- | --- | --- |
+| **Mode Tabs** (`Create Account` / `Sign In`) | Active tab uses solid fill + elevation shadow; `aria-selected` communicates state non-visually. | Reachable via `Tab`; activated with `Enter` or `Space`. | `0.125rem` solid `--colour-accent-role` outline with `0.125rem` offset. | `"Authentication mode, tablist. Create Account, tab, selected, 1 of 2"` | N/A (Navigation control) |
+| **Full name** (`#auth-full-name`) | `2px` border + `⚠` caution icon + text message in `.inlineError`. | Reachable via `Tab`. | `0.125rem` solid `--colour-on-inverse-primary-role` (or `--colour-on-inverse-error-role` when invalid). | `"Full name, edit, required, invalid entry, Enter your full name so Swash riders can identify your collection."` | `aria-invalid="true"` + `aria-describedby="auth-full-name-error"` |
+| **Email address** (`#auth-email`) | `2px` border + `⚠` caution icon + text message. | Reachable via `Tab`. | `0.125rem` solid focus ring. | `"Email address, edit, required, invalid entry, Enter a valid email format such as name@domain.com."` | `aria-invalid="true"` + `aria-describedby="auth-email-error"` (or `#auth-email-ownership-note` when valid) |
+| **Nigerian mobile number** (`#auth-phone`) | `2px` border + `⚠` caution icon + text message. | Reachable via `Tab`. | `0.125rem` solid focus ring. | `"Nigerian mobile number (for collection & delivery), edit, required, invalid entry, Enter an 11-digit Nigerian mobile number..."` | `aria-invalid="true"` + `aria-describedby="auth-phone-error"` (or `#auth-phone-hint`) |
+| **Preferred subscription** (`#auth-service-plan`) | Native `<select>` indicator + clear text options. | Reachable via `Tab`; options navigated with `Up`/`Down` arrow keys. | `0.125rem` solid focus ring. | `"Preferred laundry subscription, combo box, Individual (1–2 people), collapsed"` | Validated default option (`Individual Subscription`). |
+| **Password** (`#auth-password`) + **Toggle** | `2px` border + `⚠` caution icon + progressive guidance text. | Input and `Show/Hide` button both in `Tab` order; toggle activates via `Space`/`Enter`. | `0.125rem` solid focus ring on both input and toggle button. | Input: `"Create password, password edit, required..."`<br>Button: `"Show password, toggle button, not pressed"` | `aria-invalid="true"` + `aria-describedby="auth-password-guidance auth-password-error"` |
+| **Terms checkbox** (`#auth-accept-terms`) | Native checkmark + `⚠` caution icon on error banner. | Reachable via `Tab`; toggled via `Space`. | `0.125rem` solid `--colour-on-inverse-primary-role` outline. | `"I agree to the Swash Laundry Subscription Terms of Service and Privacy Notice, check box, not checked"` | `aria-invalid="true"` + `aria-describedby="auth-accept-terms-error"` |
+| **Submit button** (`#auth-submit-button`) | Disabled state changes cursor (`not-allowed`), surface, and `disabled` attribute. | Reachable when enabled; reports `unavailable` when disabled. | `0.125rem` solid `--colour-accent-role` outline. | `"Create Swash Account, button, unavailable"` (until valid) / `"Create Swash Account, button"` (when valid) | N/A |
+
+---
+
+## 3. Screen-Reader Transcript Summary
+
+See [`evidence/11-screenreader-before.txt`](../evidence/11-screenreader-before.txt) and [`evidence/12-screenreader-after.txt`](../evidence/12-screenreader-after.txt) for the complete step-by-step transcripts captured before and after applying the four fixes above.

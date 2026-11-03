@@ -382,3 +382,175 @@
   color: var(--colour-text-primary-role);
   cursor: not-allowed;
 }
+
+.authContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  border-top-width: 0.0625rem;
+  border-top-style: solid;
+  border-top-color: var(--colour-inverse-primary-role);
+  padding-top: 1.5rem;
+}
+
+.modeSwitcher {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  background-color: var(--colour-surface-primary);
+  padding: 0.375rem;
+  border-radius: 0.625rem;
+}
+
+.modeTab {
+  background-color: transparent;
+  color: var(--colour-text-primary-role);
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  font-family: var(--typography-open-sans-label-large-font-family), system-ui, -apple-system, sans-serif;
+  font-size: var(--typography-open-sans-label-large-font-size);
+  font-weight: var(--typography-open-sans-label-large-font-weight);
+  line-height: var(--typography-open-sans-label-large-line-height);
+  letter-spacing: var(--typography-open-sans-label-large-letter-spacing);
+}
+
+.modeTab:hover {
+  background-color: var(--colour-inverse-primary-role);
+  color: var(--colour-on-inverse-primary-role);
+}
+
+.modeTabActive {
+  background-color: var(--colour-on-inverse-primary-role);
+  color: var(--colour-inverse-primary-role);
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  font-family: var(--typography-open-sans-label-large-font-family), system-ui, -apple-system, sans-serif;
+  font-size: var(--typography-open-sans-label-large-font-size);
+  font-weight: var(--typography-open-sans-label-large-font-weight);
+  line-height: var(--typography-open-sans-label-large-line-height);
+  letter-spacing: var(--typography-open-sans-label-large-letter-spacing);
+  box-shadow: var(--shadow-soft-primary);
+}
+
+.modeTab:focus-visible,
+.modeTabActive:focus-visible {
+  outline-width: 0.125rem;
+  outline-style: solid;
+  outline-color: var(--colour-accent-role);
+  outline-offset: 0.125rem;
+}
+
+.inputError {
+  width: 100%;
+  background-color: var(--colour-inverse-error-role);
+  color: var(--colour-text-primary-role);
+  border-width: 0.125rem;
+  border-style: solid;
+  border-color: var(--colour-error-role);
+  border-radius: 0.5rem;
+  padding: 0.75rem 0.875rem;
+  font-family: var(--typography-open-sans-body-medium-font-family), system-ui, -apple-system, sans-serif;
+  font-size: var(--typography-open-sans-body-medium-font-size);
+  font-weight: var(--typography-open-sans-body-medium-font-weight);
+  line-height: var(--typography-open-sans-body-medium-line-height);
+  letter-spacing: var(--typography-open-sans-body-medium-letter-spacing);
+}
+
+.inputError:focus-visible {
+  outline-width: 0.125rem;
+  outline-style: solid;
+  outline-color: var(--colour-on-inverse-error-role);
+  outline-offset: 0.125rem;
+}
+
+.inlineError {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  background-color: var(--colour-inverse-error-role);
+  color: var(--colour-on-inverse-error-role);
+  border-left-width: 0.25rem;
+  border-left-style: solid;
+  border-left-color: var(--colour-error-role);
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.375rem;
+  font-family: var(--typography-open-sans-body-medium-font-family), system-ui, -apple-system, sans-serif;
+  font-size: var(--typography-open-sans-body-medium-font-size);
+  font-weight: var(--typography-open-sans-body-medium-font-weight);
+  line-height: var(--typography-open-sans-body-medium-line-height);
+}
+
+.cautionIcon {
+  font-weight: var(--typography-open-sans-label-large-font-weight);
+  flex-shrink: 0;
+}
+
+.helperText {
+  color: var(--colour-text-secondary-role);
+  font-family: var(--typography-open-sans-body-small-font-family), system-ui, -apple-system, sans-serif;
+  font-size: var(--typography-open-sans-body-small-font-size);
+  font-weight: var(--typography-open-sans-body-small-font-weight);
+  line-height: var(--typography-open-sans-body-small-line-height);
+  letter-spacing: var(--typography-open-sans-body-small-letter-spacing);
+}
+
+.passwordWrapper {
+  display: flex;
+  gap: 0.5rem;
+  align-items: stretch;
+}
+
+.passwordToggle {
+  background-color: var(--colour-inverse-primary-role);
+  color: var(--colour-on-inverse-primary-role);
+  border-width: 0.0625rem;
+  border-style: solid;
+  border-color: var(--colour-on-inverse-primary-role);
+  border-radius: 0.5rem;
+  padding: 0.625rem 1rem;
+  cursor: pointer;
+  font-family: var(--typography-open-sans-label-large-font-family), system-ui, -apple-system, sans-serif;
+  font-size: var(--typography-open-sans-label-large-font-size);
+  font-weight: var(--typography-open-sans-label-large-font-weight);
+  line-height: var(--typography-open-sans-label-large-line-height);
+  letter-spacing: var(--typography-open-sans-label-large-letter-spacing);
+  flex-shrink: 0;
+}
+
+.passwordToggle:hover {
+  background-color: var(--colour-on-inverse-primary-role);
+  color: var(--colour-inverse-primary-role);
+}
+
+.passwordToggle:focus-visible {
+  outline-width: 0.125rem;
+  outline-style: solid;
+  outline-color: var(--colour-accent-role);
+  outline-offset: 0.125rem;
+}
+
+.checkboxRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.625rem;
+}
+
+.checkbox {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: 0.125rem;
+  accent-color: var(--colour-on-inverse-primary-role);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.checkbox:focus-visible {
+  outline-width: 0.125rem;
+  outline-style: solid;
+  outline-color: var(--colour-on-inverse-primary-role);
+  outline-offset: 0.125rem;
+}

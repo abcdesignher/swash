@@ -1,0 +1,6 @@
+PS C:\Users\23470\OneDrive\Desktop\Swash> $pages = Get-ChildItem src/app -Recurse -Filter page.tsx; $pages | ForEach-Object { $_.FullName }; Write-Output ("Total page.tsx route files: " + $pages.Count)
+C:\Users\23470\OneDrive\Desktop\Swash\src\app\page.tsx
+C:\Users\23470\OneDrive\Desktop\Swash\src\app\login\page.tsx
+C:\Users\23470\OneDrive\Desktop\Swash\src\app\plans\page.tsx
+C:\Users\23470\OneDrive\Desktop\Swash\src\app\register\page.tsx
+Total page.tsx route files: 4

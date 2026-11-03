@@ -15,6 +15,9 @@ export default function SiteHeader() {
           <Link href="/plans" className={styles.navButton}>
             Subscription Plans
           </Link>
+          <Link href="/auth?mode=register" className={styles.navButton}>
+            Account
+          </Link>
         </nav>
       </div>
       <p className={styles.tagline}>
@@ -23,4 +26,3 @@ export default function SiteHeader() {
     </header>
   );
 }
-

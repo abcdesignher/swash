@@ -1,0 +1,32 @@
+Screen-Reader Audit Transcript — BEFORE Accessibility Fixes
+Environment: Windows 11 Narrator / Chromium Accessibility Tree on http://localhost:3006/auth?mode=register
+Interaction: Keyboard-only navigation (Tab, Shift+Tab, Space, Enter)
+
+1. Tab to Mode Switcher ("Create Account" button):
+   Key pressed: Tab
+   Screen-reader announcement: "Create Account, button"
+   Issue observed: Does not announce that "Create Account" is the currently active tab/mode or that it belongs to an Authentication Mode tablist.
+
+2. Tab to Full Name input, leave empty, and Tab to Email Address:
+   Key pressed: Tab -> Tab (triggers onBlur empty-field error on Full Name)
+   Screen-reader announcement on focus move: "Email address, edit, required"
+   Issue observed: The visual error message ("Enter your full name so Swash riders can identify your collection.") appeared on screen, but because it lacked role="alert", nothing was announced when it appeared.
+
+3. Shift+Tab back to the invalid Full Name input:
+   Key pressed: Shift+Tab
+   Screen-reader announcement: "Full name, edit, required"
+   Issue observed: Because aria-invalid and aria-describedby were missing on #auth-full-name, the screen reader did NOT report that the field had an invalid entry and did NOT read the inline error message.
+
+4. Type "adaeze@" into Email Address and Tab to Nigerian Mobile Number:
+   Key pressed: Tab
+   Screen-reader announcement: "Nigerian mobile number (for collection & delivery), edit, required"
+   Shift+Tab back to Email Address:
+   Screen-reader announcement: "Email address, edit, required, adaeze@"
+   Issue observed: Even though "Enter a valid email format such as name@domain.com." was displayed below the field with a red border, the screen reader neither announced "invalid entry" nor read the error text.
+
+5. Tab to Password field and then Tab to Password Visibility Toggle button:
+   Key pressed: Tab -> Tab
+   Screen-reader announcement: "Show, button"
+   Press Space to unmask password:
+   Screen-reader announcement: "Hide, button"
+   Issue observed: Button name ("Show") lacked context ("Show password") and lacked aria-pressed toggle state.

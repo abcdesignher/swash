@@ -1,0 +1,44 @@
+=== Step 8: Direct Endpoint Request Bypassing the Browser ===
+
+1. Exact Command Executed:
+curl.exe -i -s -X POST http://127.0.0.1:3007/api/auth -H "Content-Type: application/json" -d '{"mode":"register","fullName":"A","email":"not-an-email","phone":"123","servicePlan":"InvalidPlan","password":"          ","acceptTerms":false}'
+
+2. Exact Request Body Sent (Violates Every Client-Side Rule):
+{
+  "mode": "register",
+  "fullName": "A",
+  "email": "not-an-email",
+  "phone": "123",
+  "servicePlan": "InvalidPlan",
+  "password": "          ",
+  "acceptTerms": false
+}
+
+3. Exact HTTP Response Received From Server:
+HTTP/1.1 201 Created
+vary: rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch
+content-type: application/json
+Date: Tue, 03 Nov 2026 03:59:06 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+Transfer-Encoding: chunked
+
+{"message":"Registration recorded in PostgreSQL.","record":{"id":"cmw05rxt00000kzp0daftpfba","fullName":"A","email":"not-an-email","serviceType":"InvalidPlan","notes":"Phone: 123 | AcceptedTerms: false | PasswordLength: 10","createdAt":"2026-11-03T03:59:06.462Z"}}
+
+4. Server Console & Prisma Logs Captured During Request:
+prisma:info Starting a postgresql pool with 10 connections in PgBouncer mode.
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query INSERT INTO "public"."ServiceEnquiry" ("id","fullName","email","serviceType","notes","createdAt") VALUES ($1,$2,$3,$4,$5,$6) RETURNING "public"."ServiceEnquiry"."id", "public"."ServiceEnquiry"."fullName", "public"."ServiceEnquiry"."email", "public"."ServiceEnquiry"."serviceType", "public"."ServiceEnquiry"."notes", "public"."ServiceEnquiry"."createdAt"
+prisma:query COMMIT
+[POST /api/auth] 201 Registration record created: {
+  id: 'cmw05rxt00000kzp0daftpfba',
+  fullName: 'A',
+  email: 'not-an-email',
+  serviceType: 'InvalidPlan',
+  notes: 'Phone: 123 | AcceptedTerms: false | PasswordLength: 10',
+  createdAt: '2026-11-03T03:59:06.462Z'
+}
+
+5. Database Verification:
+Was a PostgreSQL database record created? YES — HTTP 201 Created returned with a real ServiceEnquiry row inserted into PostgreSQL despite single-character fullName ('A'), malformed email ('not-an-email'), invalid phone ('123'), whitespace-only password ('          '), and acceptTerms: false.
