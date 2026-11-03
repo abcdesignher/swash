@@ -1,0 +1,26 @@
+=== Swash Security Telemetry: Logout Invalidation Fix & Server Confirmation ===
+Timestamp: 2026-11-03T16:01:22.489Z
+Session ID Under Test: cmw0vkrqn000hkzhssm5xpypy
+
+1. Architectural Rule Enforced:
+   'Never claim a session has been invalidated unless the server confirms it.'
+   - If the network request fails, the UI preserves the session, warns the user with role='alert':
+     'Network error while communicating with Swash. Your session remains active. Please retry to ensure you are fully logged out.'
+
+2. Customer re-attempts or network restores, executing true server-side logout:
+   POST http://localhost:3007/api/auth/logout with Cookie header.
+   HTTP Status: 200
+   Response Body: {"message":"You have been logged out of Swash."}
+   Set-Cookie Header: swash_session=; Path=/; Max-Age=0; HttpOnly; SameSite=lax
+   Cookie Cleared (Max-Age=0)? YES
+
+3. Database Verification in PostgreSQL (Session model):
+   PostgreSQL Session ID: cmw0vkrqn000hkzhssm5xpypy
+   PostgreSQL revokedAt: 2026-11-03T16:01:22.735Z
+
+4. Proof of Server Rejection (Subsequent Request Attempt):
+   GET /api/auth/me with revoked token Status: 401
+   Response: {"authenticated":false,"error":"Session invalid or expired"}
+   Authenticated? false (Successfully rejected with HTTP 401)
+
+Verification Result: Server confirms invalidation, revokedAt is set in database, and subsequent bearer requests are refused.

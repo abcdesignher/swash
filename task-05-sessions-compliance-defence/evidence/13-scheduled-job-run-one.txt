@@ -1,0 +1,26 @@
+=== Swash Scheduled Account Deletion Job — Execution Run #1 ===
+Job Invocation Timestamp: 2026-11-03T16:39:50.739Z
+Completion Timestamp: 2026-11-03T16:39:50.853Z
+Parameters: gracePeriodDays=14 (Processed eligible accounts past cutoff threshold)
+
+--- Execution Log ---
+[INFO] Scanning PostgreSQL database for soft-deleted accounts (deletedAt IS NOT NULL)...
+[INFO] Found 2 eligible account(s) ready for purge.
+[INFO] Account 1 (cmw0vv8zx0000kz28r3kro2bq): No linked order/payment ledgers. Purging transient records and executing HARD DELETE on User table.
+[INFO] Account 2 (cmw0vv90b0001kz28ykfj1xgg): Linked laundry orders and payment ledger rows detected. Executing NDPA-compliant ANONYMIZATION.
+
+--- Summary Metrics ---
+Eligible Accounts Found: 2
+Successfully Processed: 2
+Hard-Deleted User Rows: 1
+Anonymized User Rows: 1
+Sessions Purged: 12
+Verification Codes Purged: 0
+Email Jobs Purged: 0
+Errors Encountered: 0
+
+--- Post-Run Database Inspection ---
+User 1 in DB: null (NULL - Fully Hard Deleted)
+User 2 in DB: {"id":"cmw0vv90b0001kz28ykfj1xgg","fullName":"Deleted Customer cmw0vv90","email":"deleted_cmw0vv90b0001kz28ykfj1xgg@deleted.swash.ng","phone":"00000000000","defaultPickupZone":"Anonymized Zone"} (Retained for audit, PII completely anonymized)
+
+Status: Run #1 completed successfully. Destructive purges and required anonymizations applied.

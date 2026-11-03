@@ -19,6 +19,7 @@ import {
   CODE_EXPIRY_MINUTES,
 } from "@/lib/verification";
 import { queueEmailJob, getMailTransport, processPendingEmailJobs } from "@/lib/email";
+import { createSession, attachSessionCookie } from "@/lib/session";
 
 const MAX_BODY_BYTES = 10_000;
 
@@ -89,7 +90,14 @@ export async function POST(request: Request) {
       // 4. Only now touch the database.
       const user = await prisma.user.findFirst({
         where: { email: parsed.data.email, deletedAt: null },
-        select: { id: true, passwordHash: true },
+        select: {
+          id: true,
+          email: true,
+          fullName: true,
+          role: true,
+          passwordHash: true,
+          emailVerifiedAt: true,
+        },
       });
       const hash = user?.passwordHash ?? (await dummyHashPromise);
       const passwordOk = await verifyPassword(hash, parsed.data.password);
@@ -97,14 +105,37 @@ export async function POST(request: Request) {
       if (!user || !passwordOk) {
         return json({ error: GENERIC_LOGIN_ERROR }, 401);
       }
-      return json(
+
+      // Generate fresh cryptographic session, store hashed representation, and issue cookie
+      const { rawToken, session } = await createSession({
+        userId: user.id,
+        ipAddress: clientIp,
+        userAgent: request.headers.get("user-agent"),
+      });
+
+      console.info("[POST /api/auth] 200 session issued", {
+        userId: user.id,
+        sessionId: session.id,
+      });
+
+      const response = json(
         {
-          message:
-            "Your credentials are correct. Sessions are not issued yet, so you are not signed in.",
+          message: "Sign-in successful. Welcome back to Swash.",
+          user: {
+            id: user.id,
+            email: user.email,
+            fullName: user.fullName,
+            role: user.role,
+            emailVerified: user.emailVerifiedAt !== null,
+          },
+          sessionId: session.id,
           mode: "login",
         },
         200,
       );
+
+      attachSessionCookie(response, rawToken);
+      return response;
     }
 
     const parsed = registerSchema.safeParse(raw);

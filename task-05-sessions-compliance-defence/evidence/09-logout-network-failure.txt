@@ -1,0 +1,25 @@
+=== Swash Security Telemetry: Logout Network Failure Reproduction ===
+Timestamp: 2026-11-03T16:01:22.059Z
+Session ID Under Test: cmw0vkrqn000hkzhssm5xpypy
+User: logout.tester@swash.ng (cmw0vkray0000kzesf87qtti9)
+
+1. Customer clicks 'Log Out' in interface.
+2. Unreliable Nigerian mobile cellular connection drops or server fails before receiving request.
+   (Simulating unreachable network endpoint / timeout / socket hang up):
+   Network request failed with error: fetch failed
+
+3. Naive / Flawed Client Behavior:
+   - Naive application client catches the error, clears local cookie or in-memory React state anyway, and displays: 'You have been logged out'.
+   - Customer walks away believing they are logged out.
+
+4. Server-Side Reality Check in PostgreSQL:
+   PostgreSQL Session row: ID = cmw0vkrqn000hkzhssm5xpypy
+   PostgreSQL Session revokedAt = null
+   PostgreSQL Session expiresAt = 2026-11-10T16:01:22.031Z
+   Is Session STILL ACTIVE AND USABLE on server? YES - CRITICAL VULNERABILITY
+
+5. Proof of Abuse:
+   - An adversary possessing the previously intercepted bearer token presents it:
+   GET /api/auth/me Status: 200
+   Authenticated? true (User ID: cmw0vkray0000kzesf87qtti9)
+   Result: The session remained completely active and valid on the server despite the user believing they were logged out!

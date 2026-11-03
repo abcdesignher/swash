@@ -1,0 +1,39 @@
+=== Swash Multi-User Session Isolation Verification ===
+Timestamp: 2026-11-03T16:02:22.313Z
+Test: Two distinct customer accounts signing in sequentially through the same browser client.
+
+--- Accounts Provisioned in PostgreSQL ---
+User A: ID=cmw0vm3vb0000kzo8chgpoqet, Name=Adaeze Okafor, Email=adaeze.okafor@swash.ng, Plan=Individual (1–2 people)
+User B: ID=cmw0vm3vl0001kzo8lqagzivr, Name=Babajide Adeyemi, Email=babajide.adeyemi@swash.ng, Plan=Family (3–5 people)
+
+--- Phase 1: User A Signs In via Browser Client ---
+Login Status: 200
+Issued Session ID: cmw0vm41f000jkzhs2wfbyokh
+Cookie Attached: swash_session=73ff024e578724f9...
+Authenticated Context (GET /api/auth/me):
+  User ID: cmw0vm3vb0000kzo8chgpoqet
+  Email: adaeze.okafor@swash.ng
+  Name: Adaeze Okafor
+  Pickup Zone: Lagos Victoria Island
+  Plan: Individual (1–2 people)
+  Identity matches User A: TRUE
+
+--- Phase 2: User B Signs In on the SAME Browser Client ---
+Login Status: 200
+Issued Session ID: cmw0vm44h000lkzhshz938mn9
+Cookie Attached (Updated Browser Jar): swash_session=95f845efaa01d27a...
+Authenticated Context (GET /api/auth/me):
+  User ID: cmw0vm3vl0001kzo8lqagzivr
+  Email: babajide.adeyemi@swash.ng
+  Name: Babajide Adeyemi
+  Pickup Zone: Lagos Ikeja
+  Plan: Family (3–5 people)
+  Identity matches User B: TRUE
+
+--- Phase 3: Identity Isolation & Session Cross-Contamination Check ---
+1. Session IDs are distinct: PASS (True)
+2. Bearer tokens are distinct: PASS (True)
+3. Authenticated User IDs are distinct: PASS (True)
+4. Zero data contamination between sessions: PASS (True)
+
+Conclusion: The application strictly segregates user sessions and does not confuse identities when multiple users share the same browser or computer terminal.

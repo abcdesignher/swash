@@ -1,7 +1,12 @@
+"use client";
+
 import Link from "next/link";
 import styles from "@/app/page.module.css";
+import { useAuth } from "@/context/AuthContext";
 
 export default function SiteHeader() {
+  const { user, isAuthenticated, logout } = useAuth();
+
   return (
     <header className={styles.siteHeader}>
       <div className={styles.navBar}>
@@ -15,9 +20,36 @@ export default function SiteHeader() {
           <Link href="/plans" className={styles.navButton}>
             Subscription Plans
           </Link>
-          <Link href="/auth?mode=register" className={styles.navButton}>
-            Account
-          </Link>
+
+          {isAuthenticated && user ? (
+            <>
+              {user.role === "ADMIN" && (
+                <Link href="/admin" className={styles.navButton}>
+                  Staff Portal
+                </Link>
+              )}
+              <Link href="/account" className={styles.navButton}>
+                Account
+              </Link>
+              <button
+                type="button"
+                onClick={() => logout()}
+                className={styles.navButton}
+                style={{
+                  background: "transparent",
+                  border: "none",
+                  cursor: "pointer",
+                  fontFamily: "inherit",
+                }}
+              >
+                Sign Out
+              </button>
+            </>
+          ) : (
+            <Link href="/auth?mode=login" className={styles.navButton}>
+              Sign In
+            </Link>
+          )}
         </nav>
       </div>
       <p className={styles.tagline}>

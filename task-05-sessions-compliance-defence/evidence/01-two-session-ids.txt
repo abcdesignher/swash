@@ -1,0 +1,61 @@
+=== Swash Session Verification: Two Distinct Sign-Ins ===
+Timestamp: 2026-11-03T15:57:09.094Z
+Target: POST http://localhost:3007/api/auth (mode: login)
+
+Authenticated User Record:
+  ID: cmw0vbekw0000kz7sozj1122n
+  Email: session.verifier@swash.ng
+  Role: CUSTOMER
+
+--- Sign-In Attempt #1 ---
+HTTP Status: 200
+Session ID in response body: cmw0vfe8p000dkzhsv9l74whr
+Set-Cookie header received by client:
+  swash_session=223d9842c35e6585b7ccd94d83f81783faee186534873301a02db8fd7ae118b0; Path=/; Expires=Tue, 10 Nov 2026 15:57:11 GMT; Max-Age=604800; HttpOnly; SameSite=lax
+Raw Bearer Token from Cookie (length 64 chars, 256-bit entropy): 223d9842c35e6585b7ccd94d83f81783faee186534873301a02db8fd7ae118b0
+
+PostgreSQL Database Row for Session #1 (Prisma Session model):
+{
+  "id": "cmw0vfe8p000dkzhsv9l74whr",
+  "tokenHash": "350666211ace87429233ac39db44975b0c441f39501c39081ff9ec43f7f5074e",
+  "userId": "cmw0vbekw0000kz7sozj1122n",
+  "ipAddress": "102.89.23.101",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) TestBrowser/1.0",
+  "expiresAt": "2026-11-10T15:57:11.256Z",
+  "revokedAt": null,
+  "createdAt": "2026-11-03T15:57:11.258Z"
+}
+
+--- Sign-In Attempt #2 (Same user, separate sign-in request) ---
+HTTP Status: 200
+Session ID in response body: cmw0vfese000fkzhsmclcua4g
+Set-Cookie header received by client:
+  swash_session=8e5ec418f22892792e38fe8b3046ef76c3bcd6d27469b8263e5c7d1521bc53e3; Path=/; Expires=Tue, 10 Nov 2026 15:57:11 GMT; Max-Age=604800; HttpOnly; SameSite=lax
+Raw Bearer Token from Cookie (length 64 chars, 256-bit entropy): 8e5ec418f22892792e38fe8b3046ef76c3bcd6d27469b8263e5c7d1521bc53e3
+
+PostgreSQL Database Row for Session #2 (Prisma Session model):
+{
+  "id": "cmw0vfese000fkzhsmclcua4g",
+  "tokenHash": "ce44675411a9fa9d9442943254bd0511d5d8681e1525b84f729f8731f194b97b",
+  "userId": "cmw0vbekw0000kz7sozj1122n",
+  "ipAddress": "102.89.23.102",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) TestBrowser/2.0",
+  "expiresAt": "2026-11-10T15:57:11.960Z",
+  "revokedAt": null,
+  "createdAt": "2026-11-03T15:57:11.962Z"
+}
+
+--- Cryptographic & Uniqueness Verification ---
+1. Two separate sign-ins generate different Session IDs: VERIFIED (TRUE)
+   Attempt #1 Session ID: cmw0vfe8p000dkzhsv9l74whr
+   Attempt #2 Session ID: cmw0vfese000fkzhsmclcua4g
+2. Two separate sign-ins generate different Bearer Tokens: VERIFIED (TRUE)
+3. Two separate sign-ins store different Token Hashes: VERIFIED (TRUE)
+4. Database stores SHA-256 hash, NOT raw bearer token:
+   Attempt #1: SHA-256(rawToken1) === db.session1.tokenHash: VERIFIED (TRUE)
+   Attempt #2: SHA-256(rawToken2) === db.session2.tokenHash: VERIFIED (TRUE)
+5. Cookie security flags inspection:
+   HttpOnly: PRESENT (Prevents client-side script theft via XSS)
+   SameSite: Lax (Prevents CSRF on cross-site requests)
+   Path: / (Scoped to all application routes)
+   Max-Age: Max-Age=604800 (7 days / 604,800 seconds)
