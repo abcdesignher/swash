@@ -1,0 +1,78 @@
+=== Step 3C: Controlled Three-Step Resolution for a Required Column on a Populated Table ===
+
+0. Mark Failed Single-Step Migration as Rolled Back:
+$ npx prisma migrate resolve --rolled-back 20261103122600_add_required_pickup_zone_fail
+Prisma schema loaded from prisma\schema.prisma
+Datasource "db": PostgreSQL database "template1", schema "public" at "localhost:51214"
+
+Migration 20261103122600_add_required_pickup_zone_fail marked as rolled back.
+
+--- STEP 1 (EXPAND): Add `defaultPickupZone` as Optional (`String?` / Nullable) ---
+Migration SQL (`20261103122700_step1_add_pickup_zone_optional/migration.sql`):
+-- Step 1 (Expand): Add defaultPickupZone as an optional (nullable) column
+ALTER TABLE "User" ADD COLUMN "defaultPickupZone" TEXT;
+$ npx prisma migrate deploy
+Prisma schema loaded from prisma\schema.prisma
+Datasource "db": PostgreSQL database "template1", schema "public" at "localhost:51214"
+
+3 migrations found in prisma/migrations
+
+Applying migration `20261103122700_step1_add_pickup_zone_optional`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 20261103122700_step1_add_pickup_zone_optional/
+    └─ migration.sql
+      
+All migrations have been successfully applied.
+
+--- STEP 2 (BACKFILL): Populate Existing Rows in `User` ---
+SQL Executed:
+UPDATE "User" SET "defaultPickupZone" = 'Lagos Mainland' WHERE "defaultPickupZone" IS NULL;
+Rows updated: 2
+Verified rows after backfill (0 NULL values remaining):
+[
+  {
+    "id": "usr_seed_adaeze_01",
+    "fullName": "Adaeze Okafor",
+    "email": "adaeze@example.com",
+    "defaultPickupZone": "Lagos Mainland"
+  },
+  {
+    "id": "usr_seed_tunde_02",
+    "fullName": "Tunde Balogun",
+    "email": "tunde@example.com",
+    "defaultPickupZone": "Lagos Mainland"
+  }
+]
+
+--- STEP 3 (CONTRACT): Make `defaultPickupZone` Required (`SET NOT NULL`) ---
+Migration SQL (`20261103122800_step3_make_pickup_zone_required/migration.sql`):
+-- Step 3 (Contract): Make defaultPickupZone required now that all existing rows are populated
+ALTER TABLE "User" ALTER COLUMN "defaultPickupZone" SET NOT NULL;
+ALTER TABLE "User" ALTER COLUMN "defaultPickupZone" SET DEFAULT 'Lagos Mainland';
+$ npx prisma migrate deploy
+Prisma schema loaded from prisma\schema.prisma
+Datasource "db": PostgreSQL database "template1", schema "public" at "localhost:51214"
+
+4 migrations found in prisma/migrations
+
+Applying migration `20261103122800_step3_make_pickup_zone_required`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 20261103122800_step3_make_pickup_zone_required/
+    └─ migration.sql
+      
+All migrations have been successfully applied.
+
+$ npx prisma generate
+Prisma schema loaded from prisma\schema.prisma
+
+✔ Generated Prisma Client (v6.19.3) to .\node_modules\@prisma\client in 89ms
+
+Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
+
+Tip: Interested in query caching in just a few lines of code? Try Accelerate today! https://pris.ly/tip-3-accelerate

@@ -1,0 +1,28 @@
+=== Rate Limiting Limitation Test: IP Rotation Bypass ===
+Timestamp: 2026-11-03T12:41:49.208Z
+Endpoint: POST http://127.0.0.1:3007/api/auth
+Configured Threshold: 5 attempts per 15 minutes per IP
+
+1. FIXED IP TEST (x-forwarded-for: 192.168.100.220):
+  Attempt 1: HTTP 401 | Retry-After: none | Response: {"error":"The email or password is incorrect."}
+  Attempt 2: HTTP 401 | Retry-After: none | Response: {"error":"The email or password is incorrect."}
+  Attempt 3: HTTP 401 | Retry-After: none | Response: {"error":"The email or password is incorrect."}
+  Attempt 4: HTTP 401 | Retry-After: none | Response: {"error":"The email or password is incorrect."}
+  Attempt 5: HTTP 401 | Retry-After: none | Response: {"error":"The email or password is incorrect."}
+  Attempt 6: HTTP 429 | Retry-After: 900 | Response: {"error":"Too many attempts. Please wait 900 seconds before trying again.","retryAfter":900}
+Result: On attempt 6, rate limit was successfully TRIGGERED (HTTP 429 Too Many Requests).
+
+2. ROTATED IP TEST (Simulating attacker rotating client source IP / botnet):
+  Attempt 1 (IP: 192.168.100.231): HTTP 401 | Response: {"error":"The email or password is incorrect."}
+  Attempt 2 (IP: 192.168.100.232): HTTP 401 | Response: {"error":"The email or password is incorrect."}
+  Attempt 3 (IP: 192.168.100.233): HTTP 401 | Response: {"error":"The email or password is incorrect."}
+  Attempt 4 (IP: 192.168.100.234): HTTP 401 | Response: {"error":"The email or password is incorrect."}
+  Attempt 5 (IP: 192.168.100.235): HTTP 401 | Response: {"error":"The email or password is incorrect."}
+  Attempt 6 (IP: 192.168.100.236): HTTP 401 | Response: {"error":"The email or password is incorrect."}
+Result: All 6 attempts succeeded (HTTP 401 instead of HTTP 429) because each request had a distinct IP.
+
+3. SECURITY CONCLUSION & ARCHITECTURAL IMPLICATIONS:
+- An IP-only rate limit is INSUFFICIENT against distributed brute-force or attackers who can spoof/rotate IP addresses.
+- IP-based limits also risk blocking benign users behind shared CGNAT, corporate proxies, or Nigerian university Wi-Fi networks.
+- Effective rate limiting must combine: (1) Client IP, (2) Target Account Identifier (email/username), and (3) CAPTCHA/proof-of-work or multi-factor authentication upon suspicious velocity spikes.
+- Behind reverse proxies (e.g., Cloudflare, AWS ALB), proxy configurations must strip untrusted client-supplied X-Forwarded-For headers and only trust the real connecting socket or CF-Connecting-IP.

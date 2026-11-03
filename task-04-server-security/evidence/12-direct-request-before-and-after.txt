@@ -1,0 +1,36 @@
+=== The exact Task 03 direct request, replayed against the Task 04 server ===
+
+1. ORIGINAL REQUEST (identical command and body to task-03-client-validation/evidence/16-direct-request-command-and-response.txt, only the port differs: 3007 in both):
+curl.exe -i -s -X POST http://127.0.0.1:3007/api/auth -H "Content-Type: application/json" -d '{"mode":"register","fullName":"A","email":"not-an-email","phone":"123","servicePlan":"InvalidPlan","password":"          ","acceptTerms":false}'
+
+   It breaks every client-side rule: 1-character name, malformed email, 3-digit phone, plan not offered, whitespace-only password, terms not accepted.
+
+2. TASK 03 RESPONSE (copied from the Task 03 evidence file, captured 2026-11-03 03:59 UTC):
+HTTP/1.1 201 Created
+vary: rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch
+content-type: application/json
+Date: Tue, 03 Nov 2026 03:59:06 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+Transfer-Encoding: chunked
+
+{"message":"Registration recorded in PostgreSQL.","record":{"id":"cmw05rxt00000kzp0daftpfba","fullName":"A","email":"not-an-email","serviceType":"InvalidPlan","notes":"Phone: 123 | AcceptedTerms: false | PasswordLength: 10","createdAt":"2026-11-03T03:59:06.462Z"}}
+   Result: HTTP 201 Created and a row was written to ServiceEnquiry (id cmw05rxt00000kzp0daftpfba, still visible in the database).
+
+3. TASK 04 RESPONSE (captured live 2026-11-03T11:51:49.427Z):
+HTTP/1.1 422 Unprocessable Entity
+vary: rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch
+content-type: application/json
+Date: Tue, 03 Nov 2026 11:51:49 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+Transfer-Encoding: chunked
+
+{"error":"Some details need correcting.","fieldErrors":{"fullName":"Full name must be at least 2 characters long.","email":"Enter a valid email format such as name@domain.com.","phone":"Enter an 11-digit Nigerian mobile number (e.g. 08031234567) or +234 format.","servicePlan":"Choose one of the available subscription plans.","password":"Password cannot consist solely of spaces.","acceptTerms":"Please accept the Swash Terms of Service and Privacy Policy to continue."}}
+
+4. DATABASE CHECK (row counts before and after this one request):
+   Before: {"ServiceEnquiry":3,"User":0}
+   After : {"ServiceEnquiry":3,"User":0}
+   Rows created by the request: 0
+
+5. DIFFERENCE: Task 03 accepted the request (201) and stored it. Task 04 rejects it with HTTP 422 and per-field messages, and writes nothing. The same input, the same endpoint, a different outcome because the server now enforces the rules itself.

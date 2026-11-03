@@ -1,0 +1,17 @@
+=== POST /api/auth timing before and after server-side validation ===
+Environment: Next.js 15.5 dev server (next dev) on Windows, local PostgreSQL on localhost, 13th Gen Intel Core i5-1345U. One warm-up request, then 30 sequential requests per case.
+Before run: 2026-11-03T11:48:04.602Z (Task 03 route: no validation, wrote every request to ServiceEnquiry)
+After run : 2026-11-03T11:50:09.063Z (Task 04 route: Zod validation at the boundary, Argon2id hash, User insert)
+
+VALID registration payload (all Task 03 rules satisfied):
+  BEFORE (insert ServiceEnquiry only)          n=30  mean=146.4 ms  median=39.9 ms  min=21.6 ms  max=516.2 ms  status={"201":30}
+  AFTER  (validate + Argon2id + insert User)   n=30  mean=61.8 ms  median=57.2 ms  min=43 ms  max=204.5 ms  status={"201":30}
+
+INVALID registration payload (name 'A', email 'not-an-email', phone '123', bad plan, blank password, terms false):
+  BEFORE (accepted and written to the database) n=30  mean=32.7 ms  median=31.7 ms  min=21.1 ms  max=69.7 ms  status={"201":30}
+  AFTER  (rejected at the boundary)            n=30  mean=17.5 ms  median=16 ms  min=11.6 ms  max=36 ms  status={"422":30}
+
+Reading the numbers (medians are more reliable than means here; the first requests in a dev server include compile time, which inflates the 'before' valid mean and max):
+- Valid requests: median 39.9 ms -> 57.2 ms (+17.3 ms). The increase is consistent with the ~23 ms Argon2id hash measured in 08-timing-argon-vs-sha.txt plus Zod parsing and a richer insert. It is a deliberate cost.
+- Invalid requests: median 31.7 ms -> 16 ms. They were previously accepted (HTTP 201 and a database write). They are now rejected with HTTP 422 before any database or hashing work, so they cost less.
+- Limits: dev-server numbers, one machine, sequential requests. I did not measure the Zod parse step in isolation, so I cannot state its cost separately from the hash and the different insert.

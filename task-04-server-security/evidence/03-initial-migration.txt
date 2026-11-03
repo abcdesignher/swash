@@ -1,0 +1,294 @@
+=== Step 3A: Initial Task 04 Database Migration ===
+
+1. Baseline Existing Task 02 Table (`ServiceEnquiry`) to Preserve Existing Rows:
+$ npx prisma migrate resolve --applied 20261102000000_init_service_enquiry
+Prisma schema loaded from prisma\schema.prisma
+Datasource "db": PostgreSQL database "template1", schema "public" at "localhost:51214"
+
+Migration 20261102000000_init_service_enquiry marked as applied.
+
+2. Apply Initial Task 04 Migration (`20261103122500_task04_core_schema`):
+$ npx prisma migrate deploy
+Prisma schema loaded from prisma\schema.prisma
+Datasource "db": PostgreSQL database "template1", schema "public" at "localhost:51214"
+
+2 migrations found in prisma/migrations
+
+Applying migration `20261103122500_task04_core_schema`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 20261103122500_task04_core_schema/
+    └─ migration.sql
+      
+All migrations have been successfully applied.
+
+3. Regenerate Prisma Client:
+$ npx prisma generate
+Prisma schema loaded from prisma\schema.prisma
+
+✔ Generated Prisma Client (v6.19.3) to .\node_modules\@prisma\client in 117ms
+
+Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
+
+Tip: Interested in query caching in just a few lines of code? Try Accelerate today! https://pris.ly/tip-3-accelerate
+
+4. Generated & Applied SQL (`prisma/migrations/20261103122500_task04_core_schema/migration.sql`):
+-- CreateTable
+CREATE TABLE "User" (
+    "id" TEXT NOT NULL,
+    "fullName" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "phone" TEXT NOT NULL,
+    "passwordHash" TEXT NOT NULL,
+    "role" TEXT NOT NULL DEFAULT 'CUSTOMER',
+    "preferredPlan" TEXT NOT NULL,
+    "acceptedTermsAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "emailVerifiedAt" TIMESTAMP(3),
+    "deletedAt" TIMESTAMP(3),
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "User_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Session" (
+    "id" TEXT NOT NULL,
+    "tokenHash" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "ipAddress" TEXT,
+    "userAgent" TEXT,
+    "expiresAt" TIMESTAMP(3) NOT NULL,
+    "revokedAt" TIMESTAMP(3),
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "Session_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "VerificationCode" (
+    "id" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "codeHash" TEXT NOT NULL,
+    "purpose" TEXT NOT NULL DEFAULT 'EMAIL_VERIFICATION',
+    "attempts" INTEGER NOT NULL DEFAULT 0,
+    "maxAttempts" INTEGER NOT NULL DEFAULT 5,
+    "expiresAt" TIMESTAMP(3) NOT NULL,
+    "usedAt" TIMESTAMP(3),
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "VerificationCode_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Subscription" (
+    "id" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "planName" TEXT NOT NULL,
+    "status" TEXT NOT NULL DEFAULT 'ACTIVE',
+    "monthlyAllowanceItems" INTEGER NOT NULL,
+    "rolloverItems" INTEGER NOT NULL DEFAULT 0,
+    "usedItems" INTEGER NOT NULL DEFAULT 0,
+    "priceKobo" INTEGER NOT NULL,
+    "currentPeriodStart" TIMESTAMP(3) NOT NULL,
+    "currentPeriodEnd" TIMESTAMP(3) NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Subscription_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "LaundryOrder" (
+    "id" TEXT NOT NULL,
+    "orderNumber" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "subscriptionId" TEXT,
+    "status" TEXT NOT NULL DEFAULT 'REQUESTED',
+    "itemCount" INTEGER NOT NULL,
+    "specialItemsNotes" TEXT,
+    "pickupAddress" TEXT NOT NULL,
+    "scheduledPickupAt" TIMESTAMP(3) NOT NULL,
+    "collectedAt" TIMESTAMP(3),
+    "scheduledDeliveryAt" TIMESTAMP(3),
+    "deliveredAt" TIMESTAMP(3),
+    "extraChargeKobo" INTEGER NOT NULL DEFAULT 0,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "LaundryOrder_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "PaymentAttempt" (
+    "id" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "subscriptionId" TEXT,
+    "orderId" TEXT,
+    "providerReference" TEXT NOT NULL,
+    "amountKobo" INTEGER NOT NULL,
+    "currency" TEXT NOT NULL DEFAULT 'NGN',
+    "channel" TEXT,
+    "status" TEXT NOT NULL DEFAULT 'INITIATED',
+    "failureCode" TEXT,
+    "failureReason" TEXT,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "PaymentAttempt_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Payment" (
+    "id" TEXT NOT NULL,
+    "paymentAttemptId" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "subscriptionId" TEXT,
+    "orderId" TEXT,
+    "providerReference" TEXT NOT NULL,
+    "receiptNumber" TEXT NOT NULL,
+    "amountKobo" INTEGER NOT NULL,
+    "currency" TEXT NOT NULL DEFAULT 'NGN',
+    "customerEmailSnapshot" TEXT NOT NULL,
+    "confirmedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "Payment_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "KnowledgeChunk" (
+    "id" TEXT NOT NULL,
+    "documentSlug" TEXT NOT NULL,
+    "sectionTitle" TEXT NOT NULL,
+    "chunkIndex" INTEGER NOT NULL,
+    "content" TEXT NOT NULL,
+    "category" TEXT NOT NULL,
+    "embeddingJson" TEXT,
+    "isApproved" BOOLEAN NOT NULL DEFAULT true,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "KnowledgeChunk_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "EmailJob" (
+    "id" TEXT NOT NULL,
+    "userId" TEXT,
+    "toEmail" TEXT NOT NULL,
+    "subject" TEXT NOT NULL,
+    "templateType" TEXT NOT NULL,
+    "payloadJson" TEXT NOT NULL,
+    "status" TEXT NOT NULL DEFAULT 'PENDING',
+    "attempts" INTEGER NOT NULL DEFAULT 0,
+    "lastError" TEXT,
+    "scheduledAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "sentAt" TIMESTAMP(3),
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "EmailJob_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
+-- CreateIndex
+CREATE INDEX "User_phone_idx" ON "User"("phone");
+
+-- CreateIndex
+CREATE INDEX "User_role_idx" ON "User"("role");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Session_tokenHash_key" ON "Session"("tokenHash");
+
+-- CreateIndex
+CREATE INDEX "Session_userId_revokedAt_idx" ON "Session"("userId", "revokedAt");
+
+-- CreateIndex
+CREATE INDEX "VerificationCode_userId_purpose_usedAt_idx" ON "VerificationCode"("userId", "purpose", "usedAt");
+
+-- CreateIndex
+CREATE INDEX "VerificationCode_expiresAt_idx" ON "VerificationCode"("expiresAt");
+
+-- CreateIndex
+CREATE INDEX "Subscription_userId_status_idx" ON "Subscription"("userId", "status");
+
+-- CreateIndex
+CREATE INDEX "Subscription_currentPeriodEnd_idx" ON "Subscription"("currentPeriodEnd");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "LaundryOrder_orderNumber_key" ON "LaundryOrder"("orderNumber");
+
+-- CreateIndex
+CREATE INDEX "LaundryOrder_userId_status_idx" ON "LaundryOrder"("userId", "status");
+
+-- CreateIndex
+CREATE INDEX "LaundryOrder_scheduledPickupAt_status_idx" ON "LaundryOrder"("scheduledPickupAt", "status");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "PaymentAttempt_providerReference_key" ON "PaymentAttempt"("providerReference");
+
+-- CreateIndex
+CREATE INDEX "PaymentAttempt_userId_status_createdAt_idx" ON "PaymentAttempt"("userId", "status", "createdAt");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Payment_paymentAttemptId_key" ON "Payment"("paymentAttemptId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Payment_providerReference_key" ON "Payment"("providerReference");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Payment_receiptNumber_key" ON "Payment"("receiptNumber");
+
+-- CreateIndex
+CREATE INDEX "Payment_userId_confirmedAt_idx" ON "Payment"("userId", "confirmedAt");
+
+-- CreateIndex
+CREATE INDEX "KnowledgeChunk_category_isApproved_idx" ON "KnowledgeChunk"("category", "isApproved");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "KnowledgeChunk_documentSlug_chunkIndex_key" ON "KnowledgeChunk"("documentSlug", "chunkIndex");
+
+-- CreateIndex
+CREATE INDEX "EmailJob_status_scheduledAt_idx" ON "EmailJob"("status", "scheduledAt");
+
+-- AddForeignKey
+ALTER TABLE "Session" ADD CONSTRAINT "Session_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "VerificationCode" ADD CONSTRAINT "VerificationCode_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Subscription" ADD CONSTRAINT "Subscription_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "LaundryOrder" ADD CONSTRAINT "LaundryOrder_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "LaundryOrder" ADD CONSTRAINT "LaundryOrder_subscriptionId_fkey" FOREIGN KEY ("subscriptionId") REFERENCES "Subscription"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "PaymentAttempt" ADD CONSTRAINT "PaymentAttempt_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "PaymentAttempt" ADD CONSTRAINT "PaymentAttempt_subscriptionId_fkey" FOREIGN KEY ("subscriptionId") REFERENCES "Subscription"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "PaymentAttempt" ADD CONSTRAINT "PaymentAttempt_orderId_fkey" FOREIGN KEY ("orderId") REFERENCES "LaundryOrder"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Payment" ADD CONSTRAINT "Payment_paymentAttemptId_fkey" FOREIGN KEY ("paymentAttemptId") REFERENCES "PaymentAttempt"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Payment" ADD CONSTRAINT "Payment_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Payment" ADD CONSTRAINT "Payment_subscriptionId_fkey" FOREIGN KEY ("subscriptionId") REFERENCES "Subscription"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Payment" ADD CONSTRAINT "Payment_orderId_fkey" FOREIGN KEY ("orderId") REFERENCES "LaundryOrder"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "EmailJob" ADD CONSTRAINT "EmailJob_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;

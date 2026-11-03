@@ -1,0 +1,24 @@
+=== Hashing the same password twice with Argon2id ===
+Date: 2026-11-03T11:40:39.943Z
+Password (demo value only, not a real account): Swash-Demo-Passw0rd!
+Parameters: argon2id, memoryCost=19456 KiB, timeCost=2, parallelism=1 (RULES.md)
+
+Hash 1: $argon2id$v=19$m=19456,t=2,p=1$+QyRxDnSMj4AYUz225hiCQ$1qQ9W6SS962oZY4WIYLubZmI5RlxwiwXR/jducpwzRk
+Hash 2: $argon2id$v=19$m=19456,t=2,p=1$axwnMiTQW1XeE+FeaHv0Pw$xYi1FeNTpO6wpa/igBfsMG3Rf7AQRy60MAVhbPjNdDg
+
+Identical strings? false
+Salt 1 (base64): +QyRxDnSMj4AYUz225hiCQ
+Salt 2 (base64): axwnMiTQW1XeE+FeaHv0Pw
+Same salt? false
+Parameter segment 1: m=19456,t=2,p=1
+Parameter segment 2: m=19456,t=2,p=1
+
+Verification with the library's verify():
+  verify(hash1, correct password)  -> true
+  verify(hash2, correct password)  -> true
+  verify(hash1, wrong password)    -> false
+
+Why they differ: the library generates a fresh cryptographically random salt for every call and
+mixes it into the hash. The salt is stored inside the encoded string ($...$salt$hash), so verify()
+can recompute the hash. Two users with the same password therefore get different stored hashes,
+and precomputed (rainbow) tables are useless.

@@ -3,6 +3,11 @@
 import { useState, type FormEvent } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import styles from "@/app/page.module.css";
+import {
+  normaliseEmail,
+  normalisePassword,
+  passwordHadEdgeWhitespace,
+} from "@/lib/normalise";
 
 type AuthMode = "register" | "login";
 
@@ -66,15 +71,18 @@ export function validatePhone(value: string): string | undefined {
   return undefined;
 }
 
-export function validateRegisterPassword(value: string): string | undefined {
-  if (value.length === 0) {
+export function validateRegisterPassword(rawValue: string): string | undefined {
+  if (rawValue.length === 0) {
     return "Create a password to protect your Swash subscription account.";
   }
-  if (value.trim().length === 0) {
+  // Leading and trailing spaces are removed before hashing, so the rules apply
+  // to the value that will actually be stored.
+  const value = normalisePassword(rawValue);
+  if (value.length === 0) {
     return "Password cannot consist solely of spaces.";
   }
   if (value.length < 10) {
-    return "Password must be at least 10 characters long.";
+    return "Password must be at least 10 characters long, not counting spaces at the start or end.";
   }
   if (value.length > 128) {
     return "Password must not exceed 128 characters.";
@@ -134,7 +142,7 @@ export default function AuthForm() {
         ? "Enter a valid email address to sign in."
         : undefined,
     password:
-      password.length === 0
+      normalisePassword(password).length === 0
         ? "Enter your account password to sign in."
         : undefined,
   };
@@ -172,7 +180,7 @@ export default function AuthForm() {
             : undefined,
           password: loginSubmitted
             ? loginErrors.password
-            : touched.password && password.length === 0
+            : touched.password && normalisePassword(password).length === 0
             ? "Enter your account password to sign in."
             : undefined,
         };
@@ -220,10 +228,10 @@ export default function AuthForm() {
         body: JSON.stringify({
           mode,
           fullName: fullName.trim(),
-          email: email.trim(),
+          email: normaliseEmail(email),
           phone: phone.trim(),
           servicePlan,
-          password,
+          password: normalisePassword(password),
           acceptTerms,
         }),
       });
@@ -231,13 +239,21 @@ export default function AuthForm() {
       const payload = (await response.json()) as {
         message?: string;
         error?: string;
+        fieldErrors?: Record<string, string>;
         record?: { id: string };
       };
 
       if (!response.ok) {
-        setServerError(
-          payload.error ?? "Request could not be completed. Please try again."
-        );
+        // The server is the authority. Show its field messages and keep the
+        // user's input so nothing has to be retyped.
+        const errorMsg =
+          payload.error ?? "Request could not be completed. Please try again.";
+        const details = payload.fieldErrors
+          ? Object.values(payload.fieldErrors)
+              .filter((msg) => !errorMsg.includes(msg))
+              .join(" ")
+          : "";
+        setServerError([errorMsg, details].filter(Boolean).join(" "));
         return;
       }
 
@@ -532,8 +548,12 @@ export default function AuthForm() {
 
           {mode === "register" && password.length > 0 && (
             <p id="auth-password-guidance" className={styles.helperText}>
-              Password guidance: Use 10 to 128 characters. Spaces are allowed
-              in passphrases, but whitespace-only passwords are rejected.
+              Password guidance: Use 10 to 128 characters. Spaces inside a
+              passphrase are kept. Spaces at the start or end are removed
+              automatically
+              {passwordHadEdgeWhitespace(password)
+                ? " (we will remove the extra spaces you pasted before saving)."
+                : "."}
             </p>
           )}
 

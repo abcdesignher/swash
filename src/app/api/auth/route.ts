@@ -1,76 +1,171 @@
 import { NextResponse } from "next/server";
+import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
+import { hashPassword, verifyPassword } from "@/lib/password";
+import {
+  loginSchema,
+  registerSchema,
+  toFieldErrors,
+} from "@/lib/validation";
+import {
+  rateLimiter,
+  AUTH_RATE_LIMITS,
+  getClientIp,
+} from "@/lib/rate-limit";
+import { checkPasswordBreached } from "@/lib/breach-check";
 
-interface AuthRequestBody {
-  mode?: string;
-  fullName?: string;
-  email?: string;
-  phone?: string;
-  servicePlan?: string;
-  password?: string;
-  acceptTerms?: boolean;
+const MAX_BODY_BYTES = 10_000;
+
+// Verified against when no account exists, so "unknown email" and "wrong
+// password" take comparable time and return the same response.
+const dummyHashPromise = hashPassword("swash-timing-equaliser-not-a-real-password");
+
+const GENERIC_LOGIN_ERROR = "The email or password is incorrect.";
+
+function json(body: unknown, status: number, headers?: Record<string, string>) {
+  return NextResponse.json(body, { status, headers });
 }
 
 export async function POST(request: Request) {
+  // 1. Read and parse the body. Nothing below this line uses data that has not
+  //    been through a schema.
+  let raw: unknown;
   try {
-    const body = (await request.json()) as AuthRequestBody;
-    const mode = body.mode ?? "register";
+    const text = await request.text();
+    if (text.length > MAX_BODY_BYTES) {
+      return json({ error: "The request is too large." }, 413);
+    }
+    raw = JSON.parse(text);
+  } catch {
+    return json({ error: "The request could not be read." }, 400);
+  }
 
+  if (typeof raw !== "object" || raw === null || Array.isArray(raw)) {
+    return json({ error: "The request could not be read." }, 400);
+  }
+  const mode = (raw as { mode?: unknown }).mode ?? "register";
+
+  if (mode !== "login" && mode !== "register") {
+    return json({ error: "The request could not be read." }, 400);
+  }
+
+  // 2. Rate limit check by client IP and action mode
+  const clientIp = getClientIp(request);
+  const rateLimitKey = `${clientIp}:${mode}`;
+  const rateConfig =
+    mode === "login" ? AUTH_RATE_LIMITS.login : AUTH_RATE_LIMITS.register;
+
+  const rateCheck = rateLimiter.check(rateLimitKey, rateConfig);
+  if (!rateCheck.allowed) {
+    return json(
+      {
+        error: `Too many attempts. Please wait ${rateCheck.retryAfterSeconds} seconds before trying again.`,
+        retryAfter: rateCheck.retryAfterSeconds,
+      },
+      429,
+      {
+        "Retry-After": String(rateCheck.retryAfterSeconds),
+      },
+    );
+  }
+
+  try {
     if (mode === "login") {
-      console.info("[POST /api/auth] Login attempt received:", {
-        email: body.email ?? "(empty)",
+      // 3. Validate (request boundary).
+      const parsed = loginSchema.safeParse(raw);
+      if (!parsed.success) {
+        return json(
+          { error: "Please check your details and try again.", fieldErrors: toFieldErrors(parsed.error) },
+          422,
+        );
+      }
+
+      // 4. Only now touch the database.
+      const user = await prisma.user.findFirst({
+        where: { email: parsed.data.email, deletedAt: null },
+        select: { id: true, passwordHash: true },
       });
-      return NextResponse.json(
+      const hash = user?.passwordHash ?? (await dummyHashPromise);
+      const passwordOk = await verifyPassword(hash, parsed.data.password);
+
+      if (!user || !passwordOk) {
+        return json({ error: GENERIC_LOGIN_ERROR }, 401);
+      }
+      return json(
         {
           message:
-            "Sign-in credentials received. Server-side session issuance is scheduled for Task 04 and Task 05.",
+            "Your credentials are correct. Sessions are not issued yet, so you are not signed in.",
           mode: "login",
         },
-        { status: 200 }
+        200,
       );
     }
 
-    // Task 03 Step 8 Note:
-    // At the Task 03 stage, strict validation lives on the client.
-    // The endpoint records the incoming registration payload to PostgreSQL so that
-    // Step 8 can demonstrate what happens when a client bypasses browser validation
-    // via a direct CLI request (motivating Task 04 server-side schema validation).
-    const record = await prisma.serviceEnquiry.create({
-      data: {
-        fullName: String(body.fullName ?? ""),
-        email: String(body.email ?? ""),
-        serviceType: String(body.servicePlan ?? "Individual Subscription"),
-        notes: `Phone: ${String(body.phone ?? "")} | AcceptedTerms: ${String(
-          Boolean(body.acceptTerms)
-        )} | PasswordLength: ${String((body.password ?? "").length)}`,
-      },
-    });
+    const parsed = registerSchema.safeParse(raw);
+    if (!parsed.success) {
+      return json(
+        { error: "Some details need correcting.", fieldErrors: toFieldErrors(parsed.error) },
+        422,
+      );
+    }
+    const input = parsed.data;
 
-    console.info("[POST /api/auth] 201 Registration record created:", {
-      id: record.id,
-      fullName: record.fullName,
-      email: record.email,
-      serviceType: record.serviceType,
-      notes: record.notes,
-      createdAt: record.createdAt.toISOString(),
-    });
+    // 5. Breached password check (privacy-preserving k-Anonymity)
+    const breachResult = await checkPasswordBreached(input.password);
+    if (breachResult.isBreached) {
+      return json(
+        {
+          error:
+            "This password has appeared in a known data breach. For your security, choose a different password.",
+          fieldErrors: {
+            password:
+              "This password has appeared in a known data breach. For your security, choose a different password.",
+          },
+        },
+        422,
+      );
+    }
 
-    return NextResponse.json(
-      {
-        message: "Registration recorded in PostgreSQL.",
-        record,
-      },
-      { status: 201 }
-    );
+    const passwordHash = await hashPassword(input.password);
+    try {
+      const user = await prisma.user.create({
+        data: {
+          fullName: input.fullName,
+          email: input.email,
+          phone: input.phone,
+          passwordHash,
+          preferredPlan: input.servicePlan,
+        },
+        select: { id: true, createdAt: true },
+      });
+      console.info("[POST /api/auth] 201 account created", { userId: user.id });
+      return json(
+        { message: "Your account has been created.", record: { id: user.id } },
+        201,
+      );
+    } catch (error) {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === "P2002"
+      ) {
+        return json(
+          {
+            error:
+              "We could not create an account with those details. If you already have an account, sign in instead.",
+          },
+          409,
+        );
+      }
+      throw error;
+    }
   } catch (error) {
-    console.error("[POST /api/auth] 500 Database Error:", error);
-    return NextResponse.json(
+    console.error("[POST /api/auth] 500 unexpected error", error);
+    return json(
       {
         error:
           "We could not complete your request right now. Please check your connection and try again.",
       },
-      { status: 500 }
+      500,
     );
   }
 }
-

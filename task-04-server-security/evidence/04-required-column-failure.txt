@@ -1,0 +1,44 @@
+=== Step 3B: Required-Column Migration Failure on a Populated Table ===
+
+1. Existing Rows in `User` Table Before Migration:
+[
+  {
+    "id": "usr_seed_adaeze_01",
+    "fullName": "Adaeze Okafor",
+    "email": "adaeze@example.com"
+  },
+  {
+    "id": "usr_seed_tunde_02",
+    "fullName": "Tunde Balogun",
+    "email": "tunde@example.com"
+  }
+]
+
+2. Migration SQL Attempted (`prisma/migrations/20261103122600_add_required_pickup_zone_fail/migration.sql`):
+-- Attempt to add a required column without a default to a populated User table
+ALTER TABLE "User" ADD COLUMN "defaultPickupZone" TEXT NOT NULL;
+
+3. Command Executed & Failure Output:
+$ npx prisma migrate deploy
+Prisma schema loaded from prisma\schema.prisma
+Datasource "db": PostgreSQL database "template1", schema "public" at "localhost:51214"
+
+3 migrations found in prisma/migrations
+
+Applying migration `20261103122600_add_required_pickup_zone_fail`
+Environment variables loaded from .env
+Error: P3018
+
+A migration failed to apply. New migrations cannot be applied before the error is recovered from. Read more about how to resolve migration issues in a production database: https://pris.ly/d/migrate-resolve
+
+Migration name: 20261103122600_add_required_pickup_zone_fail
+
+Database error code: 23502
+
+Database error:
+ERROR: column "defaultPickupZone" of relation "User" contains null values
+
+DbError { severity: "ERROR", parsed_severity: Some(Error), code: SqlState(E23502), message: "column \"defaultPickupZone\" of relation \"User\" contains null values", detail: None, hint: None, position: None, where_: None, schema: Some("public"), table: Some("User"), column: Some("defaultPickupZone"), datatype: None, constraint: None, file: Some("tablecmds.c"), line: Some(6284), routine: Some("ATRewriteTable") }
+
+4. Root Cause Explanation:
+PostgreSQL rejected `ALTER TABLE "User" ADD COLUMN "defaultPickupZone" TEXT NOT NULL` with database error code `23502` (`column "defaultPickupZone" of relation "User" contains null values`) because the `User` table already contained 2 customer rows and no value was provided for those existing rows.

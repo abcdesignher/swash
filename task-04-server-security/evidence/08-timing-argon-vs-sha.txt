@@ -1,0 +1,22 @@
+=== Argon2id vs SHA-256 timing on this development machine ===
+Date: 2026-11-03T11:40:42.958Z
+Machine: 13th Gen Intel(R) Core(TM) i5-1345U | 12 logical cores | 15.7 GiB RAM | win32 10.0.26200 | Node v24.19.0
+
+--- Argon2id (memoryCost=19456 KiB, timeCost=2, parallelism=1), 30 timed runs after 1 warm-up ---
+Mean: 23.25 ms   Min: 20.91 ms   Max: 26.33 ms
+
+--- SHA-256, 2,000,000 sequential hashes of a 32-byte input after warm-up (Node crypto) ---
+Total: 2,273.18 ms   Per hash: 1137 ns (1.137e-3 ms)
+
+--- Guesses per second for ONE thread/core on this machine (arithmetic) ---
+Argon2id: 1000 ms / 23.25 ms = 43 guesses/second
+SHA-256 : 1000 ms / 1.137e-3 ms = 879,825 guesses/second
+Ratio   : 879,825 / 43 = SHA-256 is about 20,459x faster to guess against
+
+--- Worked example: exhausting a 6-character lowercase+digit space (36^6) on this one core ---
+36^6 = 2,176,782,336 candidates
+SHA-256 : 2,176,782,336 / 879,825 = 2,474.11 seconds
+Argon2id: 2,176,782,336 / 43 = 50,618,170.85 seconds (~585.86 days)
+
+Caveats: this is a single-core, CPU-only measurement of Node's implementations. Attackers can use GPUs/ASICs and many cores;
+Argon2id's 19 MiB memory requirement per guess is what limits that parallelism. Figures are from this machine only.
