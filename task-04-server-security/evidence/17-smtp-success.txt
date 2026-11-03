@@ -1,0 +1,16 @@
+=== Successful SMTP Configuration & Test Email Delivery ===
+Timestamp: 2026-11-03T13:47:34.883Z
+SMTP Server: smtp.ethereal.email:587 (TLS: STARTTLS)
+Authenticated User: a5nh4lao7nfo52hl@ethereal.email
+
+Envelope & Dispatch Telemetry:
+Message-ID: <5d3b4d77-510e-5aa1-550c-5451fed38f4d@swash.com.ng>
+Accepted Recipients: ["adaeze.okafor@example.com"]
+Response: 250 Accepted [STATUS=new MSGID=aunl7AyP2fStWQrgaunl90x4tM8Ozr9qAAAAAU..h3qE0XH3OCi7HTZbl44]
+Ethereal Message Preview URL: https://ethereal.email/message/aunl7AyP2fStWQrgaunl90x4tM8Ozr9qAAAAAU..h3qE0XH3OCi7HTZbl44
+
+Rendered HTML Template:
+- Brand Header: Deep Violet Gradient (#1d064a -> #350078) with Swash Title
+- Verification Code Box: 6-digit styled container with monospace font and letter-spacing: 8px
+- Expiry Guidance: Stated 15-minute validity window and 5-attempt limit
+- Lagos Operations Sign-off: Swash Laundry Technologies Ltd. Lagos, Nigeria

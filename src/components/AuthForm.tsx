@@ -265,6 +265,10 @@ export default function AuthForm() {
             : "Sign-in request submitted."),
         recordId: payload.record?.id,
       });
+
+      if (mode === "register") {
+        router.push(`/auth/verify?email=${encodeURIComponent(normaliseEmail(email))}`);
+      }
     } catch {
       setServerError(
         "Network error while contacting Swash. Your input has been preserved."

@@ -1,0 +1,14 @@
+=== Initial SMTP Connection Failure ===
+Timestamp: 2026-11-03T13:47:23.585Z
+Target Host: localhost:2525
+Configuration: Default / Unconfigured Local SMTP Transport
+
+Error Details:
+Error Code: ESOCKET
+Error Message: 
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1339:18)
+    at afterConnectMultiple (node:net:1942:7)
+
+Diagnostic Analysis:
+The application correctly caught and identified the missing/unreachable SMTP server without crashing the process. In production, attempting synchronous email delivery with an unreachable SMTP server blocks the user registration HTTP request until socket timeout (~30-60s), resulting in 504 Gateway Timeout or poor user experience. This necessitates an asynchronous background job queue (EmailJob).

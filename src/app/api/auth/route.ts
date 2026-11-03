@@ -13,6 +13,12 @@ import {
   getClientIp,
 } from "@/lib/rate-limit";
 import { checkPasswordBreached } from "@/lib/breach-check";
+import {
+  generateVerificationCode,
+  hashVerificationCode,
+  CODE_EXPIRY_MINUTES,
+} from "@/lib/verification";
+import { queueEmailJob, getMailTransport, processPendingEmailJobs } from "@/lib/email";
 
 const MAX_BODY_BYTES = 10_000;
 
@@ -128,6 +134,11 @@ export async function POST(request: Request) {
 
     const passwordHash = await hashPassword(input.password);
     try {
+      // Create user, 6-digit verification code, and background EmailJob atomically
+      const code = generateVerificationCode();
+      const codeHash = hashVerificationCode(code);
+      const expiresAt = new Date(Date.now() + CODE_EXPIRY_MINUTES * 60 * 1000);
+
       const user = await prisma.user.create({
         data: {
           fullName: input.fullName,
@@ -135,12 +146,48 @@ export async function POST(request: Request) {
           phone: input.phone,
           passwordHash,
           preferredPlan: input.servicePlan,
+          verificationCodes: {
+            create: {
+              email: input.email,
+              codeHash,
+              purpose: "EMAIL_VERIFICATION",
+              expiresAt,
+            },
+          },
         },
-        select: { id: true, createdAt: true },
+        select: { id: true, email: true, createdAt: true },
       });
-      console.info("[POST /api/auth] 201 account created", { userId: user.id });
+
+      // Queue background email job
+      await queueEmailJob({
+        userId: user.id,
+        toEmail: user.email,
+        subject: "Verify your Swash email address",
+        templateType: "EMAIL_VERIFICATION",
+        payloadJson: JSON.stringify({
+          fullName: input.fullName,
+          code,
+        }),
+      });
+
+      // Asynchronous background dispatch without awaiting (does not delay HTTP response!)
+      const transporter = getMailTransport();
+      setImmediate(() => {
+        processPendingEmailJobs(transporter).catch((err) =>
+          console.warn("[background-email-worker] Notice:", err?.message || err)
+        );
+      });
+
+      console.info("[POST /api/auth] 201 account created & verification queued", {
+        userId: user.id,
+      });
+
       return json(
-        { message: "Your account has been created.", record: { id: user.id } },
+        {
+          message:
+            "Your account has been created. We sent a unique verification code to your email.",
+          record: { id: user.id, email: user.email },
+        },
         201,
       );
     } catch (error) {

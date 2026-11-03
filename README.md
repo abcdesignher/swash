@@ -15,13 +15,15 @@ Its primary audience is busy Nigerian professionals aged 25–40 who primarily u
 | **Task 01: Design System** (`task-01-design-system/`) | **Complete** | Exported 462 Figma design tokens (`06-tokens-complete.json`), generated `:root` CSS custom properties (`styles/global.css`), verified WCAG 2.1 contrast ratios, and documented typography, shadows, divergences, and defects. |
 | **Task 02: Repository & Scaffold** (`task-02-repository-and-scaffold/` & Root App) | **Complete** | Next.js App Router + TypeScript + Prisma + PostgreSQL scaffold running at the repository root with `/` and `/plans` routes, `ServiceEnquiry` PostgreSQL persistence (`POST /api/enquiries`), information-design and `clamp()` responsive typography merged from [`feat/information-design`](https://github.com/abcdesignher/swash/pull/1) ([diff](https://github.com/abcdesignher/swash/compare/72a160a...feat/information-design)), and complete diagnostic evidence (`01`–`20`). |
 | **Task 03: Client Validation** (`task-03-client-validation/` & Root App) | **Complete** | Consolidated `/auth` route (`?mode=register` and `?mode=login`) with client-side validation across 4 categories, `<input type="tel" inputMode="numeric">` for Nigerian mobile numbers, enumeration-resistant login, WCAG accessibility fixes (`⚠` icons, `aria-invalid`, `aria-describedby`, `role="alert"`, `role="tablist"`), progressive passphrase guidance, password visibility toggle, adversarial browser + `curl` bypass tests, and commit-SHA rollback (`01`–`17`). |
-| **Task 04: Server Security** (`task-04-server-security/`) | **Not Started** | Full relational schema (users, sessions, orders, payments, payment attempts), Argon2id/bcrypt hashing, Zod validation, rate limiting, and email verification scheduled for Task 04. |
-| **Task 05: Sessions & Compliance** (`task-05-sessions-compliance-defence/`) | **Not Started** | Server-side sessions, middleware, repeat-safe account deletion job, retention matrix, and admin authorisation scheduled for Task 05. |
+| **Task 04: Server Security** (`task-04-server-security/` & Root App) | **Complete** | Full relational PostgreSQL schema (9 models), forward-only migrations, Argon2id password hashing (`m=19456, t=2, p=1`), server-side Zod request boundary validation on `POST /api/auth`, sliding-window rate limiting (5 attempts/15 mins), privacy-preserving breached password checking (HIBP $k$-anonymity), CSPRNG email verification code lifecycle with atomic tracking, background `EmailJob` delivery queue, and verified evidence (`01`–`23`). |
+| **Task 05: Sessions & Compliance** (`task-05-sessions-compliance-defence/` & Root App) | **In Progress** | Cryptographic session tokens, Next.js route gating middleware, NDPA-compliant soft deletion with scheduled idempotent purge job, retention matrix, root `privacy.md`, and admin RBAC. |
 
 **What Currently Works:**
 - Design token pipeline (`task-01-design-system/styles/global.css`) consumed by the Next.js application (`src/app/globals.css`, `src/app/page.module.css`) with zero raw hex values or primitive token leaks.
-- Minimal Swash home screen rendered at `/` (`src/app/page.tsx`).
+- Minimal Swash home screen rendered at `/` (`src/app/page.tsx`) and subscription plans at `/plans` (`src/app/plans/page.tsx`).
 - Service enquiry form (`src/components/EnquiryForm.tsx`) and API Route Handler (`POST /api/enquiries` in `src/app/api/enquiries/route.ts`) that validates required fields, writes `ServiceEnquiry` rows to PostgreSQL via Prisma, returns HTTP `201 Created`, and surfaces explicit error states (`500` / `400`) without false success when the database is unavailable.
+- Consolidated customer authentication route at `/auth` (`?mode=register` and `?mode=login`) with accessible client-side validation, Nigerian phone number support (`<input type="tel" inputMode="numeric">`), WCAG-compliant error icons (`⚠`), and password visibility toggle.
+- Server-side data integrity & security: PostgreSQL relational database models (`prisma/schema.prisma`), RFC 9106 Argon2id password hashing, Zod validation preventing direct API bypass, sliding-window rate limiting with HTTP 429 and `Retry-After`, HIBP breached password detection, CSPRNG verification code issuing and redemption with single-use atomic consumption, background asynchronous `EmailJob` processing, and `/auth/verify` email verification interface.
 
 ---
 
@@ -87,16 +89,22 @@ Its primary audience is busy Nigerian professionals aged 25–40 who primarily u
 | Variable Name | Required | Consumed By | Purpose |
 | --- | --- | --- | --- |
 | `DATABASE_URL` | Yes | `prisma/schema.prisma`, `src/lib/prisma.ts` | PostgreSQL connection URI used by Prisma ORM to read and write application records (`postgresql://USER:PASSWORD@HOST:PORT/DATABASE?schema=public`). Never commit actual credentials. |
+| `SMTP_HOST` | No (dev fallback) | `src/lib/email.ts` | Outbound SMTP server hostname (e.g., `smtp.gmail.com` or Ethereal test server). |
+| `SMTP_PORT` | No | `src/lib/email.ts` | Outbound SMTP server port (e.g., `587` for STARTTLS or `465` for SSL). Defaults to `587`. |
+| `SMTP_USER` | No | `src/lib/email.ts` | Outbound SMTP username or authenticated sender email address. |
+| `SMTP_PASS` | No | `src/lib/email.ts` | Outbound SMTP password or Google App Password. |
+| `EMAIL_FROM` | No | `src/lib/email.ts` | Friendly sender header (e.g., `"Swash Laundry" <noreply@swash.ng>`). |
+| `NODE_ENV` | Optional | Application runtime | Runtime environment identifier (`development`, `production`, `test`). |
 
 ---
 
 ## 6. What the Application Deliberately Does Not Do Yet
 
 To respect the phased engineering scope across Tasks 1–5, the application currently **does not** implement:
-- Customer registration, login, password hashing, or session cookies (scheduled for Tasks 03–05).
+- Customer session cookies and route gating middleware (currently in progress in Task 05).
+- Staff administrative dashboard and role-based access checks (scheduled for Task 05).
 - Subscription plan checkout, allowance deductions, or rollover calculations.
 - Laundry order scheduling, pickup/delivery tracking, or payment gateway webhooks.
-- Staff administrative dashboards or role-based access middleware (scheduled for Task 05).
 - The RAG-powered AI customer assistant.
 
 ---
