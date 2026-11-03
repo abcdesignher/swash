@@ -12,7 +12,7 @@ composite font styles; it was checked against `typography` and matches.
 
 Open Sans is the body/UI family for readability; Playfair is reserved for
 expressive headings, following the business brief in
-`docs/business-brief.md`.
+`docs/business-brief.md`. Do not use Playfair when a sentence or heading has more than 5 words—Playfair is intended for occasional expression, not as the default heading font.
 
 ## Role intent
 

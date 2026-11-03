@@ -27,7 +27,7 @@ Do not recreate, rename, or independently redefine existing tokens.
 ## 3. Typography and Effects
 
 - Use Open Sans for body text.
-- Use Playfair Display for prominent headings.
+- Use Playfair Display for occasional expression only; do not use Playfair as the default heading font or when a sentence or heading has more than 5 words.
 - Use exported typography, shadow, and effect tokens where available.
 - Preserve the exported token values.
 - Justify deliberate deviations.
