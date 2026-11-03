@@ -24,37 +24,37 @@ expressive headings, following the business brief in
 
 ## Open Sans
 
-| Style | Family | Size | Weight | Line height | Letter spacing | CSS variable prefix |
-| --- | --- | --- | --- | --- | --- | --- |
-| display large | Open Sans | 62px | 700 | 80.6px | -1.24px | `--typography-open-sans-display-large` |
-| display medium | Open Sans | 48px | 700 | 62.4px | -0.96px | `--typography-open-sans-display-medium` |
-| display small | Open Sans | 36px | 700 | 50.4px | -0.72px | `--typography-open-sans-display-small` |
-| headline small | Inter | 24px | 700 | 33.6px | -0.24px | `--typography-open-sans-headline-small` |
-| headline medium | Open Sans | 28px | 700 | 39.2px | -0.28px | `--typography-open-sans-headline-medium` |
-| headline large | Open Sans | 32px | 700 | 44.8px | -0.32px | `--typography-open-sans-headline-large` |
-| title small | Open Sans | 14px | 600 | 19.6px | -0.14px | `--typography-open-sans-title-small` |
-| title medium | Open Sans | 16px | 600 | 22.4px | -0.16px | `--typography-open-sans-title-medium` |
-| title large | Open Sans | 22px | 600 | 30.8px | -0.22px | `--typography-open-sans-title-large` |
-| body small | Open Sans | 12px | 400 | 18px | -0.09px | `--typography-open-sans-body-small` |
-| body medium | Open Sans | 14px | 400 | 21px | -0.105px | `--typography-open-sans-body-medium` |
-| body large | Open Sans | 16px | 400 | 24px | -0.12px | `--typography-open-sans-body-large` |
-| label small | Open Sans | 12px | 600 | 16.8px | -0.09px | `--typography-open-sans-label-small` |
-| label medium | Open Sans | 12px | 600 | 19.6px | -0.09px | `--typography-open-sans-label-medium` |
-| label large | Open Sans | 14px | 600 | 19.6px | -0.105px | `--typography-open-sans-label-large` |
+| Style | Family | Size | Weight | Line height | Multiplier | Letter spacing | CSS variable prefix |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| display large | Open Sans | 62px | 700 | 80.6px | 1.3× | -1.24px | `--typography-open-sans-display-large` |
+| display medium | Open Sans | 48px | 700 | 62.4px | 1.3× | -0.96px | `--typography-open-sans-display-medium` |
+| display small | Open Sans | 36px | 700 | 50.4px | 1.4× | -0.72px | `--typography-open-sans-display-small` |
+| headline small | Inter | 24px | 700 | 33.6px | 1.4× | -0.24px | `--typography-open-sans-headline-small` |
+| headline medium | Open Sans | 28px | 700 | 39.2px | 1.4× | -0.28px | `--typography-open-sans-headline-medium` |
+| headline large | Open Sans | 32px | 700 | 44.8px | 1.4× | -0.32px | `--typography-open-sans-headline-large` |
+| title small | Open Sans | 14px | 600 | 19.6px | 1.4× | -0.14px | `--typography-open-sans-title-small` |
+| title medium | Open Sans | 16px | 600 | 22.4px | 1.4× | -0.16px | `--typography-open-sans-title-medium` |
+| title large | Open Sans | 22px | 600 | 30.8px | 1.4× | -0.22px | `--typography-open-sans-title-large` |
+| body small | Open Sans | 12px | 400 | 18px | 1.5× | -0.09px | `--typography-open-sans-body-small` |
+| body medium | Open Sans | 14px | 400 | 21px | 1.5× | -0.105px | `--typography-open-sans-body-medium` |
+| body large | Open Sans | 16px | 400 | 24px | 1.5× | -0.12px | `--typography-open-sans-body-large` |
+| label small | Open Sans | 12px | 600 | 16.8px | 1.4× | -0.09px | `--typography-open-sans-label-small` |
+| label medium | Open Sans | 12px | 600 | 19.6px | 1.63× | -0.09px | `--typography-open-sans-label-medium` |
+| label large | Open Sans | 14px | 600 | 19.6px | 1.4× | -0.105px | `--typography-open-sans-label-large` |
 
 ## Playfair
 
-| Style | Family | Size | Weight | Line height | Letter spacing | CSS variable prefix |
-| --- | --- | --- | --- | --- | --- | --- |
-| display large | Playfair | 62px | 800 | 74.4px | -1.24px | `--typography-playfair-display-large` |
-| display medium | Playfair | 48px | 800 | 62.4px | -0.72px | `--typography-playfair-display-medium` |
-| display small | Playfair | 36px | 800 | 46.8px | -0.36px | `--typography-playfair-display-small` |
-| headline large | Playfair | 32px | 800 | 44.8px | -0.32px | `--typography-playfair-headline-large` |
-| headline medium | Playfair | 28px | 800 | 39.2px | -0.28px | `--typography-playfair-headline-medium` |
-| headline small | Playfair | 24px | 800 | 33.6px | -0.24px | `--typography-playfair-headline-small` |
-| title large | Playfair | 22px | 700 | 30.8px | -0.165px | `--typography-playfair-title-large` |
-| title medium | Playfair | 16px | 700 | 22.4px | -0.12px | `--typography-playfair-title-medium` |
-| title small | Playfair | 14px | 700 | 19.6px | -0.105px | `--typography-playfair-title-small` |
+| Style | Family | Size | Weight | Line height | Multiplier | Letter spacing | CSS variable prefix |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| display large | Playfair | 62px | 800 | 74.4px | 1.2× | -1.24px | `--typography-playfair-display-large` |
+| display medium | Playfair | 48px | 800 | 62.4px | 1.3× | -0.72px | `--typography-playfair-display-medium` |
+| display small | Playfair | 36px | 800 | 46.8px | 1.3× | -0.36px | `--typography-playfair-display-small` |
+| headline large | Playfair | 32px | 800 | 44.8px | 1.4× | -0.32px | `--typography-playfair-headline-large` |
+| headline medium | Playfair | 28px | 800 | 39.2px | 1.4× | -0.28px | `--typography-playfair-headline-medium` |
+| headline small | Playfair | 24px | 800 | 33.6px | 1.4× | -0.24px | `--typography-playfair-headline-small` |
+| title large | Playfair | 22px | 700 | 30.8px | 1.4× | -0.165px | `--typography-playfair-title-large` |
+| title medium | Playfair | 16px | 700 | 22.4px | 1.4× | -0.12px | `--typography-playfair-title-medium` |
+| title small | Playfair | 14px | 700 | 19.6px | 1.4× | -0.105px | `--typography-playfair-title-small` |
 
 ## CSS variable structure
 
@@ -102,4 +102,3 @@ Example:
 - Font-family exception:
   - open sans / headline / headline small uses Inter
 - `06-tokens-complete.json` remains the source of truth.
-

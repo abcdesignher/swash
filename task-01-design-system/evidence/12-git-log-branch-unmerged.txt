@@ -1,0 +1,23 @@
+$ git log --oneline --decorate
+3be0058 (HEAD -> main, origin/main) added missing README.md file
+49b656c tested token referencing
+8976f63 updated design system with evidence
+6a67f61 added, updated files across the design system
+2c8005a added markdown files
+d73ea40 updated shadows.md
+e3dcd22 added type-scale.md
+6c3f410 created css variables and updated colour-roles.md
+aa2fc23 added folders for project organisation
+8b8b459 added spacing-default.png and spacing-chosen.png
+2f26b3d uodated design system README.md
+1ec1a7b added design-system/README.md
+5995b17 updated business-brief.md
+70aa842 added shadows.md
+4ea6ca5 added colour-roles.md
+fefa1f9 added evidence of palette before and after key value pin
+cd8f381 updated business-brief.md
+b326b2c added business-brief.md
+
+---
+Unmerged broken-referencing test branch verification (see 11-broken-referencing.png and 12-git-log-branch-unmerged.png):
+The deliberate broken-reference test (pointing --colour-primary-role to a non-existent variable) was tested in isolation and restored without merging broken token references into main.

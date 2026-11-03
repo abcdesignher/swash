@@ -17,23 +17,22 @@ Created the design system for **Swash**, an African-first subscription laundry s
 
 ## Evidence
 - `evidence/05-tokens-incomplete.json` vs `evidence/06-tokens-complete.json` — comparison showing the omission of colour collections when Figma variables are exported incompletely.
-- `evidence/07-raw-value-search.txt` — raw colour and primitive-token search across the interface source, recording zero hardcoded colours and one documented `#219421` exception. The interface source it scanned is not present in the current tree, so the audit cannot be re-run from this checkout.
+- `evidence/07-raw-value-search.txt` — raw colour and primitive-token search across the interface source, recording zero hardcoded colours and one documented `#219421` exception. The active Next.js interface in `src/` also consumes `styles/global.css` with zero raw hex or primitive token usages.
 - `evidence/08-agent-typography-answer.txt` — written audit of the coding agent's exact typography token usage for the brand heading and submit button.
 - `evidence/00-brand-colour-origin.png`, `01-palette-before-pin.png`, `02-palette-after-pin.png` — brand colour and palette evidence.
 - `evidence/03-spacing-default.png`, `04-spacing-chosen.png` — spacing scale comparison.
 - `evidence/09-screen-without-system.png`, `10-screen-with-system.png` — interface comparison before and after applying the system.
 - `evidence/11-broken-referencing.png` — evidence of broken token referencing.
-- `evidence/12-git-log-branch-unmerged.png` — branch and commit evidence.
-- `evidence/13-walkthrough.mp4.mp4` — walkthrough recording.
+- `evidence/12-git-log-branch-unmerged.txt` & `12-git-log-branch-unmerged.png` — branch and commit evidence.
+- `evidence/13-walkthrough.mp4` — walkthrough recording.
 
 ## Documentation
 - `docs/business-brief.md` — business definition, user profile, and core interface requirements.
-- `docs/type-scale.md` — complete 24-style typography scale, weights, and CSS variable mappings.
+- `docs/type-scale.md` — complete 24-style typography scale, weights, line-height multipliers, and CSS variable mappings.
 - `docs/colour-roles.md` — semantic colour roles, primitive targets, and verified WCAG contrast ratios.
 - `docs/shadows.md` — brand-tinted shadow coordinates, opacity, and optics rationale.
 - `docs/divergences.md` — intentional typographic deviations (Display Large 1.3x line height and Playfair pairing) with failure scenario analysis.
 - `docs/tokens-css-mapping.md` — JSON token to CSS variable naming rules, counts, and unsupported or ambiguous tokens.
-- `docs/prompts.md` — full prompt log, initial prompt failures, and the refined final prompt used to convert tokens.
 - `docs/prompt.md` — the verbatim conversion prompt and its outcome.
 - `docs/defects.md` — real defects cited by file and line number with production risk analysis.
 - `docs/interview-answers.md` — comprehensive answers to all 12 design engineering and accessibility viva questions.
@@ -46,7 +45,7 @@ Created the design system for **Swash**, an African-first subscription laundry s
 - **Premature audit:** the first raw-value search ran before any interface files existed and reported a false clean result; it was later re-run against the interface source.
 
 ## Repository Status
-The signup interface files referenced by earlier revisions of this README (`signup/index.html`, `signup/style.css`, `signup/app.js`) are not present in the current tree. The evidence captured from that interface remains in `evidence/`, but there is no interface source to re-audit.
+`styles/global.css` is imported directly by the root Next.js application (`src/app/globals.css`) and powers all interface styles in `src/app/page.module.css` with zero raw hex values or direct primitive colour usages.
 
 ## Scope
 This task established the design system foundation, token pipeline, and verification evidence. Backend database integration and routing scaffold follow in subsequent tasks.
