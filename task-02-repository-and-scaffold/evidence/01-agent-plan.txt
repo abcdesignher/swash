@@ -1,0 +1,76 @@
+1. Context Reviewed
+
+I have reviewed the project rules, documentation, and design system sources of truth before writing or modifying any files:
+
+Engineering & Domain Rules: AGENTS.md, RULES.md, design-system.md, data-and-security.md, business-operations.md, ai-rag.md, and git.md.
+Project & Task Documentation: README.md, task-01-design-system/README.md, and scaffold-prompt.md.
+Design System & Business Brief: business-brief.md, 06-tokens-complete.json, global.css, tokens-css-mapping.md, colour-roles.md, type-scale.md, shadows.md, divergences.md, and defects.md.
+2. Summary of Understanding
+Product & Audience: Swash is a subscription-led laundry service in Nigeria serving individuals, families, and small businesses. Its primary audience is busy Nigerian professionals aged 25–40 who primarily use laptops/desktops and may experience slow or unreliable internet connections.
+Core Principle: Accurate, connected customer records across the customer web application, staff system, and RAG-powered AI assistant.
+Mandatory Technology Stack: Next.js (App Router), TypeScript, Prisma ORM, and PostgreSQL.
+Design System Contract:
+06-tokens-complete.json is the single source of truth, converted into CSS custom properties in global.css.
+Colours: Primitive variables (--primitive-colour-*) define the palette; semantic reference roles (--colour-*) define usage. Interface styles must exclusively consume semantic reference roles and never reference primitive variables or hardcoded colour values.
+Typography: 24 exported styles across Open Sans (body, labels, UI controls) and Playfair / Playfair Display (expressive display, headline, and title styles).
+Effects: Three brand-tinted elevation shadows (--shadow-soft-primary, --shadow-medium-primary, --shadow-hard-primary).
+Visual Direction: "Simple. Familiar. Reassuring. Slightly expressive."
+3. Proposed Project Setup & Minimal Home Screen Scope
+A. Project Setup
+Next.js + TypeScript App Router Scaffold:
+Initialise the application in task-02-repository-and-scaffold/ with Next.js App Router and TypeScript (package.json, tsconfig.json, next.config.ts, .gitignore).
+Prisma & PostgreSQL Foundation:
+Include prisma and @prisma/client in package.json with a minimal prisma/schema.prisma (PostgreSQL datasource + client generator only) and .env.example containing a placeholder DATABASE_URL.
+Do not define domain models, connect to a live database, or run migrations.
+Design System Integration:
+Import the generated token stylesheet from global.css into the application's global stylesheet without altering any token names, values, or variable references.
+Load Open Sans and Playfair Display in the root layout (src/app/layout.tsx) so all typography tokens resolve properly.
+B. Minimal Home Screen (src/app/page.tsx & src/app/page.module.css)
+Implement a single Server Component at route / using semantic HTML (<header>, <main>, <section>).
+Display only the core brand identity and introductory copy grounded directly in business-brief.md:
+Brand Name: Swash
+Tagline: "A simpler, smarter laundry experience for Nigeria."
+Summary Copy: Brief overview of Swash as a subscription-led laundry service for individuals, families, and small businesses, bringing laundry orders, payments, subscriptions, and collection or delivery arrangements into one convenient experience.
+Style exclusively using existing reference colour roles (--colour-background-neutral, --colour-surface-neutral, --colour-text-primary-role, --colour-text-secondary-role, --colour-inverse-primary-role, --colour-on-inverse-primary-role, etc.), typography variables (--typography-playfair-*, --typography-open-sans-*), and shadow variables (--shadow-soft-primary).
+C. Explicitly Out of Scope
+No additional routes or pages (no login, signup, dashboard, orders, payments, subscriptions, or AI assistant screens).
+No interactive workflows, forms, client state, API routes, Server Actions, or database queries.
+No extra UI libraries (no Tailwind, Material UI, etc.) or speculative shared component abstractions.
+4. Missing Information, Conflicts, and Uncertainties
+
+Before writing any code, please clarify the following items:
+
+Missing Spacing, Dimension, and Border-Radius Tokens vs. Strict No-Hardcoding Rule:
+
+Conflict: Instruction 4 states: "Do not hardcode colours, typography, spacing, dimensions, radii, shadows, or other styling values. Do not introduce new tokens or unsupported design patterns." However, 06-tokens-complete.json and global.css only export colour, typography, and shadow tokens—there are no spacing (padding, margin, gap), layout dimension (max-width), or border-radius tokens in the design system.
+Question: How should layout spacing, container dimensions, and radii be handled on the minimal home screen?
+Option A: Use only CSS layout modes (display: flex / grid, alignment) and existing typography/colour/shadow tokens with zero numeric spacing, width, or radius values.
+Option B: Permit minimal structural layout values (e.g., padding, gap, max-width) strictly for page framing while keeping 100% of colours, typography, and shadows bound to var(--*) tokens.
+
+Project Scaffold Location:
+
+README.md designates task-02-repository-and-scaffold/ for the application scaffold. Please confirm that the Next.js project should be initialised inside task-02-repository-and-scaffold/ (rather than the repository root).
+
+Primary Colour Role Contrast & Usage:
+
+business-brief.md describes the palette as rich brown/gold and deep violet/purple, whereas 06-tokens-complete.json and colour-roles.md define --colour-primary-role as #e81313ff (red), which has a 4.41:1 contrast ratio against --colour-on-primary-role (#fcf8ffff)—failing WCAG AA (4.5:1) for normal body text (passing only for large text 
+≥
+24
+px
+≥24px or bold 
+≥
+18.67
+px
+≥18.67px).
+Question: Should the minimal home screen use only WCAG AA-compliant role pairings (or limit --colour-primary-role + --colour-on-primary-role to large display/headline text only)?
+
+Font Family Name Mapping (Playfair vs. Playfair Display):
+
+global.css exports --typography-playfair-*-font-family: Playfair (unquoted Playfair), while design-system.md specifies Playfair Display.
+Question: May I load Playfair Display via Google Fonts and alias @font-face { font-family: 'Playfair'; ... } (or map the font variable) so var(--typography-playfair-*-font-family) renders Playfair Display without modifying the exported token values in global.css?
+
+Prisma Initialisation in Task 02:
+
+Should prisma / @prisma/client and a bare prisma/schema.prisma be included in task-02-repository-and-scaffold/ now as part of the mandatory stack setup, or deferred to a later task?
+
+Stopping here and waiting for your explicit approval and guidance on the items above before writing any code.

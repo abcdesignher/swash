@@ -1,0 +1,9 @@
+C:\Users\23470\OneDrive\Desktop\swash>npm.cmd run dev
+
+> swash@0.1.0 dev
+> next dev
+
+   ▲ Next.js 15.5.28
+   - Local:        http://localhost:3000
+   - Network:      http://10.251.242.8:3000
+

@@ -1,0 +1,23 @@
+Controlled Failure A: Incorrect Nested Project Directory
+========================================================
+
+Condition:
+The Next.js application (package.json, src/, prisma/, tsconfig.json, next.config.ts) was initially scaffolded inside the nested subfolder:
+C:\Users\23470\OneDrive\Desktop\swash\task-02-repository-and-scaffold\
+
+When opening the repository root (C:\Users\23470\OneDrive\Desktop\swash) in the terminal and running the development server command, npm looked for package.json in the parent directory and failed with ENOENT (-4058).
+
+Command executed:
+C:\Users\23470\OneDrive\Desktop\swash>npm.cmd run dev
+
+Terminal output captured:
+C:\Users\23470\OneDrive\Desktop\swash>npm.cmd run dev
+npm error code ENOENT
+npm error syscall open
+npm error path C:\Users\23470\OneDrive\Desktop\swash\package.json
+npm error errno -4058
+npm error enoent Could not read package.json: Error: ENOENT: no such file or directory, open 'C:\Users\23470\OneDrive\Desktop\swash\package.json'
+npm error enoent This is related to npm not being able to find a file.
+npm error enoent
+npm error A complete log of this run can be found in: C:\Users\23470\AppData\Local\npm-cache\_logs\2026-11-02T22_53_08_701Z-debug-0.log
+

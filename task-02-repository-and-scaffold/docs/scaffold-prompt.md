@@ -1,3 +1,37 @@
+# Scaffolding Prompt Log
+
+## 1. Initial Prompt (Draft 1)
+
+```markdown
+Set up the Swash project using Next.js, TypeScript, Prisma, and PostgreSQL, and build the home screen using the design system tokens from Task 1. Make sure you read the rules and token files first and don't hardcode any colours or fonts.
+```
+
+## 2. What Changed Between the Initial and Final Prompt
+
+The initial prompt was too open-ended and lacked explicit execution gates, scope boundaries, and audit requirements. When given a single-step instruction to "set up the project and build the home screen," an AI coding agent tends to immediately generate code, make silent assumptions when token categories (such as spacing or border radii) are missing from the export, and over-build product features (such as navigation bars, login buttons, or dashboard placeholders) mentioned in the business brief. To prevent this, the final prompt introduced a strict two-stage workflow requiring the agent to read all context files first, summarise its plan, report conflicts or missing tokens, and stop for explicit human approval before writing any code. It also added negative scope constraints ("build only a minimal home screen; do not build the actual product"), an implementation report requirement listing every file created and every assumption made, and a mandatory self-audit checklist against the prompt instructions.
+
+---
+
+## 3. Final Approved Prompt
+
+```markdown
+# Scaffolding Prompt Log
+
+## 1. Initial Prompt (Draft 1)
+
+```markdown
+Set up the Swash project using Next.js, TypeScript, Prisma, and PostgreSQL, and build the home screen using the design system tokens from Task 1. Make sure you read the rules and token files first and don't hardcode any colours or fonts.
+```
+
+## 2. What Changed Between the Initial and Final Prompt
+
+The initial prompt was too open-ended and lacked explicit execution gates, scope boundaries, and audit requirements. When given a single-step instruction to "set up the project and build the home screen," an AI coding agent tends to immediately generate code, make silent assumptions when token categories (such as spacing or border radii) are missing from the export, and over-build product features (such as navigation bars, login buttons, or dashboard placeholders) mentioned in the business brief. To prevent this, the final prompt introduced a strict two-stage workflow requiring the agent to read all context files first, summarise its plan, report conflicts or missing tokens, and stop for explicit human approval before writing any code. It also added negative scope constraints ("build only a minimal home screen; do not build the actual product"), an implementation report requirement listing every file created and every assumption made, and a mandatory self-audit checklist against the prompt instructions.
+
+---
+
+## 3. Final Approved Prompt
+
+```markdown
 # PROJECT SETUP & MINIMAL HOME SCREEN
 
 ## ROLE
@@ -74,3 +108,5 @@ Report any deviations honestly.
 **The objective is project setup + minimal home screen ONLY. This is not a request to build the product.**
 
 Do not proceed beyond this scope without explicit approval.
+```
+```

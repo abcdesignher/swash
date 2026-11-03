@@ -1,0 +1,17 @@
+Microsoft Windows [Version 10.0.26200.9711]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\23470\OneDrive\Desktop\swash>npm.cmd run dev
+
+> swash@0.1.0 dev
+> next dev
+
+ ⚠ Port 3000 is in use by process 42648, using available port 3001 instead.
+   ▲ Next.js 15.5.28
+   - Local:        http://localhost:3001
+   - Network:      http://10.251.242.8:3001
+
+ ✓ Starting...
+ ✓ Ready in 4.5s
+Terminate batch job (Y/N)? 
+Y

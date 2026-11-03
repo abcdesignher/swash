@@ -1,0 +1,13 @@
+// Swash — Prisma Schema Foundation
+// Source of truth for persistent application records: PostgreSQL.
+// Domain models are omitted until approved feature implementation tasks.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+

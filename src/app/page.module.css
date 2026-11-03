@@ -1,0 +1,131 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 1.5rem;
+  background-color: var(--colour-background-neutral);
+  color: var(--colour-text-primary-role);
+}
+
+.container {
+  width: 100%;
+  max-width: 42rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.75rem;
+}
+
+.badge {
+  display: inline-block;
+  background-color: var(--colour-secondary-role);
+  color: var(--colour-on-secondary-role);
+  font-family: var(--typography-open-sans-label-large-font-family), system-ui, -apple-system, sans-serif;
+  font-size: var(--typography-open-sans-label-large-font-size);
+  font-weight: var(--typography-open-sans-label-large-font-weight);
+  font-style: var(--typography-open-sans-label-large-font-style);
+  font-stretch: var(--typography-open-sans-label-large-font-stretch);
+  line-height: var(--typography-open-sans-label-large-line-height);
+  letter-spacing: var(--typography-open-sans-label-large-letter-spacing);
+  text-decoration: var(--typography-open-sans-label-large-text-decoration);
+  text-transform: var(--typography-open-sans-label-large-text-case);
+  padding: 0.375rem 1rem;
+  border-radius: 9999rem;
+}
+
+.brandTitle {
+  color: var(--colour-on-inverse-primary-role);
+  font-family: var(--typography-playfair-display-large-font-family), "Playfair Display", Georgia, serif;
+  font-size: var(--typography-playfair-display-large-font-size);
+  font-weight: var(--typography-playfair-display-large-font-weight);
+  font-style: var(--typography-playfair-display-large-font-style);
+  font-stretch: var(--typography-playfair-display-large-font-stretch);
+  line-height: var(--typography-playfair-display-large-line-height);
+  letter-spacing: var(--typography-playfair-display-large-letter-spacing);
+  text-decoration: var(--typography-playfair-display-large-text-decoration);
+  text-transform: var(--typography-playfair-display-large-text-case);
+  text-indent: var(--typography-playfair-display-large-paragraph-indent);
+}
+
+.tagline {
+  color: var(--colour-text-primary-role);
+  font-family: var(--typography-playfair-title-large-font-family), "Playfair Display", Georgia, serif;
+  font-size: var(--typography-playfair-title-large-font-size);
+  font-weight: var(--typography-playfair-title-large-font-weight);
+  font-style: var(--typography-playfair-title-large-font-style);
+  font-stretch: var(--typography-playfair-title-large-font-stretch);
+  line-height: var(--typography-playfair-title-large-line-height);
+  letter-spacing: var(--typography-playfair-title-large-letter-spacing);
+  text-decoration: var(--typography-playfair-title-large-text-decoration);
+  text-transform: var(--typography-playfair-title-large-text-case);
+}
+
+.card {
+  width: 100%;
+  background-color: var(--colour-surface-neutral);
+  border-width: 0.0625rem;
+  border-style: solid;
+  border-color: var(--colour-inverse-primary-role);
+  border-radius: 1rem;
+  box-shadow: var(--shadow-medium-primary);
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.sectionHeading {
+  color: var(--colour-on-inverse-primary-role);
+  font-family: var(--typography-playfair-headline-small-font-family), "Playfair Display", Georgia, serif;
+  font-size: var(--typography-playfair-headline-small-font-size);
+  font-weight: var(--typography-playfair-headline-small-font-weight);
+  font-style: var(--typography-playfair-headline-small-font-style);
+  font-stretch: var(--typography-playfair-headline-small-font-stretch);
+  line-height: var(--typography-playfair-headline-small-line-height);
+  letter-spacing: var(--typography-playfair-headline-small-letter-spacing);
+  text-decoration: var(--typography-playfair-headline-small-text-decoration);
+  text-transform: var(--typography-playfair-headline-small-text-case);
+}
+
+.description {
+  color: var(--colour-text-secondary-role);
+  font-family: var(--typography-open-sans-body-large-font-family), system-ui, -apple-system, sans-serif;
+  font-size: var(--typography-open-sans-body-large-font-size);
+  font-weight: var(--typography-open-sans-body-large-font-weight);
+  font-style: var(--typography-open-sans-body-large-font-style);
+  font-stretch: var(--typography-open-sans-body-large-font-stretch);
+  line-height: var(--typography-open-sans-body-large-line-height);
+  letter-spacing: var(--typography-open-sans-body-large-letter-spacing);
+  text-decoration: var(--typography-open-sans-body-large-text-decoration);
+  text-transform: var(--typography-open-sans-body-large-text-case);
+}
+
+.notice {
+  background-color: var(--colour-surface-primary);
+  border-left-width: 0.25rem;
+  border-left-style: solid;
+  border-left-color: var(--colour-accent-role);
+  padding: 1rem 1.25rem;
+  box-shadow: var(--shadow-soft-primary);
+}
+
+.noticeText {
+  color: var(--colour-text-primary-role);
+  font-family: var(--typography-open-sans-body-medium-font-family), system-ui, -apple-system, sans-serif;
+  font-size: var(--typography-open-sans-body-medium-font-size);
+  font-weight: var(--typography-open-sans-body-medium-font-weight);
+  font-style: var(--typography-open-sans-body-medium-font-style);
+  font-stretch: var(--typography-open-sans-body-medium-font-stretch);
+  line-height: var(--typography-open-sans-body-medium-line-height);
+  letter-spacing: var(--typography-open-sans-body-medium-letter-spacing);
+}

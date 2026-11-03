@@ -1,0 +1,22 @@
+@import "../../task-01-design-system/styles/global.css";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--colour-background-neutral);
+  color: var(--colour-text-primary-role);
+  font-family: var(--typography-open-sans-body-large-font-family), system-ui, -apple-system, sans-serif;
+  font-size: var(--typography-open-sans-body-large-font-size);
+  font-weight: var(--typography-open-sans-body-large-font-weight);
+  font-style: var(--typography-open-sans-body-large-font-style);
+  font-stretch: var(--typography-open-sans-body-large-font-stretch);
+  line-height: var(--typography-open-sans-body-large-line-height);
+  letter-spacing: var(--typography-open-sans-body-large-letter-spacing);
+}

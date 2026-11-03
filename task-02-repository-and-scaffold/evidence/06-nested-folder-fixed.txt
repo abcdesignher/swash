@@ -1,0 +1,42 @@
+Recovery from Controlled Failure A: Incorrect Nested Project Directory
+======================================================================
+
+Recovery Approach 1: Correct the working directory manually
+-----------------------------------------------------------
+Changed into the nested directory containing package.json (or passed --prefix) before starting the server:
+
+Command:
+C:\Users\23470\OneDrive\Desktop\swash>cd task-02-repository-and-scaffold && npm.cmd run dev
+
+Output:
+> swash@0.1.0 dev
+> next dev
+
+   ▲ Next.js 15.5.28
+   - Local:        http://localhost:3000
+   - Network:      http://10.251.242.8:3000
+
+ ✓ Starting...
+ ✓ Ready in 3.6s
+
+
+Recovery Approach 2: Instruct the agent to move the scaffold to the correct root directory
+------------------------------------------------------------------------------------------
+Instructed the coding agent ("option 1") to relocate the application scaffold files from the nested `task-02-repository-and-scaffold/` folder to the repository root `C:\Users\23470\OneDrive\Desktop\swash\` and update the relative CSS token import in `src/app/globals.css`.
+
+Agent command executed:
+Remove-Item -Path "task-02-repository-and-scaffold/.next" -Recurse -Force -ErrorAction SilentlyContinue; Get-ChildItem -Path "task-02-repository-and-scaffold" -Force | Where-Object { $_.Name -notin @("docs", "evidence") } | ForEach-Object { Move-Item -Path $_.FullName -Destination "." -Force }
+
+Verification from repository root:
+C:\Users\23470\OneDrive\Desktop\swash>npm.cmd run dev
+
+> swash@0.1.0 dev
+> next dev
+
+   ▲ Next.js 15.5.28
+   - Local:        http://localhost:3000
+   - Network:      http://10.251.242.8:3000
+
+ ✓ Starting...
+ ✓ Ready in 3.6s
+
