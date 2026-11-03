@@ -543,19 +543,6 @@ export default function AuthForm() {
               Covers scheduled collection windows, garment care liability, and
               NDPA-compliant customer record handling.
             </p>
-            <div className={styles.checkboxRow}>
-              <input
-                id="auth-whatsapp-promo"
-                name="whatsappPromo"
-                type="checkbox"
-                defaultChecked
-                className={styles.checkbox}
-                disabled={isSubmitting}
-              />
-              <label htmlFor="auth-whatsapp-promo" className={styles.label}>
-                Send me weekly WhatsApp promotional discounts and partner offers
-              </label>
-            </div>
             {(visibleErrors.acceptTerms ||
               (isRegisterFieldsValid && !acceptTerms)) && (
               <p
