@@ -1,3 +1,4 @@
+import EnquiryForm from "@/components/EnquiryForm";
 import styles from "./page.module.css";
 
 export default function HomePage() {
@@ -15,7 +16,8 @@ export default function HomePage() {
         <main className={styles.card}>
           <section aria-labelledby="welcome-heading">
             <h2 id="welcome-heading" className={styles.sectionHeading}>
-              Effortless laundry for busy professionals, families, and small businesses
+              Effortless laundry for busy professionals, families, and small
+              businesses
             </h2>
           </section>
 
@@ -31,9 +33,22 @@ export default function HomePage() {
               and current operational status for reliable, transparent updates.
             </p>
           </aside>
+
+          <section
+            className={styles.enquirySection}
+            aria-labelledby="enquiry-heading"
+          >
+            <h2 id="enquiry-heading" className={styles.sectionHeading}>
+              Request subscription or service details
+            </h2>
+            <p className={styles.description}>
+              Submit an enquiry to record your preferred laundry plan or ask
+              about special item pricing.
+            </p>
+            <EnquiryForm />
+          </section>
         </main>
       </div>
     </div>
   );
 }
-
