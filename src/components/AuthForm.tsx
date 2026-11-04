@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
 import styles from "@/app/page.module.css";
 import {
   normaliseEmail,
@@ -93,6 +94,7 @@ export function validateRegisterPassword(rawValue: string): string | undefined {
 export default function AuthForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { login } = useAuth();
   const rawMode = searchParams.get("mode");
   const mode: AuthMode = rawMode === "login" ? "login" : "register";
 
@@ -241,6 +243,7 @@ export default function AuthForm() {
         error?: string;
         fieldErrors?: Record<string, string>;
         record?: { id: string };
+        user?: any;
       };
 
       if (!response.ok) {
@@ -265,6 +268,15 @@ export default function AuthForm() {
             : "Sign-in request submitted."),
         recordId: payload.record?.id,
       });
+
+      if (mode === "login") {
+        if (payload.user) {
+          login(payload.user);
+        }
+        router.push("/account");
+        router.refresh();
+        return;
+      }
 
       if (mode === "register") {
         router.push(`/auth/verify?email=${encodeURIComponent(normaliseEmail(email))}`);

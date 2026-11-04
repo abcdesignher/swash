@@ -1,13 +1,16 @@
 "use client";
 
 import { useState, useEffect, type FormEvent } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import styles from "@/app/page.module.css";
+import { useAuth } from "@/context/AuthContext";
 
 const RESEND_COOLDOWN_SECONDS = 120; // 2 minutes
 
 export default function VerifyCodeForm() {
+  const router = useRouter();
   const searchParams = useSearchParams();
+  const { login } = useAuth();
   const initialEmail = searchParams.get("email") || "";
 
   const [email, setEmail] = useState(initialEmail);
@@ -59,7 +62,13 @@ export default function VerifyCodeForm() {
       if (!res.ok) {
         setServerError(data.error || "Verification failed. Please check the code.");
       } else {
-        setServerSuccess(data.message || "Email verified successfully!");
+        setServerSuccess("Email verified successfully! Redirecting to your dashboard...");
+        if (data.user) {
+          login(data.user);
+        }
+        const targetUrl = data.redirect || "/account";
+        router.push(targetUrl);
+        router.refresh();
       }
     } catch {
       setServerError("Network error contacting Swash. Please try again.");

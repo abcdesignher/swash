@@ -41,6 +41,7 @@ export interface VerificationResult {
     | "ALREADY_USED"
     | "NOT_FOUND";
   message: string;
+  user?: any;
 }
 
 /**
@@ -132,6 +133,7 @@ export async function verifyUserCode(
     success: true,
     status: "SUCCESS",
     message: "Email address verified successfully. Your Swash account is now active.",
+    user: record.user,
   };
 }
 
