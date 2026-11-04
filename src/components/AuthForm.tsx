@@ -332,7 +332,11 @@ export default function AuthForm() {
               required
               autoComplete="name"
               value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
+              onChange={(e) => {
+                setFullName(e.target.value);
+                if (serverError) setServerError(null);
+                if (serverSuccess) setServerSuccess(null);
+              }}
               onBlur={() =>
                 setTouched((prev) => ({ ...prev, fullName: true }))
               }
@@ -372,7 +376,12 @@ export default function AuthForm() {
             required
             autoComplete="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              if (serverError) setServerError(null);
+              if (serverSuccess) setServerSuccess(null);
+              if (loginSubmitted) setLoginSubmitted(false);
+            }}
             onBlur={() => setTouched((prev) => ({ ...prev, email: true }))}
             placeholder="e.g. adaeze@example.com"
             aria-invalid={Boolean(visibleErrors.email)}
@@ -424,7 +433,11 @@ export default function AuthForm() {
                 required
                 autoComplete="tel"
                 value={phone}
-                onChange={(e) => setPhone(e.target.value)}
+                onChange={(e) => {
+                setPhone(e.target.value);
+                if (serverError) setServerError(null);
+                if (serverSuccess) setServerSuccess(null);
+              }}
                 onBlur={() => setTouched((prev) => ({ ...prev, phone: true }))}
                 placeholder="e.g. 08031234567 or +2348031234567"
                 aria-invalid={Boolean(visibleErrors.phone)}
@@ -493,7 +506,12 @@ export default function AuthForm() {
                 mode === "register" ? "new-password" : "current-password"
               }
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+              setPassword(e.target.value);
+              if (serverError) setServerError(null);
+              if (serverSuccess) setServerSuccess(null);
+              if (loginSubmitted) setLoginSubmitted(false);
+            }}
               onBlur={() =>
                 setTouched((prev) => ({ ...prev, password: true }))
               }

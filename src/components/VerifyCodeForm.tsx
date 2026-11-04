@@ -128,7 +128,11 @@ export default function VerifyCodeForm() {
             id="verify-email"
             type="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              if (serverError) setServerError(null);
+              if (serverSuccess) setServerSuccess(null);
+            }}
             className={styles.input}
             placeholder="adaeze@example.com"
             required
@@ -144,7 +148,11 @@ export default function VerifyCodeForm() {
             type="text"
             inputMode="numeric"
             value={code}
-            onChange={(e) => setCode(e.target.value.replace(/\D/g, ""))}
+            onChange={(e) => {
+              setCode(e.target.value.replace(/\D/g, ""));
+              if (serverError) setServerError(null);
+              if (serverSuccess) setServerSuccess(null);
+            }}
             className={styles.input}
             style={{ fontSize: "20px", letterSpacing: "4px", textAlign: "center" }}
             required

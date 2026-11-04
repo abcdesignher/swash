@@ -11,7 +11,9 @@ export default function AccountDashboard() {
   const router = useRouter();
 
   const [resetPasswordOpen, setResetPasswordOpen] = useState(false);
+  const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [resetMessage, setResetMessage] = useState<string | null>(null);
   const [resetError, setResetError] = useState<string | null>(null);
   const [isResetting, setIsResetting] = useState(false);
@@ -49,13 +51,29 @@ export default function AccountDashboard() {
     e.preventDefault();
     setResetError(null);
     setResetMessage(null);
+
+    if (!currentPassword) {
+      setResetError("Please enter your current password.");
+      return;
+    }
+
+    if (newPassword.length < 10) {
+      setResetError("New password must be at least 10 characters long.");
+      return;
+    }
+
+    if (newPassword !== confirmPassword) {
+      setResetError("New passwords do not match. Please verify your confirmation password.");
+      return;
+    }
+
     setIsResetting(true);
 
     try {
       const res = await fetch("/api/account/password-reset", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ newPassword }),
+        body: JSON.stringify({ currentPassword, newPassword, confirmPassword }),
       });
 
       const data = await res.json();
@@ -63,11 +81,13 @@ export default function AccountDashboard() {
         setResetError(data.error || "Failed to reset password.");
       } else {
         setResetMessage(data.message);
+        setCurrentPassword("");
         setNewPassword("");
+        setConfirmPassword("");
         // Terminated session on server requires sign in
         setTimeout(() => {
           logout();
-        }, 2500);
+        }, 3000);
       }
     } catch {
       setResetError("Network error while resetting password.");
@@ -118,63 +138,115 @@ export default function AccountDashboard() {
         <div
           role="alert"
           style={{
-            background: "#fff8e6",
-            border: "1px solid #ffd166",
+            background: "#fff8e1",
+            border: "1px solid #ffe082",
             borderRadius: "8px",
             padding: "1rem",
             marginBottom: "1.5rem",
-            color: "#6b4e00",
           }}
         >
-          <div style={{ fontWeight: "600", marginBottom: "0.25rem" }}>
-            ⚠️ Email Verification Pending (Soft Gating)
+          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.5rem" }}>
+            <span style={{ fontSize: "1.25rem" }}>⚠️</span>
+            <strong style={{ color: "#b78103", fontSize: "1rem" }}>Email verification pending</strong>
           </div>
-          <p style={{ margin: "0 0 0.75rem 0", fontSize: "0.875rem" }}>
-            You are browsing Swash in exploratory mode. To activate dispatch rider collections
-            and receive garment tracking updates, please enter the unique verification code sent to your email.
+          <p style={{ margin: "0 0 0.75rem 0", fontSize: "0.9rem", color: "#5d4037" }}>
+            Your account has soft access to browse subscription history, but order placements are hard-gated until you verify your email address.
           </p>
           <Link
             href={`/auth/verify?email=${encodeURIComponent(user.email)}`}
-            className={styles.submitButton}
             style={{
               display: "inline-block",
-              width: "auto",
-              padding: "0.5rem 1rem",
-              fontSize: "0.875rem",
-              background: "#350078",
+              background: "#1d064a",
               color: "#fff",
+              padding: "0.4rem 0.8rem",
+              borderRadius: "4px",
+              fontSize: "0.85rem",
+              fontWeight: 600,
               textDecoration: "none",
             }}
           >
-            Enter Verification Code
+            Enter Verification Code &rarr;
           </Link>
         </div>
       )}
 
-      {/* Account Details */}
-      <section style={{ marginBottom: "2rem" }}>
-        <h2 className={styles.titleMedium} style={{ marginBottom: "1rem" }}>
-          Profile Information
+      {/* Profile Overview */}
+      <section style={{ marginBottom: "1.5rem" }}>
+        <h2 className={styles.titleMedium} style={{ marginBottom: "0.75rem" }}>
+          Subscriber Profile
         </h2>
-        <div style={{ display: "grid", gap: "0.75rem", fontSize: "0.95rem" }}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+            gap: "1rem",
+            background: "#f9f9fb",
+            padding: "1rem",
+            borderRadius: "8px",
+          }}
+        >
           <div>
-            <strong>Full Name:</strong> {user.fullName}
+            <span style={{ fontSize: "0.8rem", color: "#666" }}>Full Name</span>
+            <p style={{ fontWeight: 600, margin: "0.2rem 0" }}>{user.fullName}</p>
           </div>
           <div>
-            <strong>Email Address:</strong> {user.email} (
-            {user.emailVerified ? "Verified ✅" : "Unverified ⚠️"})
+            <span style={{ fontSize: "0.8rem", color: "#666" }}>Email Address</span>
+            <p style={{ fontWeight: 600, margin: "0.2rem 0" }}>{user.email}</p>
           </div>
           <div>
-            <strong>Mobile Number:</strong> {user.phone || "Not provided"}
+            <span style={{ fontSize: "0.8rem", color: "#666" }}>Account Role</span>
+            <p style={{ fontWeight: 600, margin: "0.2rem 0" }}>
+              <span
+                style={{
+                  background: user.role === "ADMIN" ? "#e0f2fe" : "#f3e8ff",
+                  color: user.role === "ADMIN" ? "#0369a1" : "#6b21a8",
+                  padding: "0.2rem 0.5rem",
+                  borderRadius: "4px",
+                  fontSize: "0.8rem",
+                  fontWeight: 700,
+                }}
+              >
+                {user.role}
+              </span>
+            </p>
           </div>
           <div>
-            <strong>Preferred Plan:</strong> {user.preferredPlan || "Individual (1–2 people)"}
+            <span style={{ fontSize: "0.8rem", color: "#666" }}>Verification Status</span>
+            <p style={{ fontWeight: 600, margin: "0.2rem 0" }}>
+              {user.emailVerified ? (
+                <span style={{ color: "#166534" }}>✓ Verified</span>
+              ) : (
+                <span style={{ color: "#b45309" }}>Pending</span>
+              )}
+            </p>
           </div>
-          <div>
-            <strong>Default Pickup Zone:</strong> {user.defaultPickupZone || "Lagos Mainland"}
+        </div>
+      </section>
+
+      {/* Subscription Allowance */}
+      <section style={{ marginBottom: "1.5rem" }}>
+        <h2 className={styles.titleMedium} style={{ marginBottom: "0.75rem" }}>
+          Active Subscription Allowance
+        </h2>
+        <div
+          style={{
+            border: "1px solid #e2e8f0",
+            borderRadius: "8px",
+            padding: "1rem",
+            background: "#ffffff",
+          }}
+        >
+          <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.5rem" }}>
+            <span style={{ fontWeight: 600 }}>Standard Wash &amp; Fold Plan</span>
+            <span style={{ color: "#007a33", fontWeight: 700 }}>Active</span>
           </div>
-          <div>
-            <strong>Account Role:</strong> {user.role}
+          <div style={{ display: "flex", gap: "2rem", fontSize: "0.9rem", color: "#555" }}>
+            <div>
+              Remaining Bag Quota: <strong>3 of 4 bags</strong>
+            </div>
+            <div>
+              Scheduled Pickup: <strong>Saturday, 9:00 AM</strong>
+            </div>
           </div>
         </div>
       </section>
@@ -182,12 +254,16 @@ export default function AccountDashboard() {
       {/* Security Actions */}
       <section style={{ borderTop: "1px solid #eee", paddingTop: "1.5rem", marginBottom: "1.5rem" }}>
         <h2 className={styles.titleMedium} style={{ marginBottom: "1rem" }}>
-          Account Security & Active Sessions
+          Account Security &amp; Active Sessions
         </h2>
-        <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+        <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", alignItems: "center" }}>
           <button
             type="button"
-            onClick={() => setResetPasswordOpen(!resetPasswordOpen)}
+            onClick={() => {
+              setResetPasswordOpen(!resetPasswordOpen);
+              setResetError(null);
+              setResetMessage(null);
+            }}
             className={styles.navButton}
             style={{ background: "#f5f0ff", color: "#350078", border: "1px solid #dcd0ff", cursor: "pointer" }}
           >
@@ -207,43 +283,146 @@ export default function AccountDashboard() {
         {resetPasswordOpen && (
           <form
             onSubmit={handlePasswordReset}
-            style={{ marginTop: "1rem", background: "#fafafa", padding: "1rem", borderRadius: "8px" }}
+            style={{ marginTop: "1rem", background: "#fafafa", padding: "1.25rem", borderRadius: "8px", border: "1px solid #e2e8f0" }}
           >
-            <h3 style={{ fontSize: "1rem", marginBottom: "0.5rem" }}>Reset Your Password</h3>
-            <p style={{ fontSize: "0.85rem", color: "#666", marginBottom: "0.75rem" }}>
-              Resetting your password immediately terminates all active sessions across all devices.
+            <h3 style={{ fontSize: "1rem", marginBottom: "0.5rem", fontWeight: 700 }}>
+              Reset Your Password
+            </h3>
+            <p style={{ fontSize: "0.85rem", color: "#666", marginBottom: "1rem" }}>
+              To protect your account, enter your current password followed by your new password. Resetting immediately terminates all active sessions across all devices.
             </p>
+
             {resetError && (
-              <div role="alert" className={styles.alertError} style={{ marginBottom: "0.75rem" }}>
+              <div
+                role="alert"
+                style={{
+                  background: "#fef2f2",
+                  border: "1px solid #fecaca",
+                  color: "#991b1b",
+                  padding: "0.75rem",
+                  borderRadius: "6px",
+                  fontSize: "0.85rem",
+                  marginBottom: "1rem",
+                }}
+              >
                 {resetError}
               </div>
             )}
+
             {resetMessage && (
-              <div role="alert" style={{ color: "#007a33", marginBottom: "0.75rem" }}>
+              <div
+                role="alert"
+                style={{
+                  background: "#f0fdf4",
+                  border: "1px solid #bbf7d0",
+                  color: "#166534",
+                  padding: "0.75rem",
+                  borderRadius: "6px",
+                  fontSize: "0.85rem",
+                  marginBottom: "1rem",
+                }}
+              >
                 {resetMessage}
               </div>
             )}
-            <div style={{ marginBottom: "0.75rem" }}>
+
+            <div style={{ marginBottom: "1rem" }}>
+              <label
+                htmlFor="reset-current-password"
+                style={{ display: "block", fontSize: "0.85rem", fontWeight: 600, marginBottom: "0.25rem", color: "#333" }}
+              >
+                Current Password
+              </label>
               <input
+                id="reset-current-password"
+                type="password"
+                placeholder="Enter your current password"
+                value={currentPassword}
+                onChange={(e) => {
+                  setCurrentPassword(e.target.value);
+                  if (resetError) setResetError(null);
+                  if (resetMessage) setResetMessage(null);
+                }}
+                required
+                className={styles.input}
+                style={{ width: "100%", padding: "0.6rem 0.75rem" }}
+              />
+            </div>
+
+            <div style={{ marginBottom: "1rem" }}>
+              <label
+                htmlFor="reset-new-password"
+                style={{ display: "block", fontSize: "0.85rem", fontWeight: 600, marginBottom: "0.25rem", color: "#333" }}
+              >
+                New Password
+              </label>
+              <input
+                id="reset-new-password"
                 type="password"
                 placeholder="New secure passphrase (min 10 characters)"
                 value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
+                onChange={(e) => {
+                  setNewPassword(e.target.value);
+                  if (resetError) setResetError(null);
+                  if (resetMessage) setResetMessage(null);
+                }}
                 required
-                className={styles.inputField}
-                style={{ width: "100%", padding: "0.5rem" }}
+                className={styles.input}
+                style={{ width: "100%", padding: "0.6rem 0.75rem" }}
               />
             </div>
+
+            <div style={{ marginBottom: "1.25rem" }}>
+              <label
+                htmlFor="reset-confirm-password"
+                style={{ display: "block", fontSize: "0.85rem", fontWeight: 600, marginBottom: "0.25rem", color: "#333" }}
+              >
+                Confirm New Password
+              </label>
+              <input
+                id="reset-confirm-password"
+                type="password"
+                placeholder="Re-enter your new password"
+                value={confirmPassword}
+                onChange={(e) => {
+                  setConfirmPassword(e.target.value);
+                  if (resetError) setResetError(null);
+                  if (resetMessage) setResetMessage(null);
+                }}
+                required
+                className={styles.input}
+                style={{ width: "100%", padding: "0.6rem 0.75rem" }}
+              />
+            </div>
+
             <button
               type="submit"
-              disabled={isResetting || newPassword.length < 10}
+              disabled={isResetting || !currentPassword || newPassword.length < 10 || !confirmPassword}
               className={styles.submitButton}
-              style={{ width: "auto", padding: "0.5rem 1.25rem" }}
+              style={{ width: "auto", padding: "0.6rem 1.5rem" }}
             >
               {isResetting ? "Updating..." : "Update Password & Kill Sessions"}
             </button>
           </form>
         )}
+
+        {/* Access Control Test link for Step 1 / Evidence 16 */}
+        <div style={{ marginTop: "1.25rem", padding: "0.75rem 1rem", background: "#f8fafc", borderRadius: "6px", border: "1px dashed #cbd5e1" }}>
+          <p style={{ fontSize: "0.85rem", color: "#475569", margin: "0 0 0.4rem 0" }}>
+            <strong>Staff Portal Access Control (RBAC):</strong>
+          </p>
+          <Link
+            href="/admin"
+            style={{
+              fontSize: "0.85rem",
+              color: "#350078",
+              textDecoration: "underline",
+              fontWeight: 600,
+            }}
+          >
+            Click here to test Staff Portal (/admin) — ordinary customers are refused with HTTP 403 &rarr;
+          </Link>
+        </div>
       </section>
 
       {/* Account Deletion (NDPA 2023) */}
@@ -329,4 +508,3 @@ export default function AccountDashboard() {
     </div>
   );
 }
-

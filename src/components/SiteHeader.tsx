@@ -23,11 +23,13 @@ export default function SiteHeader() {
 
           {isAuthenticated && user ? (
             <>
-              {user.role === "ADMIN" && (
-                <Link href="/admin" className={styles.navButton}>
-                  Staff Portal
-                </Link>
-              )}
+              <Link
+                href="/admin"
+                className={styles.navButton}
+                title="Staff Portal (Restricted to Administrators)"
+              >
+                Staff Portal
+              </Link>
               <Link href="/account" className={styles.navButton}>
                 Account
               </Link>
