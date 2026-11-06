@@ -348,8 +348,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--colour-primary-role);
-  color: var(--colour-on-primary-role);
+  background-color: var(--colour-on-inverse-primary-role);
+  color: var(--colour-inverse-primary-role);
   border: none;
   border-radius: 0.5rem;
   padding: 0.875rem 1.5rem;
