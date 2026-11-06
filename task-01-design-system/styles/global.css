@@ -156,7 +156,7 @@
   /* Reference colour roles */
   /* primary */
   --colour-primary-role: var(--primitive-colour-key-primary);
-  --colour-on-primary-role: var(--primitive-colour-palette-primary-98);
+  --colour-on-primary-role: var(--primitive-colour-palette-primary-100);
   --colour-inverse-primary-role: var(--primitive-colour-palette-primary-90);
   --colour-on-inverse-primary-role: var(--primitive-colour-palette-primary-20);
   --colour-dark-primary-role: var(--primitive-colour-palette-primary-10);
@@ -181,7 +181,7 @@
   /* error */
   --colour-error-role: var(--primitive-colour-palette-error-40);
   --colour-on-error-role: var(--primitive-colour-palette-error-99);
-  --colour-inverse-error-role: var(--primitive-colour-palette-error-90);
+  --colour-inverse-error-role: var(--primitive-colour-palette-error-95);
   --colour-on-inverse-error-role: var(--primitive-colour-palette-error-20);
   --colour-dark-error-role: var(--primitive-colour-palette-error-30);
   /* success */

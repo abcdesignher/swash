@@ -2676,7 +2676,7 @@
       "on primary role": {
         "description": "",
         "type": "color",
-        "value": "{primitive colour collection.colour palettes.primary.primary98}",
+        "value": "{primitive colour collection.colour palettes.primary.primary100}",
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "collection": "Reference color collection",
@@ -2999,7 +2999,7 @@
       "inverse error role": {
         "description": "",
         "type": "color",
-        "value": "{primitive colour collection.colour palettes.error.error90}",
+        "value": "{primitive colour collection.colour palettes.error.error95}",
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "collection": "Reference color collection",

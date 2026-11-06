@@ -24,7 +24,7 @@ for that role.
 | Role | CSS variable | Primitive reference | Resolved value | Usage | Contrast |
 | --- | --- | --- | --- | --- | --- |
 | primary role | `--colour-primary-role` | `key colours.primary` | `#e81313ff` | Main brand colour for primary actions | 4.41:1 vs on primary role |
-| on primary role | `--colour-on-primary-role` | `colour palettes.primary.primary98` | `#fcf8ffff` | Text and icons on primary | 4.41:1 vs primary role |
+| on primary role | `--colour-on-primary-role` | `colour palettes.primary.primary100` | `#ffffffff` | Text and icons on primary | 4.67:1 vs primary role |
 | inverse primary role | `--colour-inverse-primary-role` | `colour palettes.primary.primary90` | `#e9ddffff` | Primary colour on inverse surfaces | 11.42:1 vs on inverse primary role |
 | on inverse primary role | `--colour-on-inverse-primary-role` | `colour palettes.primary.primary20` | `#350078ff` | Text and icons on inverse primary | 11.42:1 vs inverse primary role |
 | dark primary role | `--colour-dark-primary-role` | `colour palettes.primary.primary10` | `#1d064aff` | Darker primary for pressed/dark states | — |
@@ -65,7 +65,7 @@ for that role.
 | --- | --- | --- | --- | --- | --- |
 | error role | `--colour-error-role` | `colour palettes.error.error40` | `#c5070eff` | Error and destructive actions | 5.90:1 vs on error role |
 | on error role | `--colour-on-error-role` | `colour palettes.error.error99` | `#fafafaff` | Text and icons on error | 5.90:1 vs error role |
-| inverse error role | `--colour-inverse-error-role` | `colour palettes.error.error90` | `#ffdad6ff` | Error colour on inverse surfaces | 10.14:1 vs on inverse error role |
+| inverse error role | `--colour-inverse-error-role` | `colour palettes.error.error95` | `#ffedeaff` | Error colour on inverse surfaces | 11.75:1 vs on inverse error role |
 | on inverse error role | `--colour-on-inverse-error-role` | `colour palettes.error.error20` | `#690005ff` | Text and icons on inverse error | 10.14:1 vs inverse error role |
 | dark error role | `--colour-dark-error-role` | `colour palettes.error.error30` | `#93000aff` | Darker error for pressed/dark states | — |
 
@@ -144,7 +144,7 @@ which role is used on which surface.
 
 | Pair | Foreground | Background | Ratio | AA normal (4.5:1) | AAA normal (7:1) |
 | --- | --- | --- | --- | --- | --- |
-| primary role / on primary role | `#fcf8ffff` | `#e81313ff` | 4.41:1 | Fail | Fail |
+| primary role / on primary role | `#ffffffff` | `#e81313ff` | 4.67:1 | Pass | Fail |
 | inverse primary role / on inverse primary role | `#350078ff` | `#e9ddffff` | 11.42:1 | Pass | Pass |
 | secondary role / on secondary role | `#423016ff` | `#e3b76eff` | 6.76:1 | Pass | Fail |
 | inverse secondary role / on inverse secondary role | `#a46b0dff` | `#f4e8d0ff` | 3.69:1 | Fail | Fail |
@@ -153,7 +153,7 @@ which role is used on which surface.
 | accent role / on accent role | `#fff8f5ff` | `#7b4926ff` | 7.08:1 | Pass | Pass |
 | inverse accent role / on inverse accent role | `#452717ff` | `#ffdcc4ff` | 10.47:1 | Pass | Pass |
 | error role / on error role | `#fafafaff` | `#c5070eff` | 5.90:1 | Pass | Fail |
-| inverse error role / on inverse error role | `#690005ff` | `#ffdad6ff` | 10.14:1 | Pass | Pass |
+| inverse error role / on inverse error role | `#690005ff` | `#ffedeaff` | 11.75:1 | Pass | Pass |
 | success role / on success role | `#ffffffff` | `#087a08ff` | 5.53:1 | Pass | Fail |
 | inverse success role / on inverse success role | `#003a00ff` | `#d5f8d0ff` | 11.32:1 | Pass | Pass |
 | information role / on information role | `#ffffffff` | `#0057b8ff` | 6.87:1 | Pass | Fail |

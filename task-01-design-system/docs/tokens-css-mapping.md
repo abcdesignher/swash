@@ -23,7 +23,7 @@ Reference roles keep the exported role names. Text roles are prefixed with
 | JSON role | CSS variable | References |
 | --- | --- | --- |
 | `primary.primary role` | `--colour-primary-role` | `--primitive-colour-key-primary` |
-| `primary.on primary role` | `--colour-on-primary-role` | `--primitive-colour-palette-primary-98` |
+| `primary.on primary role` | `--colour-on-primary-role` | `--primitive-colour-palette-primary-100` |
 | `primary.inverse primary role` | `--colour-inverse-primary-role` | `--primitive-colour-palette-primary-90` |
 | `primary.on inverse primary role` | `--colour-on-inverse-primary-role` | `--primitive-colour-palette-primary-20` |
 | `primary.dark primary role` | `--colour-dark-primary-role` | `--primitive-colour-palette-primary-10` |
