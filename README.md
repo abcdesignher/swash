@@ -1,14 +1,15 @@
 ## README Intro
 Hi, I'm Valerie.
+Product Designer exploring the intersection of design, frontend engineering and AI-assisted product development.
 
-I'm a Product Designer exploring the intersection of design, frontend engineering and AI-assisted product development.
-I enjoy simplifying complex problems, translating design systems into functional interfaces and experimenting with AI-assisted development workflows.
-
-## Current interests:
+Current interests:
 Design Systems and Design Tokens
 HTML, CSS, JavaScript, TypeScript and Next.js
 AI-assisted and agentic development
 Currently building, experimenting and learning through Swash
+
+### Contact me: 
+abcdesignher@gmail.com | https://www.linkedin.com/in/odeam-valerie-osuamkpe-/
 
 # Swash
 ## 1. What Swash Is and Who It Serves
