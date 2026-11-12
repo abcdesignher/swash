@@ -1,4 +1,4 @@
-## README Intro
+## Intro
 Hi, I'm Valerie.
 Product Designer exploring the intersection of design, frontend engineering and AI-assisted product development.
 
