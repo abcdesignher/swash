@@ -1,5 +1,17 @@
-# Swash
+## Intro
+Hi, I'm Valerie.
+Product Designer exploring the intersection of design, frontend engineering and AI-assisted product development.
 
+Current interests:
+Design Systems and Design Tokens
+HTML, CSS, JavaScript, TypeScript and Next.js
+AI-assisted and agentic development
+Currently building, experimenting and learning through Swash
+
+### Contact me: 
+abcdesignher@gmail.com | https://www.linkedin.com/in/odeam-valerie-osuamkpe-/
+
+# Swash
 ## 1. What Swash Is and Who It Serves
 
 **Swash** is an African-first, subscription-led laundry service in Nigeria serving individuals, families, and small businesses.
